@@ -3,7 +3,7 @@ import random
 from dealer import *
 from currency import *
 
-def game_continues(stay, score):
+def round_continues(stay, score):
     if stay == False and score <= 21:
         return True
     
@@ -34,7 +34,6 @@ def upgrade_ace():
 def bust():
     print('Sorry, that\'s a bust!')
     lose(warchest, bet_value)
-    quit
 
 def choose_hit_or_stay():
     reply_bad = True #These two lines cause the program
@@ -74,30 +73,52 @@ def dealer_hit():
         for key, value in dealer_faceup_cards.items():
             print(str(key))
 
+def choose_leave_or_continue():
+    reply_bad = True #These two lines cause the program
+    while reply_bad: #to re-ask if you give bad input
+        leave_or_continue = input(f"You have ${warchest} left. Do you want to Leave or Continue playing? > ")
+        if leave_or_continue.capitalize() == 'L' or leave_or_continue.capitalize() == 'Leave':
+            if warchest > 100:
+                print(f"You came out with ${warchest-100} more than you came in with! Good job beating the house!")
+            elif warchest == 100:
+                print("You broke even exactly. Getting to play a couple rounds 'for free' is kind of a moral victory.")
+            else:
+                print(f"You lost ${100-warchest} to the house. Hopefully you had fun regardless.")
+            reply_bad = False
+            quit
+        elif leave_or_continue.capitalize() == 'C' or leave_or_continue.capitalize() == 'Continue':
+            reply_bad = False
+
+def lost_it_all():
+    print('Sorry, you lost it all. The house wins...entirely.')
+    quit
+
 warchest = 100
 bet_value = 10
-stay = False
-card_total = 0
-player_drawn = {}
-dealer_faceup_cards = {}
 
-dealer_visible, dealer_hidden, dealer_val = initialize_dealer(deck)
-dealer_faceup_cards[dealer_visible[0]] = dealer_visible[1]
+while warchest >= 10:
+    stay = False
+    card_total = 0
+    player_drawn = {}
+    dealer_faceup_cards = {}
 
-bet_value = bet(warchest, bet_value)
+    dealer_visible, dealer_hidden, dealer_val = initialize_dealer(deck)
+    dealer_faceup_cards[dealer_visible[0]] = dealer_visible[1]
 
-while game_continues(stay, card_total):
-    drawn_card = draw_a_card()
-    reveal_player_cards()
-    # The player has the option to make an Ace worth 11 instead of 1.
-    upgrade_ace()
-    if card_total > 21:
-        bust()
-    else:
-        choose_hit_or_stay()
-        # The dealer is required to hit if below 17, and required to stay if at 17+.
-        dealer_hit()
-# If the player doesn't bust in the middle, the game ends when the loop ends:
-# when the results of staying where they do are revealed.
-quit
+    bet_value = bet(warchest, bet_value)
 
+    while round_continues(stay, card_total):
+        drawn_card = draw_a_card()
+        reveal_player_cards()
+        # The player has the option to make an Ace worth 11 instead of 1.
+        upgrade_ace()
+        if card_total > 21:
+            bust()
+        else:
+            choose_hit_or_stay()
+            # The dealer is required to hit if below 17, and required to stay if at 17+.
+            dealer_hit()
+    # If the player doesn't bust in the middle, the game ends when the loop ends:
+    # when the results of staying where they do are revealed.
+    choose_leave_or_continue()
+lost_it_all()
