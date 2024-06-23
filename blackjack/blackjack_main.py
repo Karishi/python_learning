@@ -11,7 +11,6 @@ def draw_a_card():
     drawn_card = random.choice(list(deck.items()))
     player_drawn[drawn_card[0]] = drawn_card[1]
     del deck[drawn_card[0]]
-    card_total += drawn_card[1]
     return drawn_card
 
 def reveal_player_cards():
@@ -19,7 +18,7 @@ def reveal_player_cards():
         print('You have the ' + str(key))
     print('Your current value is ' + str(card_total))
 
-def upgrade_ace():
+def upgrade_ace(card_total):
     if drawn_card[1] == 1 and (card_total + 10) <= 21:
         reply_bad = True
         # Replies other than Y, N, y, n, yes, no, Yes, or No will be re-prompted.
@@ -59,7 +58,7 @@ def choose_hit_or_stay():
         elif hit_or_stay.capitalize() == 'H' or hit_or_stay.capitalize() == 'Hit':
             reply_bad = False
 
-def dealer_hit():
+def dealer_hit(dealer_val):
     if dealer_val < 17:
         card = dealer_draw(deck)
         if (dealer_val + 11) <= 21 and card[1] == 1:
@@ -80,8 +79,10 @@ def choose_leave_or_continue():
         if leave_or_continue.capitalize() == 'L' or leave_or_continue.capitalize() == 'Leave':
             if warchest > 100:
                 print(f"You came out with ${warchest-100} more than you came in with! Good job beating the house!")
+                quit
             elif warchest == 100:
                 print("You broke even exactly. Getting to play a couple rounds 'for free' is kind of a moral victory.")
+                quit
             else:
                 print(f"You lost ${100-warchest} to the house. Hopefully you had fun regardless.")
             reply_bad = False
@@ -109,15 +110,16 @@ while warchest >= 10:
 
     while round_continues(stay, card_total):
         drawn_card = draw_a_card()
+        card_total += drawn_card[1]
         reveal_player_cards()
         # The player has the option to make an Ace worth 11 instead of 1.
-        upgrade_ace()
+        upgrade_ace(card_total)
         if card_total > 21:
             bust()
         else:
             choose_hit_or_stay()
             # The dealer is required to hit if below 17, and required to stay if at 17+.
-            dealer_hit()
+            dealer_hit(dealer_val)
     # If the player doesn't bust in the middle, the game ends when the loop ends:
     # when the results of staying where they do are revealed.
     choose_leave_or_continue()
