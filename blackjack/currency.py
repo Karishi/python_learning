@@ -1,6 +1,5 @@
 def bet(warchest, bet_value):
     bet_value = int(input(f"Choose how much to bet, from 10 to your total of {warchest}. > "))
-    print(int(bet_value))
     if bet_value > warchest:
         bet_value = warchest
     elif bet_value < 10:
