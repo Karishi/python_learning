@@ -3,7 +3,7 @@ import random
 
 # Sets up the dealer's faceup and facedown card at the start of the game,
 # including removing them from the main deck.
-def dealer(deck):
+def initialize_dealer(deck):
     visible_card = random.choice(list(deck.items()))
     dealer_value = visible_card[1]
     # The dealer always treats an Ace that won't bust them as 11.
@@ -24,3 +24,9 @@ def dealer_draw(deck):
     card_value = visible_card[1]
     del deck[visible_card[0]]
     return visible_card
+
+def dealer_discard(dealer_cards, discard_pile, dealer_hidden):
+    for key, value in dealer_cards:
+        discard_pile[dealer_cards[key]] = dealer_cards[value]
+        del dealer_cards[key]
+    del dealer_hidden
