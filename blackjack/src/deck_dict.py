@@ -1,6 +1,6 @@
-# A constructor for a deck dict, filling it with names ("Value of Suit")
-# and integer values. Aces - detected as "if value == 1" - will offer the
-# option to count them as 11 instead during play.
+""" A constructor for a deck dict, filling it with names ("Value of Suit")
+and integer values. Aces - detected as "if value == 1" - will offer the
+option to count them as 11 instead during play."""
 import random
 from dealer import *
 

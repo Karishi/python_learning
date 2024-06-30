@@ -11,7 +11,9 @@ def bet(warchest, bet_value):
 def win(warchest, bet_value):
     warchest += bet_value
     print(f"Your victory when betting ${bet_value} brings you to ${warchest} total!")
+    return warchest
 
 def lose(warchest, bet_value):
     warchest -= bet_value
     print(f"You lost ${bet_value}, leaving you with just ${warchest} left.")
+    return warchest

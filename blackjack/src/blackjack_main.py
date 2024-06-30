@@ -20,6 +20,7 @@ def discard(player_cards, dealer_cards):
         discard_pile[player_cards[key]] = player_cards[value]
         del player_cards[key]
     dealer_discard(dealer_cards, discard_pile, dealer_hidden)
+    return discard_pile
     
 def draw_a_card():
     drawn_card = random.choice(list(deck.items()))
@@ -53,6 +54,8 @@ def choose_hit_or_stay(stay):
     while reply_bad: #to re-ask if you give bad input
         hit_or_stay = input('Do you want to Hit or Stay? H/S > ')
         if hit_or_stay.capitalize() == 'S' or hit_or_stay.capitalize() == 'Stay':
+            stay = True
+            reply_bad = False
             print('You decided to stay at ' + str(card_total) + '.')
             print('The dealer reveals that the hidden card was the ' + str(dealer_hidden[0]) + '.')
             for key, value in dealer_faceup_cards.items():
@@ -60,17 +63,16 @@ def choose_hit_or_stay(stay):
             print("This gives the dealer a total of " + str(dealer_val) + ".")
             if dealer_val >= card_total and dealer_val <= 21:
                 print('Sorry, the house wins.')
-                lose(warchest, bet_value)
+                return False
             elif dealer_val > 21:
                 print("The dealer went bust! You win!")
-                win(warchest, bet_value)
+                return True
             else:
                 print('Your total of ' + str(card_total) + ' beats the house!')
-                win(warchest, bet_value)
-            stay = True
-            reply_bad = False
+                return True
         elif hit_or_stay.capitalize() == 'H' or hit_or_stay.capitalize() == 'Hit':
             reply_bad = False
+            return None
 
 def dealer_hit(dealer_val):
     if dealer_val < 17:
@@ -93,20 +95,20 @@ def choose_leave_or_continue():
         if leave_or_continue.capitalize() == 'L' or leave_or_continue.capitalize() == 'Leave':
             if warchest > 100:
                 print(f"You came out with ${warchest-100} more than you came in with! Good job beating the house!")
-                quit
+                quit()
             elif warchest == 100:
                 print("You broke even exactly. Getting to play a couple rounds 'for free' is kind of a moral victory.")
-                quit
+                quit()
             else:
                 print(f"You lost ${100-warchest} to the house. Hopefully you had fun regardless.")
             reply_bad = False
-            quit
+            quit()
         elif leave_or_continue.capitalize() == 'C' or leave_or_continue.capitalize() == 'Continue':
             reply_bad = False
 
 def lost_it_all():
     print('Sorry, you lost it all. The house wins...entirely.')
-    quit
+    quit()
 
 warchest = 100
 bet_value = 10
