@@ -26,7 +26,8 @@ def dealer_draw(deck):
     return visible_card
 
 def dealer_discard(dealer_cards, discard_pile, dealer_hidden):
-    for key, value in dealer_cards:
-        discard_pile[dealer_cards[key]] = dealer_cards[value]
-        del dealer_cards[key]
-    del dealer_hidden
+    if len(dealer_cards) > 0:
+        for key, value in dealer_cards:
+            discard_pile[dealer_cards[key]] = dealer_cards[value]
+            del dealer_cards[key]
+        del dealer_hidden
