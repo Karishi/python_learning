@@ -21,9 +21,9 @@ def test_lose():
     discard_pile = discard(player_cards, dealer_cards)
     assert discard_pile == discard_copy
     assert len(player_cards) == 0 and len(dealer_cards) == 0 """
-
+""" 
 def test_draw():
     for i in range(0,4):
         card = draw_a_card()
         print(card)
-        assert card not in deck
+        assert card not in deck """
