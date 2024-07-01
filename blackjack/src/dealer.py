@@ -21,13 +21,12 @@ def initialize_dealer(deck):
 # Helps handle the times the dealer hits during the game.
 def dealer_draw(deck):
     visible_card = random.choice(list(deck.items()))
-    card_value = visible_card[1]
     del deck[visible_card[0]]
     return visible_card
 
 def dealer_discard(dealer_cards, discard_pile, dealer_hidden):
     if len(dealer_cards) > 0:
-        for key, value in dealer_cards:
-            discard_pile[dealer_cards[key]] = dealer_cards[value]
+        for key,value in dealer_cards.items():
+            discard_pile[dealer_cards[key]] = value
             del dealer_cards[key]
         del dealer_hidden
