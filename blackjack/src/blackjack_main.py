@@ -35,15 +35,8 @@ def reveal_player_cards():
 
 def upgrade_ace(card_total):
     if drawn_card[1] == 1 and (card_total + 10) <= 21:
-        reply_bad = True
-        # Replies other than Y, N, y, n, yes, no, Yes, or No will be re-prompted.
-        while reply_bad == True:
-            reply = input('Do you want your Ace to be worth 11 instead of 1? Y/N > ')
-            if reply.capitalize() == 'Y' or reply.capitalize() == 'Yes':
-                card_total += 10
-                reply_bad = False
-            elif reply.capitalize() == 'N' or reply.capitalize() == 'No':
-                reply_bad = False
+        card_total += 10
+        print(f'Your Ace counts as an 11, giving you a total of {card_total}')
             
 def bust():
     print('Sorry, that\'s a bust!')
@@ -55,6 +48,8 @@ def choose_hit_or_stay(stay):
         hit_or_stay = input('Do you want to Hit or Stay? H/S > ')
         if hit_or_stay.capitalize() == 'S' or hit_or_stay.capitalize() == 'Stay':
             stay = True
+            while dealer_val < 17:
+                dealer_hit(dealer_val)
             reply_bad = False
             print('You decided to stay at ' + str(card_total) + '.')
             print('The dealer reveals that the hidden card was the ' + str(dealer_hidden[0]) + '.')
@@ -63,16 +58,16 @@ def choose_hit_or_stay(stay):
             print("This gives the dealer a total of " + str(dealer_val) + ".")
             if dealer_val >= card_total and dealer_val <= 21:
                 print('Sorry, the house wins.')
-                return False
+                return 'Lose'
             elif dealer_val > 21:
                 print("The dealer went bust! You win!")
-                return True
+                return 'Win'
             else:
                 print('Your total of ' + str(card_total) + ' beats the house!')
-                return True
+                return 'Win'
         elif hit_or_stay.capitalize() == 'H' or hit_or_stay.capitalize() == 'Hit':
             reply_bad = False
-            return None
+            return 'Play'
 
 def dealer_hit(dealer_val):
     if dealer_val < 17:
@@ -130,9 +125,15 @@ while warchest >= 10:
         if card_total > 21:
             bust()
         else:
-            stay = choose_hit_or_stay(stay)
+            victory = choose_hit_or_stay(stay)
             # The dealer is required to hit if below 17, and required to stay if at 17+.
             dealer_hit(dealer_val)
+        if victory == 'Win':
+            win(warchest, bet_value)
+        elif victory == 'Lose':
+            lose(warchest, bet_value)
+        else:
+            stay = False
     # If the player doesn't bust in the middle, the game ends when the loop ends:
     # when the results of staying where they do are revealed.
     choose_leave_or_continue()
