@@ -1,0 +1,13 @@
+Known issues:
+In actual Blackjack an Ace is "1 or 11, whatever's more convenient in the moment." This allows for situations like Ace - 3 - Jack. In the current build this would be a bust; The Ace would be upgraded to 11, then 3 would make it 14, then Jack would put it at 24. Under proper rules the Jack would make it...back into a total of 14.
+Because it's impossible to bust on 2 cards the player should just be dealt 2 cards.
+Money isn't actually updating. Probably a local variable named after my main currency variable, rather than properly referencing it.
+Discard isn't happening. I'll have to look at whether the Discard function isn't working or I outright forgot to include it in main after I wrote it.
+The round is restarting with an extra draw, like so:
+"You got the 7 of Spades. Hit or Stay?" Stay
+"The house beats your 7 with their total of 18. You lost 49 leaving you with 51."
+"You got the 7 of Spades and the King of Clubs. Hit or Stay?" Stay
+"The house beats your 17 with their total of 18. You lost 49 leaving you with 51."
+"You got the 7 of Spades and the King of CLubs and the Jack of Diamonds. Sorry, that's a bust!"
+"You lost 49 leaving you with 51."
+It's supposed to be asking whether you want to continue playing (and asking you to pick an ante amount between 10 and all your money) after every round. Right now it seems it only gets to the line where it asks for Leave or Continue inputs if you bust. AND it doesn't end up recognizing that you lost money on that bust, announcing that you ended with exactly 100, same as you started.
