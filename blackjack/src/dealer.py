@@ -24,9 +24,13 @@ def dealer_draw(deck):
     del deck[visible_card[0]]
     return visible_card
 
-def dealer_discard(dealer_cards, discard_pile, dealer_hidden):
-    if len(dealer_cards) > 0:
-        for key,value in dealer_cards.items():
-            discard_pile[dealer_cards[key]] = value
-            del dealer_cards[key]
-        del dealer_hidden
+def discard_dealer(dealer_cards, discard_pile, dealer_hidden):
+    while len(dealer_cards) > 0:
+        drawn_card = random.choice(list(dealer_cards.items()))
+        discard_pile[drawn_card[0]] = drawn_card[1]
+        del dealer_cards[drawn_card[0]]
+    drawn_card = dealer_hidden
+    # "Move" the hidden card from hidden to discard pile
+    discard_pile[drawn_card[0]] = drawn_card[1]
+    del dealer_cards[drawn_card[0]]
+    return drawn_card
