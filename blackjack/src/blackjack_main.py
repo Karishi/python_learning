@@ -1,7 +1,7 @@
-from deck_dict import deck
+from src.deck_dict import deck
 import random
-from dealer import *
-from currency import *
+from src.dealer import *
+from src.currency import *
 
 stay = False
 card_total = 0

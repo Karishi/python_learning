@@ -1,6 +1,8 @@
 import pytest
-# import blackjack_main as b
+from src.blackjack_main import *
 from src.currency import win, lose
+from src.deck_dict import *
+from blackjack_main import draw_a_card
 
 def test_win():
     value = win(100,10)
@@ -12,18 +14,18 @@ def test_lose():
 
 """ def test_choose_hit_or_stay():
     victory = choose_hit_or_stay(blackjack_main.stay)
-    assert victory == None """
+    assert victory == None
 
-""" def test_discard():
+def test_discard():
     player_cards = {'King of Hearts': 10, 'Queen of Spades': 10, 'Ace of Hearts': 1}
     dealer_cards = {'2 of Diamonds': 2, '8 of Hearts': 8, '8 of Clubs': 8}
     discard_copy = {**player_cards, **dealer_cards}
     discard_pile = discard(player_cards, dealer_cards)
     assert discard_pile == discard_copy
     assert len(player_cards) == 0 and len(dealer_cards) == 0 """
-""" 
+
 def test_draw():
     for i in range(0,4):
         card = draw_a_card()
         print(card)
-        assert card not in deck """
+        assert card not in deck
