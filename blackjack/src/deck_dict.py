@@ -2,7 +2,7 @@
 and integer values. Aces - detected as "if value == 1" - will offer the
 option to count them as 11 instead during play."""
 import random
-from dealer import *
+from src.dealer import *
 
 deck = {}
 for suit_num in range(0,4):
