@@ -29,21 +29,25 @@ def drop_piece(array2D, column, current_player):
     column -= 1
     if array2D[0][column] is not 'O':
         print("That space is illegal. Please choose another.")
-        return False
-    for row in range(0, 5):
-        if array2D[row+1][column] is not 'O' or array2D[row+1][column] is None:
-            array2D[row][column] = current_player.title
-            return True, row
-    array2D[5][column] = current_player.title
+        return False, -1
+    else:
+        for row in range(0, 6):
+            if row is 5:
+                array2D[row][column] = current_player.title
+                return True, row               
+            if array2D[row+1][column] is not 'O':
+                array2D[row][column] = current_player.title
+                return True, row
     return True, row
 
 def check_for_victory(array2D, row, column, player_turn):
     dist = 1 
     connect = 1
+    print(f"Latest piece dropped into {column},{row}")
     # Check vertical
-    if row < 3:
+    if row < 3: # Can only happen with a piece placed in the top 3 rows
         for i in range(0, 4):
-            if array2D[row+dist][column] == player_turn:
+            if row+dist <= 5 and array2D[row+dist][column] == player_turn:
                 dist += 1
                 connect += 1
                 print("+1 on the vertical")
@@ -132,7 +136,8 @@ while victory == False:
         column = int(input("Choose a column 1-7 to drop your letter into. > "))
         if column > 7 or column < 1:
             valid_reply = False
-        valid_reply, row = drop_piece(array2D, column, current_player)
+        else: 
+            valid_reply, row = drop_piece(array2D, column, current_player)
     victory = check_for_victory(array2D, row, column, current_player.title)
 
 print(f"Victory for {current_player.title}! The score is now {p1.score} for {p1.title} and {p2.score} for {p2.title}.")
