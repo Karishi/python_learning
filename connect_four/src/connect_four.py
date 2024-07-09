@@ -4,12 +4,13 @@ header_row = [str(i) for i in range(1,cols+1)]
 array2D = [["O" for i in range(cols)] for j in range(rows)]
 victory = False
 class player:
-    def __init__(self, title, score):
+    def __init__(self, title, score, turn):
         self.title = title
         self.score = score
+        self.turn = turn
 
-p1 = player("A", 0)
-p2 = player("B", 0)
+p1 = player("A", 0, 0)
+p2 = player("B", 0, 0)
 
 current_player = p2
 
@@ -23,30 +24,33 @@ def swap_turns(current_player):
         current_player = p1
     else:
         current_player = p2
+    current_player.turn += 1
     return current_player
 
 def drop_piece(array2D, column, current_player):
     column -= 1
-    if array2D[0][column] is not 'O':
+    if array2D[0][column] != 'O':
         print("That space is illegal. Please choose another.")
         return False, -1
     else:
         for row in range(0, 6):
-            if row is 5:
+            if row == 5:
                 array2D[row][column] = current_player.title
-                return True, row               
-            if array2D[row+1][column] is not 'O':
+                return True, row
+            if array2D[row+1][column] != 'O':
                 array2D[row][column] = current_player.title
                 return True, row
     return True, row
 
 def check_for_victory(array2D, row, column, player_turn):
+    column -= 1
     dist = 1 
     connect = 1
     print(f"Latest piece dropped into {column},{row}")
     # Check vertical
     if row < 3: # Can only happen with a piece placed in the top 3 rows
         for i in range(0, 4):
+            print(f"Piece below is {column},{row+dist} and is {array2D[row+dist][column]}.")
             if row+dist <= 5 and array2D[row+dist][column] == player_turn:
                 dist += 1
                 connect += 1
@@ -138,7 +142,10 @@ while victory == False:
             valid_reply = False
         else: 
             valid_reply, row = drop_piece(array2D, column, current_player)
-    victory = check_for_victory(array2D, row, column, current_player.title)
+    if current_player.turn < 4:
+        print(f"Player {current_player.title} cannot win yet because they have only taken {current_player.turn} turn(s).")
+    else:
+        victory = check_for_victory(array2D, row, column, current_player.title)
 
 print(f"Victory for {current_player.title}! The score is now {p1.score} for {p1.title} and {p2.score} for {p2.title}.")
     
