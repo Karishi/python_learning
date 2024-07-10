@@ -73,6 +73,7 @@ def check_for_victory(array2D, row, column, player_turn):
             if connect == 4:
                 return True
     for column in range(0, 4):
+        print(f"dist is {dist} and the slot at {column-dist},{row} is {array2D[row][column-dist]}")
         if column - dist < 0 or array2D[row][column-dist] != player_turn:
             dist = 1
             connect = 1
