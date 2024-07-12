@@ -34,15 +34,15 @@ def swap_turns(current_player):
     current_player.turn += 1
     return current_player
 
-def drop_piece(loc):
+def drop_piece(array2D, column, current_player):
     column -= 1
-    if loc.array2D[0][loc.column] != 'O':
+    if array2D[0][column] != 'O':
         print("That space is illegal. Please choose another.")
         return False, -1
     else:
         for row in range(0, 6):
             if row == 5:
-                loc.array2D[row][loc.column] = loc.current_player.title
+                array2D[row][column] = current_player.title
                 return True, row
             if array2D[row+1][column] != 'O':
                 array2D[row][column] = current_player.title
@@ -51,6 +51,8 @@ def drop_piece(loc):
 
 def victory_vertical(loc):
     if loc.row < 3: # Can only happen with a piece placed in the top 3 rows
+        dist = 1
+        connect = 1
         for i in range(0, 4):
             print(f"Piece below is {loc.column},{loc.row+dist} and is {loc.array2D[loc.row+dist][loc.column]}.")
             if loc.row+dist <= 5 and loc.array2D[loc.row+dist][loc.column] == loc.player.title:
@@ -62,36 +64,33 @@ def victory_vertical(loc):
             else:
                 return False
 
+def victory_horizontal(loc):
+    connect = 1
+    for dist in range(1,4):
+        if loc.column+dist > 6 or loc.array2D[loc.row][loc.column+dist] != loc.player.title:
+            break
+        else:
+            connect += 1
+            if connect == 4:
+                return True
+    for dist in range(1,4):
+        if loc.column-dist < 0 or loc.array2D[loc.row][loc.column-dist] != loc.player.title:
+            break
+        else:
+            connect += 1
+            if connect == 4:
+                return True
+    return False
+
 def check_for_victory(loc):
     loc.column -= 1
-    dist = 1 
-    connect = 1
     print(f"Latest piece dropped into {column},{row}")
     # Check vertical
-
+    if victory_vertical(loc):
+        return True
     # Check horizontal
-    for i in range(0, 4):
-        if column+dist > 6 or array2D[row][column+dist] != player_turn:
-            dist = 1
-            break
-        else:
-            dist += 1
-            connect += 1
-            print("+1 to the right")
-            if connect == 4:
-                return True
-    for column in range(0, 4):
-        print(f"dist is {dist} and the slot at {column-dist},{row} is {array2D[row][column-dist]}")
-        if column - dist < 0 or array2D[row][column-dist] != player_turn:
-            dist = 1
-            connect = 1
-            break
-        else:
-            dist += 1
-            connect += 1
-            print("+1 to the left")
-            if connect == 4:
-                return True
+    if victory_horizontal(loc):
+        return True
     # Check left diagonal
     for i in range(0, 4):
         if column+dist > 6 or row+dist > 5 or array2D[row+dist][column+dist] != player_turn:
@@ -151,10 +150,10 @@ while victory == False:
             valid_reply = False
         else:
             valid_reply, row = drop_piece(array2D, column, current_player)
-            location = piece_location(column, row, current_player.title, array2D)
     if current_player.turn < 4:
         print(f"Player {current_player.title} cannot win yet because they have only taken {current_player.turn} turn(s).")
     else:
+        location = piece_location(column, row, current_player.title, array2D)
         victory = check_for_victory(piece_location)
 
 print(f"Victory for {current_player.title}! The score is now {p1.score} for {p1.title} and {p2.score} for {p2.title}.")
