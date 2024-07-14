@@ -3,6 +3,8 @@ rows, cols = (6,7)
 header_row = [str(i) for i in range(1,cols+1)]
 array2D = [["O" for i in range(cols)] for j in range(rows)]
 victory = False
+row = -1
+column = -1
 class player:
     def __init__(self, title, score, turn):
         self.title = title
@@ -12,7 +14,7 @@ class player:
 p1 = player("A", 0, 0)
 p2 = player("B", 0, 0)
 
-class piece_location:
+class game:
     def __init__(self, column, row, current_player, array2D):
         self.column = column
         self.row = row
@@ -54,8 +56,8 @@ def victory_vertical(loc):
         dist = 1
         connect = 1
         for i in range(0, 4):
-            print(f"Piece below is {loc.column},{loc.row+dist} and is {loc.array2D[loc.row+dist][loc.column]}.")
-            if loc.row+dist <= 5 and loc.array2D[loc.row+dist][loc.column] == loc.player.title:
+            print(f"Piece below is {loc.column},{loc.row+dist} and is {loc.board[loc.row+dist][loc.column]}.")
+            if loc.row+dist <= 5 and loc.board[loc.row+dist][loc.column] == loc.player.title:
                 dist += 1
                 connect += 1
                 print("+1 on the vertical")
@@ -67,14 +69,14 @@ def victory_vertical(loc):
 def victory_horizontal(loc):
     connect = 1
     for dist in range(1,4):
-        if loc.column+dist > 6 or loc.array2D[loc.row][loc.column+dist] != loc.player.title:
+        if loc.column+dist > 6 or loc.board[loc.row][loc.column+dist] != loc.player.title:
             break
         else:
             connect += 1
             if connect == 4:
                 return True
     for dist in range(1,4):
-        if loc.column-dist < 0 or loc.array2D[loc.row][loc.column-dist] != loc.player.title:
+        if loc.column-dist < 0 or loc.board[loc.row][loc.column-dist] != loc.player.title:
             break
         else:
             connect += 1
@@ -139,12 +141,13 @@ def check_for_victory(loc):
 
 count = 0
 while victory == False:
+    row = -1
+    column = -1
     display_board()
     current_player = swap_turns(current_player)
     print(f"It is {current_player.title}'s turn.")
     valid_reply = False
     while valid_reply == False:
-        valid_reply = True
         column = int(input("Choose a column 1-7 to drop your letter into. > "))
         if column > 7 or column < 1:
             valid_reply = False
@@ -153,8 +156,8 @@ while victory == False:
     if current_player.turn < 4:
         print(f"Player {current_player.title} cannot win yet because they have only taken {current_player.turn} turn(s).")
     else:
-        location = piece_location(column, row, current_player.title, array2D)
-        victory = check_for_victory(piece_location)
+        location = game(column, row, current_player.title, array2D)
+        victory = check_for_victory(location)
 
 print(f"Victory for {current_player.title}! The score is now {p1.score} for {p1.title} and {p2.score} for {p2.title}.")
     
