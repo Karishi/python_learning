@@ -56,7 +56,6 @@ def victory_vertical(loc):
         dist = 1
         connect = 1
         for i in range(0, 4):
-            print(f"Piece below is {loc.column},{loc.row+dist} and is {loc.board[loc.row+dist][loc.column]}.")
             if loc.row+dist <= 5 and loc.board[loc.row+dist][loc.column] == loc.player.title:
                 dist += 1
                 connect += 1
@@ -65,6 +64,8 @@ def victory_vertical(loc):
                     return True
             else:
                 return False
+    else:
+        return False
 
 def victory_horizontal(loc):
     connect = 1
@@ -84,6 +85,26 @@ def victory_horizontal(loc):
                 return True
     return False
 
+def victory_l_diagonal(loc):
+    connect = 1
+    for dist in range(1, 4):
+        if loc.column+dist > 6 or loc.row+dist > 5 or loc.board[loc.row+dist][loc.column+dist] != loc.player.title:
+            break
+        else:
+            connect += 1
+            print("+1 to the lower right")
+            if connect == 4:
+                return True
+    for dist in range(1, 4):
+        if loc.column-dist < 0 or loc.row - dist < 0 or loc.board[loc.row-dist][loc.column-dist] != loc.player.title:
+            break
+        else:
+            connect += 1
+            print("+1 to the upper left")
+            if connect == 4:
+                return True
+    return False
+
 def check_for_victory(loc):
     loc.column -= 1
     print(f"Latest piece dropped into {column},{row}")
@@ -94,29 +115,10 @@ def check_for_victory(loc):
     if victory_horizontal(loc):
         return True
     # Check left diagonal
-    for i in range(0, 4):
-        if column+dist > 6 or row+dist > 5 or array2D[row+dist][column+dist] != player_turn:
-            dist = 1
-            break
-        else:
-            dist += 1
-            connect += 1
-            print("+1 to the lower right")
-            if connect == 4:
-                return True
-    for i in range(0, 4):
-        if column-dist < 0 or row - dist < 0 or array2D[row-dist][column-dist] != player_turn:
-            dist = 1
-            connect = 1
-            break
-        else:
-            dist += 1
-            connect += 1
-            print("+1 to the upper left")
-            if connect == 4:
-                return True
+    if victory_l_diagonal(loc):
+        return True
     # Check right diagonal
-    for i in range(0, 4):
+    for dist in range(0, 4):
         if column+dist > 6 or row - dist < 0 or array2D[row-dist][column+dist] != player_turn:
             dist = 1
             break
@@ -126,7 +128,7 @@ def check_for_victory(loc):
             print("+1 to the upper right")
             if connect == 4:
                 return True
-    for i in range(0, 4):
+    for dist in range(0, 4):
         if column - dist < 0 or row + dist > 5 or array2D[row+dist][column-dist] != player_turn:
             dist = 1
             connect = 1
