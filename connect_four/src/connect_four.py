@@ -53,11 +53,9 @@ def drop_piece(array2D, column, current_player):
 
 def victory_vertical(loc):
     if loc.row < 3: # Can only happen with a piece placed in the top 3 rows
-        dist = 1
         connect = 1
-        for i in range(0, 4):
+        for dist in range(1, 4):
             if loc.row+dist <= 5 and loc.board[loc.row+dist][loc.column] == loc.player.title:
-                dist += 1
                 connect += 1
                 print("+1 on the vertical")
                 if connect == 4:
@@ -105,6 +103,27 @@ def victory_l_diagonal(loc):
                 return True
     return False
 
+def victory_r_diagonal(loc):
+    connect = 1
+    for dist in range(0, 4):
+        if loc.column+dist > 6 or loc.row - dist < 0 or loc.board[loc.row-dist][loc.column+dist] != loc.player.title:
+            break
+        else:
+            connect += 1
+            print("+1 to the upper right")
+            if connect == 4:
+                return True
+    for dist in range(0, 4):
+        if loc.column - dist < 0 or loc.row + dist > 5 or loc.board[loc.row+dist][loc.column-dist] != loc.player.title:
+            break
+        else:
+            connect += 1
+            print("+1 to the lower left")
+            if connect == 4:
+                return True
+    return False
+
+
 def check_for_victory(loc):
     loc.column -= 1
     print(f"Latest piece dropped into {column},{row}")
@@ -118,27 +137,8 @@ def check_for_victory(loc):
     if victory_l_diagonal(loc):
         return True
     # Check right diagonal
-    for dist in range(0, 4):
-        if column+dist > 6 or row - dist < 0 or array2D[row-dist][column+dist] != player_turn:
-            dist = 1
-            break
-        else:
-            dist += 1
-            connect += 1
-            print("+1 to the upper right")
-            if connect == 4:
-                return True
-    for dist in range(0, 4):
-        if column - dist < 0 or row + dist > 5 or array2D[row+dist][column-dist] != player_turn:
-            dist = 1
-            connect = 1
-            break
-        else:
-            dist += 1
-            connect += 1
-            print("+1 to the lower left")
-            if connect == 4:
-                return True
+    if victory_r_diagonal(loc):
+        return True
     return False
 
 count = 0
