@@ -15,10 +15,10 @@ p1 = player("A", 0, 0)
 p2 = player("B", 0, 0)
 
 class game:
-    def __init__(self, column, row, current_player, array2D):
+    def __init__(self, column, row, player, array2D):
         self.column = column
         self.row = row
-        self.player = current_player
+        self.player = player
         self.board = array2D
 
 current_player = p2
@@ -55,10 +55,11 @@ def victory_vertical(loc):
     if loc.row < 3: # Can only happen with a piece placed in the top 3 rows
         connect = 1
         for dist in range(1, 4):
-            if loc.row+dist <= 5 and loc.board[loc.row+dist][loc.column] == loc.player.title:
+            if loc.row+dist <= 5 and loc.board[loc.row+dist][loc.column] == current_player.title:
                 connect += 1
-                print("+1 on the vertical")
+                print(f"Matching piece {dist} below")
                 if connect == 4:
+                    print("That's connect 4 vertical!")
                     return True
             else:
                 return False
@@ -68,60 +69,62 @@ def victory_vertical(loc):
 def victory_horizontal(loc):
     connect = 1
     for dist in range(1,4):
-        if loc.column+dist > 6 or loc.board[loc.row][loc.column+dist] != loc.player.title:
-            break
-        else:
+        if loc.column+dist <= 6 and loc.board[loc.row][loc.column+dist] == current_player.title:
             connect += 1
-            if connect == 4:
-                return True
+            print(f"Matching piece {dist} to the right")
+        else:
+            break
     for dist in range(1,4):
-        if loc.column-dist < 0 or loc.board[loc.row][loc.column-dist] != loc.player.title:
-            break
-        else:
+        if loc.column-dist >= 0 and loc.board[loc.row][loc.column-dist] == current_player.title:
             connect += 1
-            if connect == 4:
-                return True
-    return False
+            print(f"Matching piece {dist} to the left")
+        else:
+            break
+    if connect >= 4:
+        print("That's connect 4 horizontal!")
+        return True
+    else:
+        return False
 
 def victory_l_diagonal(loc):
     connect = 1
     for dist in range(1, 4):
-        if loc.column+dist > 6 or loc.row+dist > 5 or loc.board[loc.row+dist][loc.column+dist] != loc.player.title:
-            break
-        else:
+        if loc.column+dist <= 6 and loc.row+dist <= 5 and loc.board[loc.row+dist][loc.column+dist] == current_player.title:
             connect += 1
-            print("+1 to the lower right")
-            if connect == 4:
-                return True
+            print(f"Matching piece {dist} to the lower right")
+        else:
+            break
     for dist in range(1, 4):
-        if loc.column-dist < 0 or loc.row - dist < 0 or loc.board[loc.row-dist][loc.column-dist] != loc.player.title:
-            break
-        else:
+        if loc.column-dist >= 0 and loc.row - dist >= 0 and loc.board[loc.row-dist][loc.column-dist] == current_player.title:
             connect += 1
-            print("+1 to the upper left")
-            if connect == 4:
-                return True
-    return False
+            print(f"Matching piece {dist} to the upper left")
+        else:
+            break
+    if connect >= 4:
+        print("That's connect 4 diagonal (left up)!")
+        return True
+    else:
+        return False
 
 def victory_r_diagonal(loc):
     connect = 1
-    for dist in range(0, 4):
-        if loc.column+dist > 6 or loc.row - dist < 0 or loc.board[loc.row-dist][loc.column+dist] != loc.player.title:
-            break
-        else:
+    for dist in range(1, 4):
+        if loc.column+dist <= 6 and loc.row - dist >= 0 and loc.board[loc.row-dist][loc.column+dist] == current_player.title:
             connect += 1
-            print("+1 to the upper right")
-            if connect == 4:
-                return True
-    for dist in range(0, 4):
-        if loc.column - dist < 0 or loc.row + dist > 5 or loc.board[loc.row+dist][loc.column-dist] != loc.player.title:
-            break
+            print(f"Matching piece {dist} to the upper right")
         else:
+            break
+    for dist in range(1, 4):
+        if loc.column - dist >= 0 and loc.row + dist <= 5 and loc.board[loc.row+dist][loc.column-dist] == current_player.title:
             connect += 1
-            print("+1 to the lower left")
-            if connect == 4:
-                return True
-    return False
+            print(f"Matching piece {dist} to the lower left")
+        else:
+            break
+    if connect >= 4:
+        print("That's connect 4 diagonal (right up)!")
+        return True
+    else:
+        return False
 
 
 def check_for_victory(loc):
@@ -161,5 +164,7 @@ while victory == False:
         location = game(column, row, current_player.title, array2D)
         victory = check_for_victory(location)
 
+current_player.score += 1
+display_board()
 print(f"Victory for {current_player.title}! The score is now {p1.score} for {p1.title} and {p2.score} for {p2.title}.")
     
