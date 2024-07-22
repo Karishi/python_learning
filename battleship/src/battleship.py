@@ -1,4 +1,15 @@
-alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+def alph_to_num(letter):
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    for i in range(0,len(alphabet)):
+        test_let = slice(i,i+1)
+        if letter.capitalize() == alphabet[test_let]:
+            return i
+    return -1
+
+def test_alph():
+    num = alph_to_num("z")
+    print(f"Number is {num}.")
+
 
 class player:
     def __init__(self, title, score):
