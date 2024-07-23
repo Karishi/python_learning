@@ -10,6 +10,20 @@ def test_alph():
     num = alph_to_num("z")
     print(f"Number is {num}.")
 
+def split_coordinates(coordinate_set):
+    first_char = slice(1)
+    letter = coordinate_set[first_char]
+    end_chars = slice(1,5)
+    number = int(coordinate_set[end_chars])
+    return alph_to_num(letter), number
+
+def test_split():
+    user_input = "F10"
+    board, header = make_board(10,10)
+    x,y = split_coordinates(user_input)
+    board[x][y-1] = "X"
+    print_board(board, header)
+
 
 class player:
     def __init__(self, title, score):
@@ -39,4 +53,5 @@ class game:
     myboard, header = make_board(10,10)
     print_board(myboard, header)
 
+test_split()
 game()
