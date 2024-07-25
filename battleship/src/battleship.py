@@ -59,6 +59,7 @@ def translate_direction(direction):
 def randomize_ship_start(board):
     rand_x = random.randint(0,board.width)
     rand_y = random.randint(0,board.height)
+    print(f"{rand_y+1},{rand_x+1} coordinates")
     return rand_x, rand_y
     
 def test_trans_direction():
@@ -71,12 +72,16 @@ def test_trans_direction():
     test_board,header = make_board(my_board)
     x, y = randomize_ship_start(my_board)
     for i in range(ship_length):
-        test_board[x+i*x_shift][y+i*y_shift] = "D"
+        test_board[y+i*y_shift][x+i*x_shift] = "D"
     print_board(test_board, header)
 
-
-
-
+def test_map_coords():
+    my_board = board(10,10)
+    test_board,header = make_board(my_board)
+    for i in range(0,my_board.width):
+        for j in range(0,my_board.height):
+            test_board[i][j] = f"{i},{j}"
+    print_board(test_board, header)
 
 def make_board(board):
     return [['o' for count in range(board.height)] for rows in range(board.width)], [str(i) for i in range(1,board.width+1)]
@@ -95,5 +100,5 @@ class game:
     board, header = make_board(my_board)
     print_board(board, header)
 
-test_trans_direction()
+test_map_coords()
 game()
