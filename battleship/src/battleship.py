@@ -44,6 +44,18 @@ def test_split():
     hidden_board[x][y-1] = "X"
     print_board(hidden_board, header)
 
+def check_against_unusable():
+    #TODO: Checks against a list of spaces already occupied by ships or tested and found too cramped
+    return False
+
+def place_ship(ship):
+    direction = random_direction()
+    is_usable_space = check_against_unusable(ship.coordinate)
+
+def random_direction():
+    directions = ['NESW','ESWN','SWNE','WNES']
+    return random.choice(directions)
+
 def translate_direction(direction):
     if direction.capitalize() == "N":
         return 0,-1
