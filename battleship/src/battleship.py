@@ -44,13 +44,23 @@ def test_split():
     hidden_board[x][y-1] = "X"
     print_board(hidden_board, header)
 
-def check_against_unusable():
-    #TODO: Checks against a list of spaces already occupied by ships or tested and found too cramped
-    return False
+def check_against_unusable(ship):
+    if ship.coordinate in game.unusable_list:
+        return False
+    else:
+        game.unusable_list.append(ship.coordinate)
+        return True
+    
+def test_unusable_check():
+    myship = ship(3, (5,5), random_direction(), 0)
+    print(f"On the first test it returns {check_against_unusable(myship)}")
+    print(f"On the second test it returns {check_against_unusable(myship)}")
 
 def place_ship(ship):
     direction = random_direction()
     is_usable_space = check_against_unusable(ship.coordinate)
+    #TODO: Write a loop through the directions. If it fails, add the space to the "unusable" list.
+    # If it succeeds, add all its spaces to the list and finalize them.
 
 def random_direction():
     directions = ['NESW','ESWN','SWNE','WNES']
@@ -106,11 +116,12 @@ def print_board(board, header):
 
 class game:
     title = input("What's your name? ")
+    unusable_list = []
     my_board = board(10,10)
     score = 0
     player = player(title, score)
     board, header = make_board(my_board)
     print_board(board, header)
 
-test_map_coords()
+test_unusable_check()
 game()
