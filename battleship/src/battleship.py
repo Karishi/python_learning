@@ -114,14 +114,31 @@ def print_board(board, header):
         print(' '.join(row))
     print('')
 
+def edge_check(ship):
+    x,y = ship.coordinate
+    x_shift,y_shift = translate_direction(ship.direction)
+    if  x + x_shift * (ship.size-1) < 0 or \
+        x + x_shift * (ship.size-1) > game.my_board.width or \
+        y + y_shift * (ship.size-1) < 0 or \
+        y + y_shift * (ship.size-1) > game.my_board.height:
+        return False
+    else:
+        return True
+
+def test_edge():
+    myShip = ship(3, (3,1), "N", {})
+    print(f"With coordinates 3,1 going North this returns {edge_check(myShip)}.")
+    myShip.direction = "E"
+    print(f"With coordinates 3,1 going East this returns {edge_check(myShip)}.")
+
 class game:
-    title = input("What's your name? ")
+    title = "Joe-Bob"
     unusable_list = []
     my_board = board(10,10)
     score = 0
     player = player(title, score)
-    board, header = make_board(my_board)
-    print_board(board, header)
+    shown_board, header = make_board(my_board)
+    print_board(shown_board, header)
 
-test_unusable_check()
+test_edge()
 game()
