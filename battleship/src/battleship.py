@@ -45,10 +45,10 @@ def test_split():
     print_board(hidden_board, header)
 
 def check_against_unusable(ship):
-    if ship.coordinate in game.unusable_list:
+    if ship.coordinate not in game.unused_spaces:
         return False
     else:
-        game.unusable_list.append(ship.coordinate)
+        game.unused_spaces.remove(ship.coordinate)
         return True
     
 def test_unusable_check():
@@ -57,8 +57,11 @@ def test_unusable_check():
     print(f"On the second test it returns {check_against_unusable(myship)}")
 
 def place_ship(ship):
-    direction = random_direction()
-    is_usable_space = check_against_unusable(ship.coordinate)
+    ship.direction = random_direction()
+    if check_against_unusable(ship):
+        for i in range(len(ship.direction)):
+            if edge_check(ship):
+                return True #INCOMPLETE
     #TODO: Write a loop through the directions. If it fails, add the space to the "unusable" list.
     # If it succeeds, add all its spaces to the list and finalize them.
 
@@ -126,19 +129,36 @@ def edge_check(ship):
         return True
 
 def test_edge():
-    myShip = ship(3, (3,1), "N", {})
-    print(f"With coordinates 3,1 going North this returns {edge_check(myShip)}.")
+    myShip = ship(3, (1,1), "N", {})
+    print(f"With coordinates 1,1 going North this returns {edge_check(myShip)}.")
     myShip.direction = "E"
-    print(f"With coordinates 3,1 going East this returns {edge_check(myShip)}.")
+    print(f"With coordinates 1,1 going East this returns {edge_check(myShip)}.")
+    myShip.direction = "S"
+    print(f"With coordinates 1,1 going South this returns {edge_check(myShip)}.")
+    myShip.direction = "W"
+    print(f"With coordinates 1,1 going West this returns {edge_check(myShip)}.")
+
+def random_ships(numExtraShips):
+    ship_arrangement = [2,3,3,4,5]
+    for i in range(numExtraShips):
+        size = random.choice in ship_arrangement
+        newShip = ship(size, (), random_direction(), {})
+        place_ship(newShip)
+
+def initialize_unused(my_board):
+    unused = []
+    for x in range(my_board.height):
+        for y in range(my_board.width):
+            unused.append((x,y))
+    return unused
 
 class game:
     title = "Joe-Bob"
-    unusable_list = []
     my_board = board(10,10)
+    unused_spaces = initialize_unused(my_board)
     score = 0
     player = player(title, score)
     shown_board, header = make_board(my_board)
     print_board(shown_board, header)
 
-test_edge()
 game()
