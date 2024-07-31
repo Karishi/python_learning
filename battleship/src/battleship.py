@@ -6,16 +6,18 @@ class player:
         self.score = score
 
 class ship:
-    def __init__(self, size, coordinate, direction, state):
+    def __init__(self, size, coordinate, direction, state, name):
         self.size = int(size)
         self.coordinate = coordinate
         self.direction = direction
         self.state = state
+        self.name = name
 
 class board:
     def __init__(self, width, height):
         self.width = width
         self.height = height
+        unused_spaces = initialize_unused(self)
 
 def alph_to_num(letter):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -45,25 +47,32 @@ def test_split():
     print_board(hidden_board, header)
 
 def check_against_unusable(ship):
-    if ship.coordinate not in game.unused_spaces:
+    if ship.coordinate not in newGame.unused_spaces:
         return False
     else:
-        game.unused_spaces.remove(ship.coordinate)
+        newGame.unused_spaces.remove(ship.coordinate)
         return True
     
 def test_unusable_check():
-    myship = ship(3, (5,5), random_direction(), 0)
+    myship = ship(3, (5,5), random_direction(), 0, "D")
     print(f"On the first test it returns {check_against_unusable(myship)}")
     print(f"On the second test it returns {check_against_unusable(myship)}")
 
 def place_ship(ship):
     ship.direction = random_direction()
     if check_against_unusable(ship):
-        for i in range(len(ship.direction)):
-            if edge_check(ship):
-                return True #INCOMPLETE
-    #TODO: Write a loop through the directions. If it fails, add the space to the "unusable" list.
-    # If it succeeds, add all its spaces to the list and finalize them.
+        for letter in ship.direction:
+            if check_full_ship(ship):
+                x_shift,y_shift = translate_direction(letter)
+                x,y = ship.coordinates
+                for i in range(ship.size):
+                    game.shown_board[y+i*y_shift][x+i*x_shift] = name_ship(ship)
+                    if (y+i*y_shift,x+i*x_shift) in game.unused_spaces:
+                        game.unused_spaces.remove((y+i*y_shift,x+i*x_shift))
+                break
+
+def test_place_ship():
+    random_ships(1)
 
 def random_direction():
     directions = ['NESW','ESWN','SWNE','WNES']
@@ -129,7 +138,7 @@ def edge_check(ship):
         return True
 
 def test_edge():
-    myShip = ship(3, (1,1), "N", {})
+    myShip = ship(3, (1,1), "N", {}, "D")
     print(f"With coordinates 1,1 going North this returns {edge_check(myShip)}.")
     myShip.direction = "E"
     print(f"With coordinates 1,1 going East this returns {edge_check(myShip)}.")
@@ -142,7 +151,8 @@ def random_ships(numExtraShips):
     ship_arrangement = [2,3,3,4,5]
     for i in range(numExtraShips):
         size = random.choice in ship_arrangement
-        newShip = ship(size, (), random_direction(), {})
+        newShip = ship(size, (), random_direction(), {}, "Y")
+        newShip.name = name_ship(newShip)
         place_ship(newShip)
 
 def initialize_unused(my_board):
@@ -152,6 +162,30 @@ def initialize_unused(my_board):
             unused.append((x,y))
     return unused
 
+def check_full_ship(ship):
+    if edge_check(ship):
+        for i in range(ship.size):
+            y_shift,x_shift = translate_direction(ship.direction)
+            x = ship.coordinates[1]
+            y = ship.coordinates[2]
+            if game.shown_board[x+x_shift*i][y+y_shift*i] != "o":
+                return False
+        return True
+    else:
+        return False
+    
+def name_ship(ship):
+    if ship.size == 2:
+        return "D"
+    elif ship.size == 3:
+        return random.choice("S","R")
+    elif ship.size == 4:
+        return "B"
+    elif ship.size == 5:
+        return "C"
+    else:
+        return "Y"
+
 class game:
     title = "Joe-Bob"
     my_board = board(10,10)
@@ -159,6 +193,7 @@ class game:
     score = 0
     player = player(title, score)
     shown_board, header = make_board(my_board)
+    test_place_ship()
     print_board(shown_board, header)
 
-game()
+newGame = game()
