@@ -7,16 +7,19 @@ class player:
         self.title = title
         self.score = score
 
-def initialize_unused(my_board):
+def initialize_board(my_board):
+    board_dict = {}
     for x in range(my_board.height):
         for y in range(my_board.width):
             unused.append((x,y))
+            board_dict[(x,y)] = "o"
+    return board_dict
 
 class board:
     def __init__(self, width, height):
         self.width = width
         self.height = height
-        initialize_unused(self)
+        self.dict = initialize_board(self)
 
 def print_board(board, header):
     print(' '.join(header))
@@ -81,9 +84,9 @@ def place_ship(ship,board):
     for letter in ship.direction:
         if check_full_ship(ship,board):
             x_shift,y_shift = translate_direction(letter)
-            x,y = ship.coordinates
+            x,y = ship.coordinate
             for i in range(ship.size):
-                game.shown_board[y+i*y_shift][x+i*x_shift] = name_ship(ship)
+                board.dict[(y+i*y_shift,x+i*x_shift)] = name_ship(ship)
                 if (y+i*y_shift,x+i*x_shift) in unused:
                     unused.remove((y+i*y_shift,x+i*x_shift))
                 break
@@ -175,7 +178,7 @@ def check_full_ship(ship,the_board):
             y_shift,x_shift = translate_direction(ship.direction)
             x = ship.coordinate[0]
             y = ship.coordinate[1]
-            if the_board[x+x_shift*i][y+y_shift*i] != "o":
+            if the_board.dict[(x+x_shift*i,y+y_shift*i)] != "o":
                 return False
         return True
     else:
@@ -185,7 +188,7 @@ def name_ship(ship):
     if ship.size == 2:
         return "D"
     elif ship.size == 3:
-        return random.choice("S","R")
+        return "S"
     elif ship.size == 4:
         return "B"
     elif ship.size == 5:
