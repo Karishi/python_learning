@@ -7,19 +7,14 @@ class player:
         self.title = title
         self.score = score
 
-def initialize_board(my_board):
-    board_dict = {}
-    for x in range(my_board.height):
-        for y in range(my_board.width):
-            unused.append((x,y))
-            board_dict[(x,y)] = "o"
-    return board_dict
+def make_board(board):
+    return [['o' for count in range(board.height)] for rows in range(board.width)], [str(i) for i in range(1,board.width+1)]
 
 class board:
     def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.dict = initialize_board(self)
+        self.spaces, self.header = make_board(self)
 
 def print_board(board, header):
     print(' '.join(header))
@@ -27,8 +22,6 @@ def print_board(board, header):
         print(' '.join(row))
     print('')
 
-def make_board(board):
-    return [['o' for count in range(board.height)] for rows in range(board.width)], [str(i) for i in range(1,board.width+1)]
 
 
 
@@ -62,10 +55,9 @@ def split_coordinates(coordinate_set):
 def test_split():
     user_input = "F10"
     my_board = board(10,10)
-    hidden_board, header = make_board(my_board)
     x,y = split_coordinates(user_input)
-    hidden_board[x][y-1] = "X"
-    print_board(hidden_board, header)
+    my_board.spaces[x][y-1] = "X"
+    print_board(my_board.spaces, my_board.header)
 
 def check_against_unusable(ship):
     if ship.coordinate not in unused:
@@ -86,7 +78,7 @@ def place_ship(ship,board):
             x_shift,y_shift = translate_direction(letter)
             x,y = ship.coordinate
             for i in range(ship.size):
-                board.dict[(y+i*y_shift,x+i*x_shift)] = name_ship(ship)
+                board.spaces[(y+i*y_shift,x+i*x_shift)] = name_ship(ship)
                 if (y+i*y_shift,x+i*x_shift) in unused:
                     unused.remove((y+i*y_shift,x+i*x_shift))
                 break
