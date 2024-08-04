@@ -8,6 +8,9 @@ class player:
         self.score = score
 
 def make_board(board):
+    for x in range(board.height):
+        for y in range(board.width):
+            unused.append((x,y))
     return [['o' for count in range(board.height)] for rows in range(board.width)], [str(i) for i in range(1,board.width+1)]
 
 class board:
@@ -118,7 +121,7 @@ def test_trans_direction():
     test_board,header = make_board(my_board)
     x, y = randomize_ship_start(my_board)
     for i in range(ship_length):
-        test_board[y+i*y_shift][x+i*x_shift] = "D"
+        test_board.spaces[y+i*y_shift][x+i*x_shift] = "D"
     print_board(test_board, header)
 
 def test_map_coords():
@@ -170,7 +173,7 @@ def check_full_ship(ship,the_board):
             y_shift,x_shift = translate_direction(ship.direction)
             x = ship.coordinate[0]
             y = ship.coordinate[1]
-            if the_board.dict[(x+x_shift*i,y+y_shift*i)] != "o":
+            if the_board.spaces[(x+x_shift*i,y+y_shift*i)] != "o":
                 return False
         return True
     else:
@@ -210,3 +213,4 @@ class game:
     print_board(shown_board,header)
 
 game()
+test_trans_direction()
