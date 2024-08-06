@@ -25,9 +25,6 @@ def print_board(board, header):
         print(' '.join(row))
     print('')
 
-
-
-
 class ship:
     def __init__(self, size, coordinate, direction, state, name):
         self.size = int(size)
@@ -132,10 +129,6 @@ def test_map_coords():
             test_board[i][j] = f"{i},{j}"
     print_board(test_board, header)
 
-
-
-
-
 def edge_check(ship,board):
     x,y = ship.coordinate
     x_shift,y_shift = translate_direction(ship.direction)
@@ -164,8 +157,6 @@ def random_ships(numExtraShips):
         newShip = ship(size, (), random_direction(), {}, "Y")
         newShip.name = name_ship(newShip)
         place_ship(newShip)
-
-
 
 def check_full_ship(ship,the_board):
     if edge_check(ship,the_board):
