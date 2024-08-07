@@ -24,5 +24,4 @@ Random Ships (Game): Bonus feature, introduces the potential for players to add 
 
 Name Ship (Game): A helper function for Random Ships to apply letters to each kind of ship that gets randomly generated.
 
-Place Basic Ships (Ship): Initialize the game, placing the typical 5 ships (Destroyer, Cruiser, Submarine, Battleship, and Carrier) on the board. Possible this should be in Game, by the logic of why Random Ships is. Unsure.
-
+Place Basic Ships (Game): Initialize the game, placing the typical 5 ships (Destroyer, Cruiser, Submarine, Battleship, and Carrier) on the board.
