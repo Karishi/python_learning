@@ -1,5 +1,4 @@
 import random
-import board
 
 class ship:
     def __init__(self, size, coordinate, direction, state, name):
@@ -15,6 +14,11 @@ def check_against_unused(ship):
     else:
         board.unused.remove(ship.coordinate)
         return True
+    
+def test_unused_check():
+    myship = ship(3, (5,5), random_direction(), 0, "D")
+    print(f"On the first test it returns {check_against_unused(myship)}")
+    print(f"On the second test it returns {check_against_unused(myship)}")
 
 def place_ship(ship,board):
     ship.direction = random_direction()
@@ -27,6 +31,9 @@ def place_ship(ship,board):
                 if (y+i*y_shift,x+i*x_shift) in unused:
                     unused.remove((y+i*y_shift,x+i*x_shift))
                 break
+
+def test_place_ship():
+    random_ships(1)
 
 def random_direction():
     directions = ['NESW','ESWN','SWNE','WNES']
@@ -50,6 +57,19 @@ def randomize_ship_start(board):
     print(f"{rand_y+1},{rand_x+1} coordinates")
     return rand_x, rand_y
     
+def test_trans_direction():
+    direction = "N"
+    ship_length = 3
+    x_shift,y_shift = translate_direction(direction)
+    my_board = board(10,10)
+    if x_shift == 0 and y_shift == 0:
+        print("Error! Inaccurate input")
+    test_board,header = make_board(my_board)
+    x, y = randomize_ship_start(my_board)
+    for i in range(ship_length):
+        test_board.spaces[y+i*y_shift][x+i*x_shift] = "D"
+    print_board(test_board, header)
+
 def edge_check(ship,board):
     x,y = ship.coordinate
     x_shift,y_shift = translate_direction(ship.direction)
@@ -60,6 +80,16 @@ def edge_check(ship,board):
         return False
     else:
         return True
+
+def test_edge():
+    myShip = ship(3, (1,1), "N", {}, "D")
+    print(f"With coordinates 1,1 going North this returns {edge_check(myShip)}.")
+    myShip.direction = "E"
+    print(f"With coordinates 1,1 going East this returns {edge_check(myShip)}.")
+    myShip.direction = "S"
+    print(f"With coordinates 1,1 going South this returns {edge_check(myShip)}.")
+    myShip.direction = "W"
+    print(f"With coordinates 1,1 going West this returns {edge_check(myShip)}.")
 
 def check_full_ship(ship,the_board):
     if edge_check(ship,the_board):

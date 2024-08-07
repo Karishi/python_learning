@@ -1,5 +1,4 @@
 import random
-import ship
 
 def make_board(board):
     for x in range(board.height):

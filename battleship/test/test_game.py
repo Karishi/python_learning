@@ -8,12 +8,23 @@ def alph_to_num(letter):
             return i
     return -1
 
+def test_alph():
+    num = alph_to_num("z")
+    print(f"Number is {num}.")
+
 def split_coordinates(coordinate_set):
     first_char = coordinate_set[1]
     letter = coordinate_set[first_char]
     end_chars = coordinate_set[1:]
     number = int(coordinate_set[end_chars])
     return alph_to_num(letter), number
+
+def test_split():
+    user_input = "F10"
+    my_board = board(10,10)
+    x,y = split_coordinates(user_input)
+    my_board.spaces[x][y-1] = "X"
+    print_board(my_board.spaces, my_board.header)
 
 def random_ships(numExtraShips):
     ship_arrangement = [2,3,3,4,5]
