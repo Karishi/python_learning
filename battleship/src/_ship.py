@@ -1,5 +1,5 @@
 import random
-import board
+import _board
 
 class ship:
     def __init__(self, size, coordinate, direction, state, name):
@@ -10,10 +10,10 @@ class ship:
         self.name = name
 
 def check_against_unused(ship):
-    if ship.coordinate not in board.unused:
+    if ship.coordinate not in _board.unused:
         return False
     else:
-        board.unused.remove(ship.coordinate)
+        _board.unused.remove(ship.coordinate)
         return True
 
 def place_ship(ship,board):

@@ -1,5 +1,5 @@
 import random
-import ship
+import _ship
 
 def make_board(board):
     for x in range(board.height):
@@ -8,11 +8,13 @@ def make_board(board):
     return [['o' for count in range(board.height)] for rows in range(board.width)], [str(i) for i in range(1,board.width+1)]
 
 class board:
+    unused = []
     def __init__(self, width, height):
         self.width = width
         self.height = height
         self.spaces, self.header = make_board(self)
-        self.unused = []
+        
+
 
 def print_board(board, header):
     print(' '.join(header))
