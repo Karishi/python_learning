@@ -1,5 +1,5 @@
 import random
-from source import _board
+from src._board import *
 import _player
 import _ship
 
