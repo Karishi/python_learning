@@ -1,7 +1,7 @@
 import random
 
 
-class player:
+class Player:
     def __init__(self, title, score):
         self.title = title
         self.score = score

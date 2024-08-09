@@ -1,7 +1,7 @@
 import random
-from src._board import *
-import _player
-import _ship
+from src.board import *
+from src.player import *
+from src.ship import *
 
 def alph_to_num(letter):
     alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -22,9 +22,9 @@ def random_ships(numExtraShips):
     ship_arrangement = [2,3,3,4,5]
     for i in range(numExtraShips):
         size = random.choice in ship_arrangement
-        newShip = _ship(size, (), _ship.random_direction(), {}, "Y")
+        newShip = Ship(size, (), Ship.random_direction(), {}, "Y")
         newShip.name = name_ship(newShip)
-        _ship.place_ship(newShip)
+        Ship.place_ship(newShip)
 
 def name_ship(ship):
     if ship.size == 2:
@@ -39,24 +39,24 @@ def name_ship(ship):
         return "Y"
     
 def place_basic_ships(board):
-    destroyer = _ship(2,random.choice(board.unused),"",0,"D")
-    _ship.place_ship(destroyer,board)
-    submarine = _ship(3,random.choice(board.unused),"",0,"S")
-    _ship.place_ship(submarine,board)
-    cruiser = _ship(3,random.choice(board.unused),"",0,"R")
-    _ship.place_ship(cruiser,board)
-    battleship = _ship(4,random.choice(board.unused),"",0,"B")
-    _ship.place_ship(battleship,board)
-    carrier = _ship(5,random.choice(board.unused),"",0,"C")
-    _ship.place_ship(carrier,board)
+    destroyer = Ship(2,random.choice(board.unused),"",0,"D")
+    Ship.place_ship(destroyer,board)
+    submarine = Ship(3,random.choice(board.unused),"",0,"S")
+    Ship.place_ship(submarine,board)
+    cruiser = Ship(3,random.choice(board.unused),"",0,"R")
+    Ship.place_ship(cruiser,board)
+    battleship = Ship(4,random.choice(board.unused),"",0,"B")
+    Ship.place_ship(battleship,board)
+    carrier = Ship(5,random.choice(board.unused),"",0,"C")
+    Ship.place_ship(carrier,board)
 
 class game:
-    my_board = _board.board(10,10)
+    my_board = Board.board(10,10)
     title = "Joe-Bob"
     score = 0
-    player = _player.player(title, score)
+    player = Player.player(title, score)
     place_basic_ships(my_board)
-    shown_board, header = _board.make_board(my_board)
-    _board.print_board(shown_board,header)
+    shown_board, header = Board.make_board(my_board)
+    Board.print_board(shown_board,header)
 
 game()
