@@ -26,17 +26,6 @@ def random_ships(numExtraShips):
         newShip.name = name_ship(newShip)
         Ship.place_ship(newShip)
 
-def name_ship(ship):
-    if ship.size == 2:
-        return "D"
-    elif ship.size == 3:
-        return "S"
-    elif ship.size == 4:
-        return "B"
-    elif ship.size == 5:
-        return "C"
-    else:
-        return "Y"
     
 def place_basic_ships(board):
     destroyer = Ship(2,random.choice(board.unused),"",0,"D")
