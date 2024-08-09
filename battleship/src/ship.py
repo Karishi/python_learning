@@ -9,23 +9,36 @@ class Ship:
         self.state = state
         self.name = name
 
-def check_against_unused(ship):
-    if ship.coordinate not in Board.unused:
+
+def name_ship(ship):
+    if ship.size == 2:
+        return "D"
+    elif ship.size == 3:
+        return "S"
+    elif ship.size == 4:
+        return "B"
+    elif ship.size == 5:
+        return "C"
+    else:
+        return "Y"
+
+def check_against_unused(ship,board):
+    if ship.coordinate not in board.unused:
         return False
     else:
-        Board.unused.remove(ship.coordinate)
+        board.unused.remove(ship.coordinate)
         return True
 
-def place_ship(ship,board):
+def place_ship(ship,Board):
     ship.direction = random_direction()
     for letter in ship.direction:
-        if check_full_ship(ship,board):
+        if check_full_ship(ship,Board):
             x_shift,y_shift = translate_direction(letter)
             x,y = ship.coordinate
             for i in range(ship.size):
-                board.spaces[(y+i*y_shift,x+i*x_shift)] = name_ship(ship)
-                if (y+i*y_shift,x+i*x_shift) in unused:
-                    unused.remove((y+i*y_shift,x+i*x_shift))
+                Board.spaces[(y+i*y_shift,x+i*x_shift)] = name_ship(ship)
+                if (y+i*y_shift,x+i*x_shift) in Board.unused:
+                    Board.unused.remove((y+i*y_shift,x+i*x_shift))
                 break
 
 def random_direction():
