@@ -5,7 +5,7 @@ def make_board(board):
     for x in range(board.height):
         for y in range(board.width):
             board.unused.append((x,y))
-    return [['o' for count in range(board.height)] for rows in range(board.width)], [str(i) for i in range(1,board.width+1)]
+    return [['o' for count in range(board.width)] for rows in range(board.height)], [str(i) for i in range(1,board.width+1)]
 
 class Board:
     unused = []
