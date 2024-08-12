@@ -1,21 +1,27 @@
-import random
+import board
 
-def make_board(board):
-    for x in range(board.height):
-        for y in range(board.width):
-            board.unused.append((x,y))
-    return [['o' for count in range(board.height)] for rows in range(board.width)], [str(i) for i in range(1,board.width+1)]
+def test_make():
+    myBoard = board.Board(10,10)
+    spaces = myBoard.spaces
+    header = myBoard.header
+    spaces[3][4] = "D"
+    board.print_board(spaces,header)
+    assert spaces[3][3] == "o"
+    assert spaces[3][4] == "o"
+#Should give one success and one failure
 
-class board:
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
-        self.spaces, self.header = make_board(self)
-        self.unused = []
+def test_unused():
+    myBoard = board.Board(10,10)
+    assert len(myBoard.unused) == 100
+    spaces = myBoard.spaces
+    header = myBoard.header
+    x = 3
+    y = 4
+    if (x,y) in myBoard.unused:
+        myBoard.spaces[x][y] = "X"
+        myBoard.unused.remove((x,y))
+    board.print_board(spaces, header)
+    if (x,y) in myBoard.unused:
+        print("Error")
 
-def print_board(board, header):
-    print(' '.join(header))
-    for row in board:
-        print(' '.join(row))
-    print('')
-
+test_unused()
