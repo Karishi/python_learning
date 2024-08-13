@@ -36,7 +36,7 @@ def place_ship(ship,Board):
             x_shift,y_shift = translate_direction(letter)
             x,y = ship.coordinate
             for i in range(ship.size):
-                Board.spaces[(y+i*y_shift,x+i*x_shift)] = name_ship(ship)
+                Board.spaces[x+i*x_shift][y+i*y_shift] = name_ship(ship)
                 if (y+i*y_shift,x+i*x_shift) in Board.unused:
                     Board.unused.remove((y+i*y_shift,x+i*x_shift))
                 break
@@ -80,7 +80,7 @@ def check_full_ship(ship,the_board):
             y_shift,x_shift = translate_direction(ship.direction)
             x = ship.coordinate[0]
             y = ship.coordinate[1]
-            if the_board.spaces[(x+x_shift*i,y+y_shift*i)] != "o":
+            if the_board.spaces[x+x_shift*i][y+y_shift*i] != "o":
                 return False
         return True
     else:

@@ -29,23 +29,22 @@ def random_ships(numExtraShips):
     
 def place_basic_ships(board):
     destroyer = Ship(2,random.choice(board.unused),"",0,"D")
-    Ship.place_ship(destroyer,board)
+    place_ship(destroyer,board)
     submarine = Ship(3,random.choice(board.unused),"",0,"S")
-    Ship.place_ship(submarine,board)
+    place_ship(submarine,board)
     cruiser = Ship(3,random.choice(board.unused),"",0,"R")
-    Ship.place_ship(cruiser,board)
+    place_ship(cruiser,board)
     battleship = Ship(4,random.choice(board.unused),"",0,"B")
-    Ship.place_ship(battleship,board)
+    place_ship(battleship,board)
     carrier = Ship(5,random.choice(board.unused),"",0,"C")
-    Ship.place_ship(carrier,board)
+    place_ship(carrier,board)
 
 class game:
-    my_board = Board.board(10,10)
+    my_board = Board(10,10)
     title = "Joe-Bob"
     score = 0
-    player = Player.player(title, score)
+    player = Player(title, score)
     place_basic_ships(my_board)
-    shown_board, header = Board.make_board(my_board)
-    Board.print_board(shown_board,header)
+    print_board(my_board.spaces,my_board.header)
 
 game()
