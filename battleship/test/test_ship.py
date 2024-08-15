@@ -33,4 +33,10 @@ def test_edge():
     myShip.direction = "W"
     print(f"With coordinates 1,1 going West this returns {ship.edge_check(myShip, myBoard)}.")
 
-test_edge()
+def test_place_ship():
+    myBoard = board.Board(10,10)
+    myShip = ship.Ship(3, ship.get_unused(myBoard), ship.random_direction(), {}, "D")
+    ship.place_ship(myShip, myBoard)
+    board.print_board(myBoard.spaces, myBoard.header)
+
+test_place_ship()
