@@ -21,24 +21,21 @@ def name_ship(ship):
     else:
         return "Y"
 
-def check_against_unused(ship,board):
-    if ship.coordinate not in board.unused:
-        return False
-    else:
-        board.unused.remove(ship.coordinate)
-        return True
+def get_unused(board):
+        start_point = random.choice(board.unused)
+        return start_point
 
-def place_ship(ship,Board):
-    ship.direction = random_direction()
-    for letter in ship.direction:
-        if check_full_ship(ship,Board):
+def place_ship(Ship,Board):
+    Ship.direction = random_direction()
+    for letter in Ship.direction:
+        if check_full_ship(Ship,Board):
             x_shift,y_shift = translate_direction(letter)
-            x,y = ship.coordinate
-            for i in range(ship.size):
-                Board.spaces[x+i*x_shift][y+i*y_shift] = name_ship(ship)
+            x,y = Ship.coordinate
+            for i in range(Ship.size):
+                Board.spaces[x+i*x_shift][y+i*y_shift] = name_ship(Ship)
                 if (y+i*y_shift,x+i*x_shift) in Board.unused:
                     Board.unused.remove((y+i*y_shift,x+i*x_shift))
-                    break
+                
 
 def random_direction():
     directions = ['NESW','ESWN','SWNE','WNES']
