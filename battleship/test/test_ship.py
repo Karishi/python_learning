@@ -38,5 +38,7 @@ def test_place_ship():
     myShip = ship.Ship(3, ship.get_unused(myBoard), ship.random_direction(), {}, "D")
     ship.place_ship(myShip, myBoard)
     board.print_board(myBoard.spaces, myBoard.header)
+    myShip.coordinate = (myShip.coordinate[0]+1,myShip.coordinate[1]+1)
+    print(f"The ship is at {myShip.coordinate} and pointed {myShip.direction}.")
 
 test_place_ship()
