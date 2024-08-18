@@ -1,11 +1,8 @@
-import random
-from src.ship import *
-
 def make_board(board):
-    for x in range(board.height):
-        for y in range(board.width):
-            board.unused.append((x,y))
-    return [['o' for count in range(board.width)] for rows in range(board.height)], [str(i) for i in range(1,board.width+1)]
+    for x in range(board.width):
+        for y in range(board.height):
+            board.unused.append((x+1,y+1))
+    return [['o' for x in range(board.width)] for y in range(board.height)], [str(i) for i in range(1,board.width+1)]
 
 class Board:
     unused = []
@@ -17,8 +14,11 @@ class Board:
 
 
 def print_board(board, header):
-    print(' '.join(header))
-    for row in board:
-        print(' '.join(row))
+    print("X " + ' '.join(header))
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    let = 0
+    for column in board:
+        print(alphabet[let]+" " + ' '.join(column))
+        let += 1
     print('')
 
