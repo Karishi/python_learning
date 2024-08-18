@@ -1,13 +1,13 @@
 import random
-from src.board import *
 
 class Ship:
-    def __init__(self, size, coordinate, direction, state, name):
+    def __init__(self, size, coordinate, state, name):
         self.size = int(size)
         self.coordinate = coordinate
-        self.direction = direction
+        self.direction = "N"
         self.state = state
         self.name = name
+        self.direction_picker = ""
 
 
 def name_ship(ship):
@@ -22,24 +22,21 @@ def name_ship(ship):
     else:
         return "Y"
 
-def check_against_unused(ship,board):
-    if ship.coordinate not in board.unused:
-        return False
-    else:
-        board.unused.remove(ship.coordinate)
-        return True
+def get_unused(board):
+        start_point = random.choice(board.unused)
+        return start_point
 
-def place_ship(ship,Board):
-    ship.direction = random_direction()
-    for letter in ship.direction:
-        if check_full_ship(ship,Board):
-            x_shift,y_shift = translate_direction(letter)
-            x,y = ship.coordinate
-            for i in range(ship.size):
-                Board.spaces[x+i*x_shift][y+i*y_shift] = name_ship(ship)
-                if (y+i*y_shift,x+i*x_shift) in Board.unused:
-                    Board.unused.remove((y+i*y_shift,x+i*x_shift))
-                break
+def place_ship(myShip, myBoard):
+    myShip.direction_picker = random_direction()
+    for letter in myShip.direction_picker:
+        myShip.direction = letter
+        if check_full_ship(myShip,myBoard):
+            x_shift,y_shift = translate_direction(myShip.direction)
+            x,y = myShip.coordinate
+            for i in range(myShip.size):
+                myBoard.spaces[x+i*x_shift][y+i*y_shift] = name_ship(myShip)
+                if (y+i*y_shift,x+i*x_shift) in myBoard.unused:
+                    myBoard.unused.remove((y+i*y_shift,x+i*x_shift))
 
 def random_direction():
     directions = ['NESW','ESWN','SWNE','WNES']
@@ -47,21 +44,19 @@ def random_direction():
 
 def translate_direction(direction):
     if direction.capitalize() == "N":
+        print("It's pointed North")
         return 0,-1
     elif direction.capitalize() == "S":
+        print("It's pointed South")
         return 0,1
     elif direction.capitalize() == "W":
+        print("It's pointed West")
         return -1,0
     elif direction.capitalize() == "E":
+        print("It's pointed East")
         return 1,0
     else:
         return 0,0
-    
-def randomize_ship_start(board):
-    rand_x = random.randint(0,board.width)
-    rand_y = random.randint(0,board.height)
-    print(f"{rand_y+1},{rand_x+1} coordinates")
-    return rand_x, rand_y
     
 def edge_check(ship,board):
     x,y = ship.coordinate
@@ -70,14 +65,16 @@ def edge_check(ship,board):
         x + x_shift * (ship.size-1) > board.width or \
         y + y_shift * (ship.size-1) < 0 or \
         y + y_shift * (ship.size-1) > board.height:
+        print("This is going off the edge!")
         return False
     else:
+        print(f"Edge in direction {ship.direction} found to be usable")
         return True
 
 def check_full_ship(ship,the_board):
     if edge_check(ship,the_board):
         for i in range(ship.size):
-            y_shift,x_shift = translate_direction(ship.direction)
+            x_shift,y_shift = translate_direction(ship.direction)
             x = ship.coordinate[0]
             y = ship.coordinate[1]
             if the_board.spaces[x+x_shift*i][y+y_shift*i] != "o":

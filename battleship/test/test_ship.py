@@ -27,7 +27,7 @@ def test_edge():
 
 def test_place_ship():
     myBoard = Board(10,10)
-    myShip = Ship(3, ship.get_unused(myBoard), {}, "D")
+    myShip = Ship(3, get_unused(myBoard), {}, "D")
     place_ship(myShip, myBoard)
     print_board(myBoard.spaces, myBoard.header)
     myShip.coordinate = (myShip.coordinate[0]+1,myShip.coordinate[1]+1)
