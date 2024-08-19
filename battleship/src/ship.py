@@ -37,6 +37,16 @@ def place_ship(myShip, myBoard):
                 myBoard.spaces[x+i*x_shift][y+i*y_shift] = name_ship(myShip)
                 if (y+i*y_shift,x+i*x_shift) in myBoard.unused:
                     myBoard.unused.remove((y+i*y_shift,x+i*x_shift))
+            return True
+
+def place_pips(myShip, myBoard):
+    x_shift, y_shift = translate_direction(myShip.direction)
+    x,y = myShip.coordinate
+    for i in range(myShip.size):
+        myBoard.spaces[y + i*y_shift][x + i*x_shift] = myShip.name
+        if (y + i*y_shift, x + i*x_shift) in myBoard.unused:
+            myBoard.unused.remove((y + i*y_shift, x + i*x_shift))
+            print(f"Removed {(y + i*y_shift, x + i*x_shift)}")
 
 def random_direction():
     directions = ['NESW','ESWN','SWNE','WNES']

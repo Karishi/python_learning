@@ -29,4 +29,3 @@ def test_print():
     myBoard.spaces[9][1] = "X"
     print_board(myBoard.spaces, myBoard.header)
 
-test_unused()
