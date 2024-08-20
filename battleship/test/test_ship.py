@@ -35,9 +35,21 @@ def test_place_ship():
 
 def test_place_pips():
     myBoard = Board(10,10)
-    myShip = Ship(4, (5,7), {}, "B")
+    myShip = Ship(4, (0,5), {}, "B")
     myShip.direction = "N"
     place_pips(myShip, myBoard)
     print_board(myBoard.spaces, myBoard.header)
 
-test_place_pips()
+def test_check_full_ship():
+    myBoard = Board(11,11)
+    blockingShip = Ship(4, (1,5), {}, "B")
+    blockingShip.direction = "N"
+    crashingShip = Ship(5, (3, 3), {}, "C")
+    crashingShip.direction = "W"
+    place_pips(blockingShip, myBoard)
+    print(f"The check of the full ship reads as {check_full_ship(crashingShip, myBoard)}")
+    crashingShip.coordinate = (5,3)
+    print(f"The check of the full ship reads as {check_full_ship(crashingShip, myBoard)}")
+    print_board(myBoard.spaces, myBoard.header)
+
+test_check_full_ship()
