@@ -31,12 +31,7 @@ def place_ship(myShip, myBoard):
     for letter in myShip.direction_picker:
         myShip.direction = letter
         if check_full_ship(myShip,myBoard):
-            x_shift,y_shift = translate_direction(myShip.direction)
-            x,y = myShip.coordinate
-            for i in range(myShip.size):
-                myBoard.spaces[x+i*x_shift][y+i*y_shift] = name_ship(myShip)
-                if (y+i*y_shift,x+i*x_shift) in myBoard.unused:
-                    myBoard.unused.remove((y+i*y_shift,x+i*x_shift))
+            place_pips(myShip, myBoard)
             return True
 
 def place_pips(myShip, myBoard):
@@ -83,11 +78,12 @@ def edge_check(ship,board):
 
 def check_full_ship(ship,the_board):
     if edge_check(ship,the_board):
+        x_shift,y_shift = translate_direction(ship.direction)
+        x = ship.coordinate[0]
+        y = ship.coordinate[1]
         for i in range(ship.size):
-            x_shift,y_shift = translate_direction(ship.direction)
-            x = ship.coordinate[0]
-            y = ship.coordinate[1]
-            if the_board.spaces[x+x_shift*i][y+y_shift*i] != "o":
+            if the_board.spaces[y+y_shift*i][x+x_shift*i] != "o":
+                print('This hits a ship')
                 return False
         return True
     else:
