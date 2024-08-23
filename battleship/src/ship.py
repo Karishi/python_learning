@@ -1,4 +1,5 @@
 import random
+from src.board import print_board
 
 class Ship:
     def __init__(self, size, coordinate, state, name):
@@ -21,6 +22,8 @@ def name_ship(ship):
         return "C"
     else:
         return "Y"
+    
+standard_ships = [Ship(2, (0,0), {}, "D"), Ship(3, (0,0), {}, "S"), Ship(3, (0,0), {}, "R"), Ship(4, (0,0), {}, "B"), Ship(5, (0,0), {}, "C")]
 
 def get_unused(board):
         start_point = random.choice(board.unused)
@@ -33,15 +36,17 @@ def place_ship(myShip, myBoard):
         if check_full_ship(myShip,myBoard):
             place_pips(myShip, myBoard)
             return True
+    print(f"All directions from point {myShip.coordinate} failed")
+    return False
 
 def place_pips(myShip, myBoard):
     x_shift, y_shift = translate_direction(myShip.direction)
     x,y = myShip.coordinate
     for i in range(myShip.size):
         myBoard.spaces[y + i*y_shift][x + i*x_shift] = myShip.name
-        if (y + i*y_shift, x + i*x_shift) in myBoard.unused:
-            myBoard.unused.remove((y + i*y_shift, x + i*x_shift))
-            print(f"Removed {(y + i*y_shift, x + i*x_shift)}")
+        if (x + i*x_shift, y + i*y_shift) in myBoard.unused:
+            myBoard.unused.remove((x + i*x_shift, y + i*y_shift))
+            print(f"Removed {(x + i*x_shift, y + i*y_shift)}")
 
 def random_direction():
     directions = ['NESW','ESWN','SWNE','WNES']
@@ -64,16 +69,16 @@ def translate_direction(direction):
         return 0,0
     
 def edge_check(ship,board):
-    x,y = ship.coordinate
-    x_shift,y_shift = translate_direction(ship.direction)
+    y,x = ship.coordinate
+    y_shift,x_shift = translate_direction(ship.direction)
     if  x + x_shift * (ship.size-1) < 0 or \
-        x + x_shift * (ship.size-1) > board.width or \
+        x + x_shift * (ship.size-1) > board.width-1 or \
         y + y_shift * (ship.size-1) < 0 or \
-        y + y_shift * (ship.size-1) > board.height:
+        y + y_shift * (ship.size-1) > board.height-1:
         print("This is going off the edge!")
         return False
     else:
-        print(f"Edge in direction {ship.direction} found to be usable")
+        print(f"Edge in direction {ship.direction} acceptable from {ship.coordinate}")
         return True
 
 def check_full_ship(ship,the_board):
@@ -82,10 +87,19 @@ def check_full_ship(ship,the_board):
         x = ship.coordinate[0]
         y = ship.coordinate[1]
         for i in range(ship.size):
-            if the_board.spaces[y+y_shift*i][x+x_shift*i] != "o":
+            if the_board.spaces[y+y_shift*i-1][x+x_shift*i-1] != "o":
                 print('This hits a ship')
                 return False
         return True
     else:
         return False
     
+def fill_standard_board(myBoard):
+    for theShip in standard_ships:
+        print(f"Now attempting ship {theShip.name}")
+        theShip.coordinate = get_unused(myBoard)
+        successful_place = False
+        print(len(myBoard.unused))
+        while successful_place == False and len(myBoard.unused) > 0:
+            successful_place = place_ship(theShip, myBoard)
+        print_board(myBoard.spaces, myBoard.header)
