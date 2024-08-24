@@ -2,50 +2,49 @@ import random
 from src.board import print_board
 
 class Ship:
-    def __init__(self, size, coordinate, state, name):
+    def __init__(self, size, coordinate, name):
         self.size = int(size)
         self.coordinate = coordinate
         self.direction = "N"
-        self.state = state
+        self.state = 0
         self.name = name
         self.direction_picker = ""
 
-
-def name_ship(ship):
-    if ship.size == 2:
+def name_ship(my_ship):
+    if my_ship.size == 2:
         return "D"
-    elif ship.size == 3:
+    elif my_ship.size == 3:
         return "S"
-    elif ship.size == 4:
+    elif my_ship.size == 4:
         return "B"
-    elif ship.size == 5:
+    elif my_ship.size == 5:
         return "C"
     else:
         return "Y"
-    
-standard_ships = [Ship(2, (0,0), {}, "D"), Ship(3, (0,0), {}, "S"), Ship(3, (0,0), {}, "R"), Ship(4, (0,0), {}, "B"), Ship(5, (0,0), {}, "C")]
 
-def get_unused(board):
-        start_point = random.choice(board.unused)
+standard_ships = [Ship(2, (0,0), "D"), Ship(3, (0,0), "S"), Ship(3, (0,0), "R"), Ship(4, (0,0), "B"), Ship(5, (0,0), "C")]
+
+def get_unused(my_board):
+        start_point = random.choice(my_board.unused)
         return start_point
 
-def place_ship(myShip, myBoard):
-    myShip.direction_picker = random_direction()
-    for letter in myShip.direction_picker:
-        myShip.direction = letter
-        if check_full_ship(myShip,myBoard):
-            place_pips(myShip, myBoard)
+def place_ship(my_ship, my_board):
+    my_ship.direction_picker = random_direction()
+    for letter in my_ship.direction_picker:
+        my_ship.direction = letter
+        if check_full_ship(my_ship,my_board):
+            place_pips(my_ship, my_board)
             return True
-    print(f"All directions from point {myShip.coordinate} failed")
+    print(f"All directions from point {my_ship.coordinate} failed")
     return False
 
-def place_pips(myShip, myBoard):
-    x_shift, y_shift = translate_direction(myShip.direction)
-    x,y = myShip.coordinate
-    for i in range(myShip.size):
-        myBoard.spaces[y + i*y_shift][x + i*x_shift] = myShip.name
-        if (x + i*x_shift, y + i*y_shift) in myBoard.unused:
-            myBoard.unused.remove((x + i*x_shift, y + i*y_shift))
+def place_pips(my_ship, my_board):
+    x_shift, y_shift = translate_direction(my_ship.direction)
+    x,y = my_ship.coordinate
+    for i in range(my_ship.size):
+        my_board.spaces[y + i*y_shift][x + i*x_shift] = my_ship.name
+        if (x + i*x_shift, y + i*y_shift) in my_board.unused:
+            my_board.unused.remove((x + i*x_shift, y + i*y_shift))
             print(f"Removed {(x + i*x_shift, y + i*y_shift)}")
 
 def random_direction():
@@ -68,38 +67,39 @@ def translate_direction(direction):
     else:
         return 0,0
     
-def edge_check(ship,board):
-    y,x = ship.coordinate
-    y_shift,x_shift = translate_direction(ship.direction)
-    if  x + x_shift * (ship.size-1) < 0 or \
-        x + x_shift * (ship.size-1) > board.width-1 or \
-        y + y_shift * (ship.size-1) < 0 or \
-        y + y_shift * (ship.size-1) > board.height-1:
+def edge_check(my_ship,my_board):
+    y,x = my_ship.coordinate
+    y_shift,x_shift = translate_direction(my_ship.direction)
+    if  x + x_shift * (my_ship.size-1) < 0 or \
+        x + x_shift * (my_ship.size-1) > my_board.width-1 or \
+        y + y_shift * (my_ship.size-1) < 0 or \
+        y + y_shift * (my_ship.size-1) > my_board.height-1:
         print("This is going off the edge!")
         return False
     else:
-        print(f"Edge in direction {ship.direction} acceptable from {ship.coordinate}")
+        print(f"Edge in direction {my_ship.direction} acceptable from {my_ship.coordinate}")
         return True
 
-def check_full_ship(ship,the_board):
-    if edge_check(ship,the_board):
-        x_shift,y_shift = translate_direction(ship.direction)
-        x = ship.coordinate[0]
-        y = ship.coordinate[1]
-        for i in range(ship.size):
-            if the_board.spaces[y+y_shift*i-1][x+x_shift*i-1] != "o":
+def check_full_ship(my_ship, my_board):
+    if edge_check(my_ship,my_board):
+        x_shift,y_shift = translate_direction(my_ship.direction)
+        x = my_ship.coordinate[0]
+        y = my_ship.coordinate[1]
+        for i in range(my_ship.size):
+            print(f"checking space ({y+y_shift*i}, {x+x_shift*i})")
+            if my_board.spaces[y+y_shift*i][x+x_shift*i] != "o":
                 print('This hits a ship')
                 return False
         return True
     else:
         return False
-    
-def fill_standard_board(myBoard):
-    for theShip in standard_ships:
-        print(f"Now attempting ship {theShip.name}")
-        theShip.coordinate = get_unused(myBoard)
+
+def fill_standard_board(my_board):
+    for the_ship in standard_ships:
+        print(f"Now attempting ship {the_ship.name}")
+        the_ship.coordinate = get_unused(my_board)
         successful_place = False
-        print(len(myBoard.unused))
-        while successful_place == False and len(myBoard.unused) > 0:
-            successful_place = place_ship(theShip, myBoard)
-        print_board(myBoard.spaces, myBoard.header)
+        print(len(my_board.unused))
+        while successful_place == False and len(my_board.unused) > 0:
+            successful_place = place_ship(the_ship, my_board)
+        print_board(my_board.spaces, my_board.header)
