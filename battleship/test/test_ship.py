@@ -69,10 +69,10 @@ def test_off_1_check_full_placement():
     my_board = Board(10, 10)
     first_ship = Ship(4, (3, 3), "B")
     crashing_ship = Ship(4, (3, 6), "C")
-    first_ship.direction = "N"
-    crashing_ship.direction = "E"
+    first_ship.direction = "W"
+    crashing_ship.direction = "N"
     place_ship(first_ship, my_board)
     place_ship(crashing_ship, my_board)
     print_board(my_board.spaces, my_board.header)
 
-test_off_1_check_full_placement()
+test_place_ship()
