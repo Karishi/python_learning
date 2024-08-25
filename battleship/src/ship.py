@@ -81,7 +81,7 @@ def edge_check(my_ship,my_board):
         return True
 
 def check_full_ship(my_ship, my_board):
-    if edge_check(my_ship,my_board):
+    if edge_check(my_ship, my_board):
         x_shift,y_shift = translate_direction(my_ship.direction)
         x = my_ship.coordinate[0]
         y = my_ship.coordinate[1]
