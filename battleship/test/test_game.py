@@ -16,7 +16,7 @@ def test_fire_torpedo():
     hidden_board = Board(10, 10)
     fill_standard_board(hidden_board)
     visible_board = Board(10, 10)
-    fire_torpedo("F8", hidden_board, visible_board)
+    fire_torpedo("E5", hidden_board, visible_board)
     print_both(hidden_board, visible_board)
 
-test_split()
+test_fire_torpedo()

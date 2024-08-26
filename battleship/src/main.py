@@ -46,11 +46,11 @@ def print_both(hidden, visible):
     print_board(visible.spaces, visible.header)
 
 def fire_torpedo(target, hidden, visible):
-    y, x = split_coordinates(target)
-    if hidden.spaces[x][y] != "o":
-        visible.spaces[x][y] = hidden.spaces[x][y]
+    x, y = split_coordinates(target)
+    if hidden.spaces[x][y-1] != "o":
+        visible.spaces[x][y-1] = hidden.spaces[x][y-1]
     else:
-        visible.spaces[x][y] = "X"
+        visible.spaces[x][y-1] = "X"
 
 class game:
     hidden_board = Board(10,10)
