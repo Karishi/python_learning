@@ -12,7 +12,7 @@ def alph_to_num(letter):
     return -1
 
 def split_coordinates(coordinate_set):
-    first_char = coordinate_set[1]
+    first_char = coordinate_set[0]
     letter = coordinate_set[first_char]
     end_chars = coordinate_set[1:]
     number = int(coordinate_set[end_chars])
@@ -46,7 +46,8 @@ def print_both(hidden, visible):
     print_board(visible.spaces, visible.header)
 
 def fire_torpedo(target, hidden, visible):
-    y, x = split_coordinates(target)
+    x, y = split_coordinates(target)
+    print(f"X is {x} and Y is {y}")
     if hidden.spaces[x][y] != "o":
         visible.spaces[x][y] = hidden.spaces[x][y]
     else:
