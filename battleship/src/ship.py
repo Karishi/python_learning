@@ -6,7 +6,7 @@ class Ship:
         self.size = int(size)
         self.coordinate = coordinate
         self.direction = "N"
-        self.state = 0
+        self.damage = 0
         self.name = name
         self.direction_picker = ""
 
@@ -102,4 +102,7 @@ def fill_standard_board(my_board):
         print(len(my_board.unused))
         while successful_place == False and len(my_board.unused) > 0:
             successful_place = place_ship(the_ship, my_board)
+            list_of_ships.append(the_ship)
         print_board(my_board.spaces, my_board.header)
+
+list_of_ships = []

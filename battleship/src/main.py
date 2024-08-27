@@ -49,6 +49,12 @@ def fire_torpedo(target, hidden, visible):
     x, y = split_coordinates(target)
     if hidden.spaces[x][y-1] != "o":
         visible.spaces[x][y-1] = hidden.spaces[x][y-1]
+        print("A hit!")
+        for ship in list_of_ships:
+            if ship.name == visible.spaces[x][y-1]:
+                ship.damage += 1
+                if ship.damage >= ship.size:
+                    print(f"Ship {ship.name} sunk!")
     else:
         visible.spaces[x][y-1] = "X"
 
