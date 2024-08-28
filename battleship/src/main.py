@@ -45,18 +45,34 @@ def print_both(hidden, visible):
     print_board(hidden.spaces, hidden.header)
     print_board(visible.spaces, visible.header)
 
-def fire_torpedo(target, hidden, visible):
+def fire_torpedo(target, hidden, visible, unsunk):
     x, y = split_coordinates(target)
     if hidden.spaces[x][y-1] != "o":
         visible.spaces[x][y-1] = hidden.spaces[x][y-1]
         print("A hit!")
-        for ship in list_of_ships:
-            if ship.name == visible.spaces[x][y-1]:
-                ship.damage += 1
-                if ship.damage >= ship.size:
-                    print(f"Ship {ship.name} sunk!")
+        sink_ship(visible, x, y, unsunk)
     else:
         visible.spaces[x][y-1] = "X"
+
+def aim_torpedo(target, visible):
+    x, y = split_coordinates(target)
+    if visible.spaces[x][y-1] != "o":
+        return True
+    else:
+        return False
+
+def target(visible):
+    attempt = input("Where will you fire? > ")
+    while aim_torpedo(attempt, visible):
+        attempt = input("You've already shot there! Where will you aim? > ")
+    return attempt
+
+def loop_until_win(hidden, visible):
+    unsunk_ships = len(list_of_ships)
+    while unsunk_ships > 0:
+        print_both(hidden, visible)
+        fire_torpedo(target(), hidden, visible, unsunk_ships)
+    print("Congratulations, you win!")
 
 class game:
     hidden_board = Board(10,10)
@@ -64,7 +80,8 @@ class game:
     title = "Joe-Bob"
     score = 0
     player = Player(title, score)
-    place_basic_ships(hidden_board)
-    print_both(hidden_board, visible_board)
+    fill_standard_board(hidden_board)
+    print(list_of_ships)
+    loop_until_win(hidden_board, visible_board)
 
 game()
