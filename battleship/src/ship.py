@@ -105,4 +105,12 @@ def fill_standard_board(my_board):
             list_of_ships.append(the_ship)
         print_board(my_board.spaces, my_board.header)
 
+def sink_ship(visible, x, y, unsunk):
+    for ship in list_of_ships:
+        if ship.name == visible.spaces[x][y-1]:
+            ship.damage += 1
+            if ship.damage >= ship.size:
+                unsunk -= 1
+                print(f"Ship {ship.name} sunk!")
+
 list_of_ships = []
