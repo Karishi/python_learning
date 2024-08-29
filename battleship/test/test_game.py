@@ -19,4 +19,11 @@ def test_fire_torpedo():
     fire_torpedo("E5", hidden_board, visible_board)
     print_both(hidden_board, visible_board)
 
-test_fire_torpedo()
+def test_loop_to_win():
+    hidden = Board(10, 10)
+    visible = Board(10, 10)
+    battleship = Ship(4, (2,5), "B")
+    place_ship(battleship, hidden, "S")
+    loop_until_win(hidden, visible)
+
+test_loop_to_win()

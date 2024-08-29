@@ -1,5 +1,8 @@
 import random
 from src.board import print_board
+from multipledispatch import dispatch
+
+list_of_ships = []
 
 class Ship:
     def __init__(self, size, coordinate, name):
@@ -9,6 +12,7 @@ class Ship:
         self.damage = 0
         self.name = name
         self.direction_picker = ""
+        list_of_ships.append(self)
 
 def name_ship(my_ship):
     if my_ship.size == 2:
@@ -37,6 +41,11 @@ def place_ship(my_ship, my_board):
             return True
     print(f"All directions from point {my_ship.coordinate} failed")
     return False
+
+def place_ship(my_ship, my_board, direction):
+    my_ship.direction = direction
+    place_pips(my_ship, my_board)
+    return True
 
 def place_pips(my_ship, my_board):
     x_shift, y_shift = translate_direction(my_ship.direction)
@@ -112,5 +121,3 @@ def sink_ship(visible, x, y, unsunk):
             if ship.damage >= ship.size:
                 unsunk -= 1
                 print(f"Ship {ship.name} sunk!")
-
-list_of_ships = []
