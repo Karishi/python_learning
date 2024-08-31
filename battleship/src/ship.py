@@ -110,7 +110,7 @@ def fill_standard_board(my_board):
         successful_place = False
         print(len(my_board.unused))
         while successful_place == False and len(my_board.unused) > 0:
-            successful_place = place_ship(the_ship, my_board)
+            successful_place = place_ship(the_ship, my_board, "S")
             list_of_ships.append(the_ship)
         print_board(my_board.spaces, my_board.header)
 
