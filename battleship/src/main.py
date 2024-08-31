@@ -71,7 +71,7 @@ def loop_until_win(hidden, visible):
     unsunk_ships = len(list_of_ships)
     while unsunk_ships > 0:
         print_both(hidden, visible)
-        fire_torpedo(target(), hidden, visible, unsunk_ships)
+        fire_torpedo(target(visible), hidden, visible, unsunk_ships)
     print("Congratulations, you win!")
 
 class game:

@@ -56,8 +56,8 @@ def test_check_full_ship():
 
 def test_place_ship():
     myBoard = Board(10, 10)
-    myShip = Ship(4, get_unused(myBoard), 0, "B")
-    place_ship(myShip, myBoard)
+    myShip = Ship(4, (5, 5), "B")
+    place_ship(myShip, myBoard, "E")
     print_board(myBoard.spaces, myBoard.header)
 
 def test_place_standard():
