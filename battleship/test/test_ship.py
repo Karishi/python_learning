@@ -15,17 +15,19 @@ def test_trans_direction():
     print_board(my_board.spaces, my_board.header)
 
 def test_edge():
-    myBoard = Board(10, 2)
-    myShip = Ship(3, (0,1), 0, "D")
-    print(f"With coordinates {myShip.coordinate} going North this returns {edge_check(myShip, myBoard)}.")
-    myShip.direction = "E"
-    print(f"With coordinates {myShip.coordinate} going East this returns {edge_check(myShip, myBoard)}.")
-    myShip.direction = "S"
-    print(f"With coordinates {myShip.coordinate} going South this returns {edge_check(myShip, myBoard)}.")
-    myShip.direction = "W"
-    print(f"With coordinates {myShip.coordinate} going West this returns {edge_check(myShip, myBoard)}.")
-    place_ship(myShip, myBoard)
-    print_board(myBoard.spaces, myBoard.header)
+    my_board = Board(10, 2)
+    my_ship = Ship(3, (0,1), "D")
+    print(f"This starts at coordinate {my_ship.coordinate}.")
+    my_ship.direction = "N"
+    print(f"Going North this returns {edge_check(my_ship, my_board)}.")
+    my_ship.direction = "E"
+    print(f"Going East this returns {edge_check(my_ship, my_board)}.")
+    my_ship.direction = "S"
+    print(f"Going South this returns {edge_check(my_ship, my_board)}.")
+    my_ship.direction = "W"
+    print(f"Going West this returns {edge_check(my_ship, my_board)}.")
+    place_ship(my_ship, my_board)
+    print_board(my_board.spaces, my_board.header)
 
 def test_place_ship():
     myBoard = Board(10, 10)
@@ -57,7 +59,7 @@ def test_check_full_ship():
 def test_place_ship():
     myBoard = Board(10, 10)
     myShip = Ship(4, (5, 5), "B")
-    place_ship(myShip, myBoard, "E")
+    place_ship(myShip, myBoard)
     print_board(myBoard.spaces, myBoard.header)
 
 def test_place_standard():
@@ -75,4 +77,4 @@ def test_off_1_check_full_placement():
     place_ship(crashing_ship, my_board)
     print_board(my_board.spaces, my_board.header)
 
-test_place_ship()
+test_place_standard()

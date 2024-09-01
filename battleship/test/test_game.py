@@ -23,7 +23,7 @@ def test_loop_to_win():
     hidden = Board(10, 10)
     visible = Board(10, 10)
     battleship = Ship(4, (5,5), "B")
-    place_ship(battleship, hidden, "S")
+    place_ship(battleship, hidden)
     loop_until_win(hidden, visible)
 
 test_loop_to_win()

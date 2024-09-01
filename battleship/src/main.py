@@ -18,13 +18,13 @@ def split_coordinates(coordinate_set):
     number = int(end_chars)
     return letter, number
 
-def random_ships(numExtraShips):
+def random_ships(numExtraShips, my_board):
     ship_arrangement = [2,3,3,4,5]
     for i in range(numExtraShips):
         size = random.choice in ship_arrangement
-        newShip = Ship(size, (), Ship.random_direction(), {}, "Y")
-        newShip.name = name_ship(newShip)
-        Ship.place_ship(newShip)
+        my_ship = Ship(size, (), Ship.random_direction(), {}, "Y")
+        my_ship.name = name_ship(my_ship)
+        place_ship(my_ship, my_board)
 
     
 def place_basic_ships(board):

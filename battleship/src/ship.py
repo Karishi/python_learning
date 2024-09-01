@@ -42,14 +42,9 @@ def place_ship(my_ship, my_board):
     print(f"All directions from point {my_ship.coordinate} failed")
     return False
 
-def place_ship(my_ship, my_board, direction):
-    my_ship.direction = direction
-    place_pips(my_ship, my_board)
-    return True
-
 def place_pips(my_ship, my_board):
     x_shift, y_shift = translate_direction(my_ship.direction)
-    x,y = my_ship.coordinate
+    x, y = my_ship.coordinate
     for i in range(my_ship.size):
         my_board.spaces[y + i*y_shift][x + i*x_shift] = my_ship.name
         if (x + i*x_shift, y + i*y_shift) in my_board.unused:
@@ -77,8 +72,8 @@ def translate_direction(direction):
         return 0,0
     
 def edge_check(my_ship,my_board):
-    y,x = my_ship.coordinate
-    y_shift,x_shift = translate_direction(my_ship.direction)
+    x, y = my_ship.coordinate
+    x_shift, y_shift = translate_direction(my_ship.direction)
     if  x + x_shift * (my_ship.size-1) < 0 or \
         x + x_shift * (my_ship.size-1) > my_board.width-1 or \
         y + y_shift * (my_ship.size-1) < 0 or \
@@ -110,7 +105,7 @@ def fill_standard_board(my_board):
         successful_place = False
         print(len(my_board.unused))
         while successful_place == False and len(my_board.unused) > 0:
-            successful_place = place_ship(the_ship, my_board, "S")
+            successful_place = place_ship(the_ship, my_board)
             list_of_ships.append(the_ship)
         print_board(my_board.spaces, my_board.header)
 
