@@ -1,0 +1,12 @@
+Once there is a hidden board on a 10x10 grid containing a 2-pip ship (destroyer D), two 3-pip ships (submarine S and cruiser R), a 4-pip ship (battleship B), and a 5-pip ship (carrier C), the tuple list of "unused" spaces is no longer relevant. "Unused" should not be confused with "unguessed."
+The gameplay loop should be:
+1) The system prints the visible board. At the start of the game this only includes empty pips, represented by lowercase o.
+2) The system requests coordinate input, perhaps prompting that it can be "such as A10 or E7" to clarify the intended response format and make clear that all combinations represented on the board are valid.
+3) The input is then fed into "fire_torpedo." This has its own substeps:
+3a) Split Coordinates takes the value fed in and turns it into a pair of values; The first character being converted from A-Z into 1-26, while the remaining characters convert into a single integer (F10 becomes 6, 10).
+3b) This input is then tested against the matching point visible board (visible.spaces). If it finds something other than "o" the user has already guessed this space. This should loop back to the request for input rather than continuing.
+3c) Once the input given is valid, it's tested against the corresponding point on the hidden board (hidden.spaces). If it's an "o" the corresponding space on the visible board is marked with an "X" to show that the space has already been guessed. If it isn't an "o" then a ship has been hit. A few things happen.
+3c1) The corresponding space on the visible board is marked with the name of the ship. my_ship.name is a single letter, such as "B" for the Battleship. This prevents duplicate guesses on the space thanks to 3b, which is important because
+3c2) The ship is then found in a list of ships. During initialization, part of the process of adding ships to the board is adding the objects to the list.  To find it we use a for loop that goes through the list of ships and compares the name of the ship to the space just guessed by the player.
+3c3) The ship's "hits" value is increased by 1. Then this new value is tested against the ship's size. If it's equal (or greater, which shouldn't happen), the ship is sunk. This in turn decreases the number of ships on the board. (During initialization, the process of adding ships to the board should increment "number of ships on board")
+4) If the number of ships is now down to 0 (or lower, which shouldn't be possible), the game ends in victory! If not, the process loops back to step 1.

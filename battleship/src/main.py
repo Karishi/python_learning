@@ -45,12 +45,11 @@ def print_both(hidden, visible):
     print_board(hidden.spaces, hidden.header)
     print_board(visible.spaces, visible.header)
 
-def fire_torpedo(target, hidden, visible, unsunk):
+def fire_torpedo(target, hidden, visible):
     x, y = split_coordinates(target)
     if hidden.spaces[x][y-1] != "o":
         visible.spaces[x][y-1] = hidden.spaces[x][y-1]
-        print("A hit!")
-        sink_ship(visible, x, y, unsunk)
+        sink_ship(hidden, visible, x, y)
     else:
         visible.spaces[x][y-1] = "X"
 
@@ -71,7 +70,7 @@ def loop_until_win(hidden, visible):
     unsunk_ships = len(list_of_ships)
     while unsunk_ships > 0:
         print_both(hidden, visible)
-        fire_torpedo(target(visible), hidden, visible, unsunk_ships)
+        fire_torpedo(target(visible), hidden, visible)
     print("Congratulations, you win!")
 
 class game:
@@ -84,4 +83,4 @@ class game:
     print(list_of_ships)
     loop_until_win(hidden_board, visible_board)
 
-game()
+# game()

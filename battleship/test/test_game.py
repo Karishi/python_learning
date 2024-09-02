@@ -26,4 +26,12 @@ def test_loop_to_win():
     place_ship(battleship, hidden)
     loop_until_win(hidden, visible)
 
-test_loop_to_win()
+def test_take_a_turn():
+    hidden_board = Board(10, 10)
+    fill_standard_board(hidden_board)
+    visible_board = Board(10, 10)
+    print_both(hidden_board, visible_board)
+    my_target = target(visible_board)
+    fire_torpedo(my_target, hidden_board, visible_board)
+
+test_take_a_turn()
