@@ -1,6 +1,5 @@
 import random
 from src.board import print_board
-from multipledispatch import dispatch
 
 list_of_ships = []
 
@@ -38,6 +37,7 @@ def place_ship(my_ship, my_board):
         my_ship.direction = letter
         if check_full_ship(my_ship,my_board):
             place_pips(my_ship, my_board)
+            my_board.unsunk += 1
             return True
     print(f"All directions from point {my_ship.coordinate} failed")
     return False
@@ -100,19 +100,19 @@ def check_full_ship(my_ship, my_board):
 
 def fill_standard_board(my_board):
     for the_ship in standard_ships:
-        print(f"Now attempting ship {the_ship.name}")
+        # print(f"Now attempting ship {the_ship.name}")
         the_ship.coordinate = get_unused(my_board)
         successful_place = False
         print(len(my_board.unused))
         while successful_place == False and len(my_board.unused) > 0:
             successful_place = place_ship(the_ship, my_board)
-            list_of_ships.append(the_ship)
         print_board(my_board.spaces, my_board.header)
 
-def sink_ship(visible, x, y, unsunk):
+def sink_ship(hidden, visible, x, y):
     for ship in list_of_ships:
         if ship.name == visible.spaces[x][y-1]:
             ship.damage += 1
+            print(f"A hit to ship {ship.name}!")
             if ship.damage >= ship.size:
-                unsunk -= 1
+                hidden.unsunk -= 1
                 print(f"Ship {ship.name} sunk!")

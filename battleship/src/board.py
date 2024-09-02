@@ -10,6 +10,7 @@ class Board:
         self.width = width
         self.height = height
         self.spaces, self.header = make_board(self)
+        self.unsunk = 0
 
 def print_board(board, header):
     print("X " + ' '.join(header))
