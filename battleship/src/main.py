@@ -67,9 +67,9 @@ def target(visible):
     return attempt
 
 def loop_until_win(hidden, visible):
-    unsunk_ships = len(list_of_ships)
-    while unsunk_ships > 0:
+    while hidden.unsunk > 0:
         print_both(hidden, visible)
+        print(f"There are {hidden.unsunk} ships remaining.")
         fire_torpedo(target(visible), hidden, visible)
     print("Congratulations, you win!")
 
@@ -80,7 +80,6 @@ class game:
     score = 0
     player = Player(title, score)
     fill_standard_board(hidden_board)
-    print(list_of_ships)
     loop_until_win(hidden_board, visible_board)
 
-# game()
+game()

@@ -33,5 +33,3 @@ def test_take_a_turn():
     print_both(hidden_board, visible_board)
     my_target = target(visible_board)
     fire_torpedo(my_target, hidden_board, visible_board)
-
-test_take_a_turn()

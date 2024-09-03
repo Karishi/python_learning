@@ -114,5 +114,7 @@ def sink_ship(hidden, visible, x, y):
             ship.damage += 1
             print(f"A hit to ship {ship.name}!")
             if ship.damage >= ship.size:
+                print(f"Hidden.unsunk is {hidden.unsunk}")
                 hidden.unsunk -= 1
+                print(f"Hidden.unsunk is {hidden.unsunk}")
                 print(f"Ship {ship.name} sunk!")
