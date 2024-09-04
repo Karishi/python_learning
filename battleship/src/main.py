@@ -25,6 +25,10 @@ def random_ships(numExtraShips, my_board):
         my_ship = Ship(size, (), Ship.random_direction(), {}, "Y")
         my_ship.name = name_ship(my_ship)
         place_ship(my_ship, my_board)
+    if numExtraShips < 1:
+        return False
+    else:
+        return True
 
     
 def place_basic_ships(board):
@@ -38,6 +42,7 @@ def place_basic_ships(board):
     place_ship(battleship,board)
     carrier = Ship(5, random.choice(board.unused), "C")
     place_ship(carrier,board)
+    return board
 
 # Usable during testing to see what's going on.
 # Disable for real play by changing instances to print_board(visible).
