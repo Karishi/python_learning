@@ -1,0 +1,8 @@
+Starting plan for the game initialization:
+1) Create 3-5 targets.
+2) Randomize elements.
+3) Randomize values within range for first 4, but last one is 100-(other 4)
+
+4) Draw a hand of cards.
+
+
