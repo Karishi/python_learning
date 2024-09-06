@@ -1,8 +1,16 @@
 Starting plan for the game initialization:
 1) Create 3-5 targets.
 2) Randomize elements.
-3) Randomize values within range for first 4, but last one is 100-(other 4)
+3) Randomize values within range for first x-1, but last one is 100-(others)
 
 4) Draw a hand of cards.
 
+Ordering this a little more carefully:
+'Target' objects contain a "truth" string, an "options" list of strings, and a "value" int.
+First thing that happens is a randomization of how many targets will exist. This gets stored in a value for later. There's also a "subtotal" int variable.
+Second, there's a for-loop where x-1 of the 3 to 5 get picked with values 5 to 90/(x-1), or roughly 45 for 3, 30 for 4, and 23 for 5. As the loop goes, the roll is added to subtotal.
+Options always starts as the full list of element options, and Truth is picked randomly from the list on initialization.
+For the final target, the value is 100-subtotal, though the element is just as random as the rest.
 
+Display has something like
+print(f"({target.value})" + target.options) in a for loop 
