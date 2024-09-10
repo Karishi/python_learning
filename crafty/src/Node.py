@@ -11,13 +11,13 @@ def randomize_node(node):
     return node
 
 def initialize_nonfinal(node, num):
-    val = int(90 / (num - 1))
+    val = random.randrange(5, int(90 / (num - 1)))
     node.value = val
     return node
 
 def print_node(node):
-    print(f"({node.value})", end = " ")
-    print(" ".join(node.options))
+    print(f"({node.truth})", end = "")
+    print(f"({node.value}) ", " ".join(node.options))
     return True
 
 my_node = Node(10, "A")
