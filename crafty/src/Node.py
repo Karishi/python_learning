@@ -1,8 +1,11 @@
 import random
+import logging
+from game import node_list
 
 class Node:
-    def __init__(self, value, truth) -> None:
+    def __init__(self, value: int, truth: str) -> None:
         self.value = value
+        self.current = value
         self.truth = truth
         self.options = ["S", "X", "A", "D", "O", "Y"]
 
@@ -14,6 +17,17 @@ def initialize_nonfinal(node, num):
     val = random.randrange(5, int(90 / (num - 1)))
     node.value = val
     return node
+
+def initialize_full(num):
+    node_val_total = 0
+    for i in range(num-1):
+        node = Node(10, "A")
+        randomize_node(node)
+        node_list.append(initialize_nonfinal(node, num))
+        node_val_total += node.value
+    node = Node(100 - node_val_total, "A")
+    randomize_node(node)
+    node_list.append(node)
 
 def print_node(node):
     print(f"({node.truth})", end = "")
