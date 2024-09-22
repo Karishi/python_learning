@@ -1,4 +1,5 @@
 from node import initialize_full
+from card import Gentle_Sort
 import random
 
 node_list = []
@@ -11,7 +12,7 @@ class Game:
     initialize_full(random(3,5))
 
 my_game = Game
-
+my_card = Gentle_Sort
 
 def check_victory(game):
     if game.num_incomplete == 0:
