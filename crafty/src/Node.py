@@ -1,6 +1,7 @@
 import random
 import logging
-from game import node_list
+
+node_list = []
 
 class Node:
     def __init__(self, value: int, truth: str) -> None:
@@ -28,6 +29,7 @@ def initialize_full(num):
     node = Node(100 - node_val_total, "A")
     randomize_node(node)
     node_list.append(node)
+    return node_list
 
 def print_node(node):
     print(f"({node.truth})", end = "")
@@ -46,10 +48,10 @@ def progress_node(value, element, node):
         return True
     else:
         return False
+    
+def print_board():
+    for node in node_list:
+        print_node(node)
 
-my_node = Node(10, "A")
-my_node = randomize_node(my_node)
-my_node = initialize_nonfinal(my_node, 4)
-print_node(my_node)
-progress_node(8, "A", my_node)
-print_node(my_node)
+initialize_full(4)
+print_board()

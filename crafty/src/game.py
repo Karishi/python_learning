@@ -2,7 +2,7 @@ from node import initialize_full
 from card import Gentle_Sort
 import random
 
-node_list = []
+
 class Game:
     def __init__(self) -> None:
         self.max_time = 100

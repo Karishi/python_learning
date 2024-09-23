@@ -1,13 +1,14 @@
-from node import progress_node
-from game import check_victory, my_game, node_list
+from node import progress_node, node_list
+from game import check_victory, my_game
 
 class Card:
-    def __init__(self, title: str, cost: int, impact: int, element: str, bonus: int) -> None:
+    def __init__(self, title: str, cost: int, impact: int, element: str, bonus: int, target: int) -> None:
         self.title = title
         self.cost = cost
         self.impact = impact
         self.element = element
         self.bonus = bonus
+        self.target = target
 
 def standard_effect(card, game, node):
     game.time -= card.cost
@@ -28,9 +29,9 @@ def play_gentle(self, game, node):
         self.cost = temp_cost
 
 class Gentle_Sort:
-    stats = Card("Gentle Sort", 3, 5, "O")
+    stats = Card("Gentle Sort", 3, 5, "O", 0)
     game = my_game
-    node = node_list[input("Which node will you target? > ")]
+    node = node_list[stats.target]
     play_gentle(stats, game, node)
 
 class Gentle_Cut:
