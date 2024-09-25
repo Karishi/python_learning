@@ -13,4 +13,14 @@ Options always starts as the full list of element options, and Truth is picked r
 For the final target, the value is 100-subtotal, though the element is just as random as the rest.
 
 Display has something like
-print(f"({target.value})" + target.options) in a for loop 
+print(f"({target.value})" + target.options) in a for loop.
+
+The current issue with (4) is that there also need to be lists for the deck, discard, and hand.
+These need to be filled appropriately during initialization, and then there needs to be a reliable way of moving objects from one list to another. Pop and Insert/Append seem to be the answer: 
+Drawing a card is:
+def draw(hand, deck):
+hand.append(deck.pop(0))
+
+Drawing a hand is just:
+for j in range(draw_amount):
+draw(hand, deck)
