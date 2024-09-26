@@ -4,6 +4,9 @@ import random
 
 
 class Game:
+    deck = []
+    hand = []
+    discard = []
     def __init__(self) -> None:
         self.max_time = 100
         self.time = 100
