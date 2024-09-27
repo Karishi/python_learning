@@ -21,14 +21,17 @@ def initialize_nonfinal(node, num):
 
 def initialize_full(num):
     node_val_total = 0
+
     for i in range(num-1):
         node = Node(10, "A")
         randomize_node(node)
         node_list.append(initialize_nonfinal(node, num))
         node_val_total += node.value
+
     node = Node(100 - node_val_total, "A")
     randomize_node(node)
     node_list.append(node)
+
     return node_list
 
 def print_node(node):
@@ -46,8 +49,6 @@ def progress_node(value, element, node):
     if node.value <= 0:
         node.value = 0
         return True
-    else:
-        return False
     
 def print_board():
     for node in node_list:
