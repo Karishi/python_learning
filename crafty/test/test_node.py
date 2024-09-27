@@ -1,4 +1,4 @@
-from src.Node import *
+from src.node import *
 
 def test_initialize_nonfinal():
     my_node = Node(4, "O")
