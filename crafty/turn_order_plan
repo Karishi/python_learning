@@ -1,0 +1,15 @@
+Core plan for turn order is to have a system of events on a timetable.
+At the most basic there's a single event sitting on the timetable: Losing, at 100 time.
+But having it as a timetable instead of having "Remaining time" as a simple variable counting down as you spend time allows for several other complex systems to work cleanly:
+1) DoTs can set an end point and also automatically hop in before existing events.
+Example: Let's say you have an Intern card that produces 1 productivity/time and lasts for 10 time. If there aren't any events for 10 time, you can simply have it jump to the end and say "It produced 10 productivity." If you have an event at 5 time you can have it jump in before that and say "It produced 5 productivity, now this happens."
+2) It opens the potential for multiple players in the system. Two players working on stuff opens up a lot of cool options, but it gets really awkward when you just have 2 players taking turns and say "you have twice as much time and twice the goals and either of you spending time pulls it off of your 200 points."
+3) Traps or negative/surprise events. You could have something akin to a boss phase in your crafting mini game, where upon getting the task half done you have a distraction: 20 time out, you've got another node that will cause trouble if you let it sit.
+4) Natural energy recovery over time. This keeps you from having to have "earners" in your deck to be able to engage with the energy mechanic at all.
+
+So you have a List with all the events in it in Time order. The process of adding a new item to this list is O(n) but that's fine because we know the list will never have more than 100 items in it regardless. This'll never be computationally heavy.
+When you add an event it'll go in with a Time value, equal to [Time You Start Doing It] plus [Time It Takes]. This Time value gets compared to the same of items in the list until it's lower than what it's being compared to. Each time it's higher, you increment Slot. If it's higher than everything in the list you append to the end of the list, but if it finds something it's lower then, Slot is the place you insert it into the list.
+For example: You're at 10 time. You have events at 12, 15, and 18 and you play something costing 5. Current Time is 10, cost is 5, Time of the event is 15. Time compares to 12, 15 is not lower than 12, increment Slot to 1. Time compares to 15, 15 is not lower than 15, increment Slot to 2. Time compares to 18, 15 is lower than 18, Slot is finalized as 2. Our times in the new list are [12, 15, (15), 18]
+This form of comparison means first-in-first-out for events, which is the desired behavior.
+
+On initialization of the list, it has 20 events: 19 "gain 5 energy" events every 5 time from 5-95, and then a "lose the game" event at time slot 100. The timing of the initiative check does mean that if you get to 99 time and then do something that "takes 30 time" as one action, you still resolve that first, meaning you get away with spending 129 time to win. This is intended behavior.
