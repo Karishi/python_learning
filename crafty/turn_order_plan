@@ -13,3 +13,7 @@ For example: You're at 10 time. You have events at 12, 15, and 18 and you play s
 This form of comparison means first-in-first-out for events, which is the desired behavior.
 
 On initialization of the list, it has 20 events: 19 "gain 5 energy" events every 5 time from 5-95, and then a "lose the game" event at time slot 100. The timing of the initiative check does mean that if you get to 99 time and then do something that "takes 30 time" as one action, you still resolve that first, meaning you get away with spending 129 time to win. This is intended behavior.
+
+To ducktype the events the way we want, every event should have an "event_effect" function.
+Ah. This means events are a class.
+Going to make a class for each card subtype (per the card types list) and one for events.
