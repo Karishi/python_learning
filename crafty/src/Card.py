@@ -2,12 +2,12 @@ from node import progress_node, node_list
 from game import check_victory, my_game
 
 class Card:
-    def __init__(self, title: str, cost: int, impact: int, element: str, bonus: int, target: int) -> None:
+    def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int) -> None:
         self.title = title
-        self.cost = cost
+        self.cost = time_cost
         self.impact = impact
         self.element = element
-        self.bonus = bonus
+        self.bonus = bonus_energy_cost
         self.target = target
 
 
