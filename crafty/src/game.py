@@ -8,8 +8,7 @@ class Game:
     hand = []
     discard = []
     def __init__(self) -> None:
-        self.max_time = 100
-        self.time = 100
+        self.time = 0
         self.num_incomplete = 0
         self.win_loss = None
     initialize_full(random(3,5))
