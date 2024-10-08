@@ -1,10 +1,12 @@
 from card import standard_effect, progress_node
-from game import my_player
+from game import my_player, check_victory
+from event import player_turn
 
 def play_thorough(stats, game, node):
 # This happens regardless of the rest.    
     node.value -= stats.value
     player_turn.time_value += stats.cost
+    node_complete = False
 
 # If the element matches, Thorough cards gain energy for the player.
     if stats.element == node.truth:
@@ -24,7 +26,7 @@ def play_thorough(stats, game, node):
 
     if node.value <= 0:
         node.value = 0
-        return True
+        node_complete = True
 
     if node_complete:
         game.num_incomplete -= 1

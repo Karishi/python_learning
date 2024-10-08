@@ -7,7 +7,7 @@ class Node:
     def __init__(self, value: int, truth: str) -> None:
         self.value = value
         self.current = value
-        self.truth = truth
+        self.true_element = truth
         self.options = ["S", "X", "A", "D", "O", "Y"]
 
 def randomize_node(node):

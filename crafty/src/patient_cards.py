@@ -1,5 +1,6 @@
 from card import progress_node, check_victory
 from node import node_list
+from event import player_turn
 
 
 def play_patient(stats, game):
