@@ -1,6 +1,7 @@
 from node import initialize_full
 from card import Gentle_Sort
 import random
+from player import Player
 
 
 class Game:
@@ -15,6 +16,7 @@ class Game:
 
 my_game = Game
 my_card = Gentle_Sort
+my_player = Player
 
 def check_victory(game):
     if game.num_incomplete == 0:
