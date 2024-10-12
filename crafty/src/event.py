@@ -6,6 +6,9 @@ class Event:
     def __init__(self, time: int) -> None:
         self.time_value = time
 
+    def event_effect(player):
+        pass
+
 class Energy_Event(Event):
     def __init__(self, time: int) -> None:
         super().__init__(time)
