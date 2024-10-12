@@ -10,6 +10,9 @@ class Card:
         self.bonus = bonus_energy_cost
         self.target = target
 
+    def card_effect(game, node):
+        pass
+
 
 def standard_effect(card, game, node):
     game.time -= card.cost
@@ -26,3 +29,7 @@ def draw(hand, deck):
 def draw_hand(hand, deck, hand_size):
     for i in range(hand_size):
         draw(hand, deck)
+
+def sample_deck_setup():
+    deck = my_game.deck
+    hand = my_game.hand
