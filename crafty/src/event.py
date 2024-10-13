@@ -44,3 +44,4 @@ def initialize_timeline(duration):
         timeline.append(energy_event)
     loss_event = Event(duration)
     timeline.append(loss_event)
+    return timeline

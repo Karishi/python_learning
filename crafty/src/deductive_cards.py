@@ -1,4 +1,6 @@
-from card import standard_effect, check_victory, progress_node
+from card import standard_effect, check_victory, progress_node, Card
+from game import my_game
+from node import node_list
 
 def play_deductive(stats, game, node):
     is_discovered = True
@@ -26,7 +28,10 @@ def play_deductive(stats, game, node):
 
 
 class Deductive_Sort:
-    pass
+    stats = Card("Desperate Sort", 12, 8, "O", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_deductive(stats, game, node)
 
 
 class Deductive_Cut:

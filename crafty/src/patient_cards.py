@@ -1,6 +1,7 @@
-from card import progress_node, check_victory
+from card import progress_node, check_victory, Card
 from node import node_list
 from event import player_turn
+from game import my_game
 
 
 def play_patient(stats, game):
@@ -15,19 +16,42 @@ def play_patient(stats, game):
             game.win_loss = check_victory(game)
 
 class Patient_Sort:
-    pass
+    stats = Card("Patient Sort", 8, 5, "O", 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_patient(stats, game, node)
+
 
 class Patient_Cut:
-    pass
+    stats = Card("Patient Cut", 8, 5, "X", 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_patient(stats, game, node)
+
 
 class Patient_Join:
-    pass
+    stats = Card("Patient Join", 8, 5, "D", 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_patient(stats, game, node)
+
 
 class Patient_Mix:
-    pass
+    stats = Card("Patient Mix", 8, 5, "S", 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_patient(stats, game, node)
+
 
 class Patient_Arrange:
-    pass
+    stats = Card("Patient Arrange", 8, 5, "A", 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_patient(stats, game, node)
+
 
 class Patient_Bind:
-    pass
+    stats = Card("Patient Bind", 8, 5, "Y", 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_patient(stats, game, node)

@@ -1,6 +1,7 @@
-from card import standard_effect, progress_node
-from game import my_player, check_victory
+from card import standard_effect, progress_node, Card
+from game import my_player, check_victory, my_game
 from event import player_turn
+from node import node_list
 
 def play_thorough(stats, game, node):
 # This happens regardless of the rest.    
@@ -34,19 +35,42 @@ def play_thorough(stats, game, node):
 
 
 class Thorough_Sort:
-    pass
+    stats = Card("Thorough Sort", 3, 5, "O", 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_thorough(stats, game, node)
+
 
 class Thorough_Cut:
-    pass
+    stats = Card("Thorough Cut", 3, 5, "X", 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_thorough(stats, game, node)
+
 
 class Thorough_Join:
-    pass
+    stats = Card("Thorough Join", 3, 5, "X", 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_thorough(stats, game, node)
+
 
 class Thorough_Mix:
-    pass
+    stats = Card("Thorough Mix", 3, 5, "S", 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_thorough(stats, game, node)
+
 
 class Thorough_Arrange:
-    pass
+    stats = Card("Thorough Arrange", 3, 5, "A", 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_thorough(stats, game, node)
+
 
 class Thorough_Bind:
-    pass
+    stats = Card("Thorough Bind", 3, 5, "Y", 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_thorough(stats, game, node)
