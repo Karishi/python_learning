@@ -14,23 +14,44 @@ def play_desperate(stats, game, node):
     stats.impact = stats.impact + int(stats.impact * (time_used/100))
     standard_effect(stats, game, node)
 
+
 class Desperate_Sort:
     stats = Card("Desperate Sort", 12, 8, "O", 6, 0)
     game = my_game
     node = node_list[stats.target]
     play_desperate(stats, game, node)
 
+
 class Desperate_Cut:
-    pass
+    stats = Card("Desperate Cut", 12, 8, "X", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_desperate(stats, game, node)
+
 
 class Desperate_Join:
-    pass
+    stats = Card("Desperate Join", 12, 8, "D", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_desperate(stats, game, node)
+
 
 class Desperate_Mix:
-    pass
+    stats = Card("Desperate Mix", 12, 8, "S", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_desperate(stats, game, node)
+
 
 class Desperate_Arrange:
-    pass
+    stats = Card("Desperate Arrange", 12, 8, "A", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_desperate(stats, game, node)
+
 
 class Desperate_Bind:
-    pass
+    stats = Card("Desperate Bind", 12, 8, "Y", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_desperate(stats, game, node)
