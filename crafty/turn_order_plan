@@ -17,3 +17,10 @@ On initialization of the list, it has 20 events: 19 "gain 5 energy" events every
 To ducktype the events the way we want, every event should have an "event_effect" function.
 Ah. This means events are a class.
 Going to make a class for each card subtype (per the card types list) and one for events.
+
+I thought you'd have an issue with multiplayer and the energy_events, but now that I think about it there isn't. Each energy_event just gives 5 energy to all players, and in order for energy to matter it has to currently be your turn, so having one player wait a lot longer to get back to his turn only to have 2 energy_events occur in between...that's totally fine. That's no different mechanically than if it'd been a 1-player game and they'd done a 12-time ability and then had 2 energy_events back to back without another player's turns in there.
+
+On your turn you select a card. If the card requires a target, you select a target. Because a card doesn't automatically require a target, we have those as two separate queries. So,
+active_card = query_card(hand) <- The query_card function then includes an input request, feeds the player options, and returns a single card from the list of cards in hand.
+target_node = query_node(node_list) <- Almost exactly the same thing happens here.
+Curious about delays, to let text actions sit for a moment to let players read them. I'll look that up soon.
