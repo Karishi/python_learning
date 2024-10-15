@@ -14,7 +14,7 @@ class Game:
         self.num_incomplete = 0
         self.win_loss = None
     initialize_full(random(3,5))
-    initialize_timeline(random(100,200))
+    timeline = initialize_timeline(random(100,200))
 
 my_game = Game
 my_card = Gentle_Sort
@@ -25,3 +25,13 @@ def check_victory(game):
         return True
     else:
         return None
+    
+def query_card(hand):
+    card_number = 0
+    for card in hand:
+        card_number += 1
+        print(f"Option ({card_number})")
+        print(card.description)
+        # TODO: Generate card descriptions for each card type.
+    selected_number = input("Please select a card. > ")
+    return selected_number
