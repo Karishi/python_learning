@@ -1,4 +1,4 @@
-from node import initialize_full
+from node import initialize_full, print_node
 from card import Gentle_Sort
 import random
 from player import Player
@@ -34,4 +34,13 @@ def query_card(hand):
         print(card.description)
         # TODO: Generate card descriptions for each card type.
     selected_number = input("Please select a card. > ")
+    return selected_number
+
+def query_node(node_list):
+    node_number = 0
+    for node in node_list:
+        node_number += 1
+        print(f"({node_number}): ", end = "")
+        print_node(node)
+    selected_number = input("Please select a target. > ")
     return selected_number
