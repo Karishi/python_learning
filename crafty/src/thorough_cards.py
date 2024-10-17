@@ -49,7 +49,7 @@ class Thorough_Cut:
 
 
 class Thorough_Join:
-    stats = Card("Thorough Join", 3, 5, "X", 0)
+    stats = Card("Thorough Join", 3, 5, "D", 0)
     game = my_game
     node = node_list[stats.target]
     play_thorough(stats, game, node)
