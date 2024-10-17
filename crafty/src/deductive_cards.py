@@ -28,27 +28,42 @@ def play_deductive(stats, game, node):
 
 
 class Deductive_Sort:
-    stats = Card("Desperate Sort", 12, 8, "O", 6, 0)
+    stats = Card("Deductive Sort", 7, 7, "O", 6, 0)
     game = my_game
     node = node_list[stats.target]
     play_deductive(stats, game, node)
 
 
 class Deductive_Cut:
-    pass
+    stats = Card("Deductive Cut", 7, 7, "X", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_deductive(stats, game, node)
 
 
 class Deductive_Join:
-    pass
+    stats = Card("Deductive Join", 7, 7, "D", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_deductive(stats, game, node)
 
 
 class Deductive_Mix:
-    pass
+    stats = Card("Deductive Mix", 7, 7, "S", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_deductive(stats, game, node)
 
 
 class Deductive_Arrange:
-    pass
+    stats = Card("Deductive Arrange", 7, 7, "A", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_deductive(stats, game, node)
 
 
 class Deductive_Bind:
-    pass
+    stats = Card("Deductive Bind", 7, 7, "Y", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_deductive(stats, game, node)

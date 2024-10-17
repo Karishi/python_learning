@@ -35,7 +35,7 @@ def initialize_full(num):
     return node_list
 
 def print_node(node):
-    print(f"({node.truth})", end = "")
+    # print(f"({node.truth})", end = "")
     print(f"({node.value}) ", " ".join(node.options))
     return True
 
