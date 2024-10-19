@@ -1,6 +1,6 @@
-from card import standard_effect
-from node import progress_node
-from game import check_victory, my_player
+from card import standard_effect, Card
+from node import progress_node, node_list
+from game import check_victory, my_player, my_game
 
 def play_complete(stats, game, node):
     node_complete = progress_node(stats.value, stats.element, node)
@@ -14,19 +14,37 @@ def play_complete(stats, game, node):
         
 
 class Complete_Sort:
-    pass
+    stats = Card("Complete Sort", 8, 8, "O", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_complete(stats, game, node)
 
 class Complete_Cut:
-    pass
+    stats = Card("Complete Cut", 8, 8, "X", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_complete(stats, game, node)
 
 class Complete_Join:
-    pass
+    stats = Card("Complete Join", 8, 8, "D", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_complete(stats, game, node)
 
 class Complete_Mix:
-    pass
+    stats = Card("Complete Mix", 8, 8, "S", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_complete(stats, game, node)
 
 class Complete_Arrange:
-    pass
+    stats = Card("Complete Arrange", 8, 8, "A", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_complete(stats, game, node)
 
 class Complete_Bind:
-    pass
+    stats = Card("Complete Bind", 8, 8, "Y", 6, 0)
+    game = my_game
+    node = node_list[stats.target]
+    play_complete(stats, game, node)
