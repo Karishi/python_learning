@@ -20,12 +20,14 @@ my_game = Game
 my_card = Gentle_Sort
 my_player = Player
 
+
 def check_victory(game):
     if game.num_incomplete == 0:
         return True
     else:
         return None
     
+
 def query_card(hand):
     card_number = 0
     for card in hand:
@@ -35,6 +37,7 @@ def query_card(hand):
         # TODO: Generate card descriptions for each card type.
     selected_number = input("Please select a card. > ")
     return selected_number
+
 
 def query_node(node_list):
     node_number = 0
