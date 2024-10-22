@@ -6,9 +6,7 @@ from event import initialize_timeline
 
 
 class Game:
-    deck = []
-    hand = []
-    discard = []
+    event_list = []
     def __init__(self) -> None:
         self.time = 0
         self.num_incomplete = 0
@@ -47,3 +45,14 @@ def query_node(node_list):
         print_node(node)
     selected_number = input("Please select a target. > ")
     return selected_number
+
+def main():
+    while my_game.win_loss is not None:
+        event = my_game.event_list[0]
+        event.event_effect(my_player)
+    if my_game.win_loss == "Win":
+        print("Congratulations, you completed the craft. You are crafty!")
+        quit
+    elif my_game.win_loss == "Lose":
+        print("Sorry, you ran out of time for your craft. Alas!")
+        quit
