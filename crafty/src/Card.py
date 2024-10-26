@@ -34,3 +34,7 @@ def draw_hand(hand, deck, hand_size):
 def sample_deck_setup():
     deck = my_game.deck
     hand = my_game.hand
+
+def print_card(card):
+    print(f"{card.title} ({card.cost}) [{card.element}]")
+    print(card.description)
