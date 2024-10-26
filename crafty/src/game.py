@@ -8,7 +8,6 @@ from event import initialize_timeline
 class Game:
     event_list = []
     def __init__(self) -> None:
-        self.time = 0
         self.num_incomplete = 0
         self.win_loss = None
     initialize_full(random(3,5))
