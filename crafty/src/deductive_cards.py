@@ -27,11 +27,11 @@ def play_deductive(stats, game, node):
     
 
 
-class Deductive_Sort:
-    stats = Card("Deductive Sort", 7, 7, "O", 6, 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_deductive(stats, game, node)
+class Deductive_Sort(Card):
+    def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int, description: str) -> None:
+        super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
+# What strikes me is that the cards can ducktype into playing via a play for each type.
+# No need for each one to have "deductive_play" or "gentle_play" for type.
 
 
 class Deductive_Cut:
