@@ -7,6 +7,7 @@ class Deductive_Card(Card):
     def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int, description: str) -> None:
         super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
 
+
     def play(stats, game, node):
         is_discovered = True
 
@@ -28,7 +29,7 @@ class Deductive_Card(Card):
         if is_discovered:
             for item in my_game.timeline:
                 if isinstance(item, Loss_Event):
-                    time = item
+                    time = item.time_value
             time += stats.cost
         else:
             my_player.time += stats.cost
