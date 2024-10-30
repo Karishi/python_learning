@@ -1,23 +1,33 @@
 from node import progress_node, node_list
-from game import check_victory, my_game
+from game import check_victory, my_game, my_player
 from card import standard_effect, Card
 
-def play_gentle(self, game, node):
-    if game.status.contains("Relaxed"):
-        game.status.remove("Relaxed")
-        standard_effect(self, game, node)
-    else:
-        game.status.append("Relaxed")
-        temp_cost = self.cost
-        self.cost = 0
-        standard_effect(self, game, node)
-        self.cost = temp_cost
+class Gentle_Card(Card):
+    def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int, description: str) -> None:
+        super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
 
-class Gentle_Sort:
-    stats = Card("Gentle Sort", 3, 5, "O", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_gentle(stats, game, node)
+    def play_card(self, game, node):
+# If the player has the energy cost, this card is instant and removes Relaxed status.
+        if my_player.energy >= self.bonus:
+            my_player.energy -= self.bonus
+            if my_player.status.contains("Relaxed"):
+                my_player.status.remove("Relaxed")
+            temp_cost = self.cost
+            self.cost = 0
+            standard_effect(self, game, node)
+            self.cost = temp_cost
+        else:
+# Every even time a card of the Gentle type is used the player loses the Relaxed status.
+            if my_player.status.contains("Relaxed"):
+                my_player.status.remove("Relaxed")
+                standard_effect(self, game, node)
+# Every odd time a card of Gentle type is used it costs no time and the player gains "Relaxed."
+            else:
+                my_player.status.append("Relaxed")
+                temp_cost = self.cost
+                self.cost = 0
+                standard_effect(self, game, node)
+                self.cost = temp_cost
 
 
 class Gentle_Cut:

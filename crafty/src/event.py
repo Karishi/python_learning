@@ -13,8 +13,10 @@ class Energy_Event(Event):
     def __init__(self, time: int) -> None:
         super().__init__(time)
 
-    def event_effect(player):
+    def event_effect(player, time):
         player.energy += 5
+        Energy_Event.time += 5
+        
 
 class Loss_Event(Event):
     def __init__(self, time: int) -> None:
@@ -42,6 +44,6 @@ def initialize_timeline(duration):
         energy_event = Event(time_count)
         time_count += 5
         timeline.append(energy_event)
-    loss_event = Event(duration)
+    loss_event = Loss_Event(duration)
     timeline.append(loss_event)
     return timeline

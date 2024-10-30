@@ -8,7 +8,7 @@ class Deductive_Card(Card):
         super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
 
 
-    def play(stats, game, node):
+    def play_card(stats, game, node):
         is_discovered = True
 
     # No bonus if the node is already revealed
