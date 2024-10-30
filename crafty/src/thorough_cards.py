@@ -3,42 +3,41 @@ from game import my_player, check_victory, my_game
 from event import player_turn
 from node import node_list
 
-def play_thorough(stats, game, node):
-# This happens regardless of the rest.    
-    node.value -= stats.value
-    player_turn.time_value += stats.cost
-    node_complete = False
 
-# If the element matches, Thorough cards gain energy for the player.
-    if stats.element == node.truth:
-        node.options = [node.truth]
+class Thorough_Card(Card):
+    def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int, description: str) -> None:
+        super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
+
+
+    def play_card(stats, game, node):
+    # This happens regardless of the rest.    
         node.value -= stats.value
-        my_player.energy += 3
-# If there are exactly 2 options - correct and incorrect - Thorough is the wrong card to play and does nothing special.
-    elif len(node.options) == 2:
-        node.options.remove(stats.element)
-# If there are 3+ options left, guessing the incorrect element clears an extra wrong answer.
-    else:
-        node.options.remove(stats.element)
-        for node in node.options:
-            if node.element != node.truth:
-                node.options.remove(node.element)
-                break
+        player_turn.time_value += stats.cost
+        node_complete = False
 
-    if node.value <= 0:
-        node.value = 0
-        node_complete = True
+    # If the element matches, Thorough cards gain energy for the player.
+        if stats.element == node.truth:
+            node.options = [node.truth]
+            node.value -= stats.value
+            my_player.energy += 3
+    # If there are exactly 2 options - correct and incorrect - Thorough is the wrong card to play and does nothing special.
+        elif len(node.options) == 2:
+            node.options.remove(stats.element)
+    # If there are 3+ options left, guessing the incorrect element clears an extra wrong answer.
+        else:
+            node.options.remove(stats.element)
+            for node in node.options:
+                if node.element != node.truth:
+                    node.options.remove(node.element)
+                    break
 
-    if node_complete:
-        game.num_incomplete -= 1
-        game.win_loss = check_victory(game)    
+        if node.value <= 0:
+            node.value = 0
+            node_complete = True
 
-
-class Thorough_Sort:
-    stats = Card("Thorough Sort", 3, 5, "O", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_thorough(stats, game, node)
+        if node_complete:
+            game.num_incomplete -= 1
+            game.win_loss = check_victory(game)  
 
 
 class Thorough_Cut:
