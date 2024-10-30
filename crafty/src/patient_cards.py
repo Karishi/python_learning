@@ -20,7 +20,7 @@ class Patient_Card(Card):
         super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
 
 # Affects every node in the challenge at once.
-    def play_patient(stats, game):
+    def play_card(stats, game):
         player_turn.time_value += stats.cost
 
         for node in node_list:
