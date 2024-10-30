@@ -9,7 +9,7 @@ class Complete_Card(Card):
     def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int, description: str) -> None:
         super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
 
-    def play(stats, game, node):
+    def play_card(stats, game, node):
         node_complete = progress_node(stats.value, stats.element, node)
         if node_complete:
             game.num_incomplete -= 1
