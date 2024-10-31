@@ -1,5 +1,5 @@
 from node import progress_node, node_list
-from game import check_victory, my_game
+# from game import check_victory, my_game
 
 class Card:
     def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int, description: str) -> None:
@@ -38,3 +38,19 @@ def sample_deck_setup():
 def print_card(card):
     print(f"{card.title} ({card.cost}) [{card.element}]")
     print(card.description)
+
+def append_element_match(type, element):
+        if element == "O":
+            element_name = " Sort"
+        elif element == "X":
+            element_name = " Cut"
+        elif element == "D":
+            element_name = " Join"
+        elif element == "S":
+            element_name = " Mix"
+        elif element == "A":
+            element_name = " Arrange"
+        elif element == "Y":
+            element_name = " Bind"
+        type += element_name
+        return type

@@ -29,7 +29,7 @@ class Deductive_Card(Card):
         if is_discovered:
             for item in my_game.timeline:
                 if isinstance(item, Loss_Event):
-                    time = item.time_value
+                    time = item.time
             time += stats.cost
         else:
             my_player.time += stats.cost
