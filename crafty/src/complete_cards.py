@@ -1,4 +1,4 @@
-from card import standard_effect, Card
+from card import standard_effect, Card, append_element_match
 from node import progress_node, node_list
 from game import check_victory, my_player, my_game
 
@@ -8,6 +8,8 @@ from game import check_victory, my_player, my_game
 class Complete_Card(Card):
     def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int, description: str) -> None:
         super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
+        title = append_element_match(title, element)
+        self.description = f"({time_cost}) {title} ({element}): Has {impact} impact. Gains 10 energy and costs no time if it completes a node."
 
     def play_card(stats, game, node):
         node_complete = progress_node(stats.value, stats.element, node)
@@ -26,30 +28,3 @@ class Complete_Cut:
     node = node_list[stats.target]
     play_complete(stats, game, node)
 
-
-class Complete_Join:
-    stats = Card("Complete Join", 8, 8, "D", 6, 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_complete(stats, game, node)
-
-
-class Complete_Mix:
-    stats = Card("Complete Mix", 8, 8, "S", 6, 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_complete(stats, game, node)
-
-
-class Complete_Arrange:
-    stats = Card("Complete Arrange", 8, 8, "A", 6, 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_complete(stats, game, node)
-
-
-class Complete_Bind:
-    stats = Card("Complete Bind", 8, 8, "Y", 6, 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_complete(stats, game, node)
