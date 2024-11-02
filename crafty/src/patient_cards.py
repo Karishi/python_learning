@@ -18,7 +18,7 @@ def play_patient(stats, game):
 class Patient_Card(Card):
     def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int, description: str) -> None:
         super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
-
+        self.description = f"({time_cost}) {title} ({element}): Has {impact} impact on all nodes. If you pay {bonus_energy_cost} energy the time cost reduces by 3 for each element match."
 # Affects every node in the challenge at once.
     def play_card(stats, game):
         player_turn.time_value += stats.cost
