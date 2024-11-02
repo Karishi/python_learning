@@ -11,6 +11,7 @@ from player import Player
 class Desperate_Card(Card):
     def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int, description: str) -> None:
         super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
+        self.description = f"({time_cost}) {title} ({element}): Has {impact} impact. The less Time is remaining the more Impact this has, to a max of 50% (doubled if you pay {bonus_energy_cost})."
 
 # Increases in power the more time has already been spent, to a maximum of +50% at 50% of time being spent.
     def play_card(stats, game, node):
