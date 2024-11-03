@@ -7,7 +7,7 @@ from node import node_list
 class Thorough_Card(Card):
     def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int, description: str) -> None:
         super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
-
+        self.description = f"({time_cost}) {title} ({element}): Has {impact} impact. If the node is {element} gain 3 Energy. If there are two incorrect elements and the node is not {element}, eliminate an extra element."
 
     def play_card(stats, game, node):
     # This happens regardless of the rest.    
