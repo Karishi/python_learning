@@ -44,32 +44,3 @@ class Thorough_Cut:
     stats = Card("Thorough Cut", 3, 5, "X", 0)
     game = my_game
     node = node_list[stats.target]
-    play_thorough(stats, game, node)
-
-
-class Thorough_Join:
-    stats = Card("Thorough Join", 3, 5, "D", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_thorough(stats, game, node)
-
-
-class Thorough_Mix:
-    stats = Card("Thorough Mix", 3, 5, "S", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_thorough(stats, game, node)
-
-
-class Thorough_Arrange:
-    stats = Card("Thorough Arrange", 3, 5, "A", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_thorough(stats, game, node)
-
-
-class Thorough_Bind:
-    stats = Card("Thorough Bind", 3, 5, "Y", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_thorough(stats, game, node)
