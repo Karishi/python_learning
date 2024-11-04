@@ -1,6 +1,8 @@
 from player import Player
 from node import print_board
 import random
+from game import my_game, query_card, query_node
+from card import print_card
 
 class Event:
     def __init__(self, time: int) -> None:
@@ -23,16 +25,17 @@ class Loss_Event(Event):
         super().__init__(time)
 
     def event_effect(player):
-        print("Too late! You didn't complete the craft.")
-        quit()
+        my_game.win_loss = "Lose"
 
 class Player_Turn_Event(Event):
     def __init__(self, time: int) -> None:
         super().__init__(time)
-        tiebreaker = random.randint(1,100)
 
     def event_effect(player):
         print_board()
+        count = 0
+        query_card(player.hand)
+        
 
 player_turn = Event(0)
 

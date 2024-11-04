@@ -55,3 +55,6 @@ def main():
     elif my_game.win_loss == "Lose":
         print("Sorry, you ran out of time for your craft. Alas!")
         quit
+    else:
+        print("Win/Loss state is not working properly.")
+        quit
