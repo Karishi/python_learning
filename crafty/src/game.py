@@ -33,7 +33,7 @@ def query_card(hand):
         print(card.description)
         # TODO: Generate card descriptions for each card type.
     selected_number = input("Please select a card. > ")
-    return selected_number
+    return hand[selected_number-1]
 
 
 def query_node(node_list):

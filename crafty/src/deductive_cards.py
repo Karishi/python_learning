@@ -8,7 +8,7 @@ class Deductive_Card(Card):
         super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
         self.description = f"({time_cost}) {title} ({element}): Has {impact} impact. If this reveals a Node's element, gain time instead of expending it. If you spend ({bonus_energy_cost}) energy this happens even if the Node's element was already revealed."
 
-    def play_card(stats, game, node):
+    def play_card(card, game, node):
         is_discovered = True
 
     # No bonus if the node is already revealed
@@ -16,11 +16,11 @@ class Deductive_Card(Card):
             is_discovered = False
         
     # Unless you pay the bonus cost with Energy.
-        if my_player.energy >= stats.bonus:
-            my_player.energy -= stats.bonus
+        if my_player.energy >= card.bonus:
+            my_player.energy -= card.bonus
             is_discovered = True
 
-        node_complete = progress_node(stats.value, stats.element, node)
+        node_complete = progress_node(card.value, card.element, node)
         
         if node_complete:
             game.num_incomplete -= 1
@@ -35,9 +35,9 @@ class Deductive_Card(Card):
             for item in my_game.timeline:
                 if isinstance(item, Loss_Event):
                     time = item.time
-            time += stats.cost
+            time += card.cost
         else:
-            my_player.time += stats.cost
+            my_player.time += card.cost
 
 
 class Deductive_Cut:
