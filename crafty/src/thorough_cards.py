@@ -9,23 +9,23 @@ class Thorough_Card(Card):
         super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
         self.description = f"({time_cost}) {title} ({element}): Has {impact} impact. If the node is {element} gain 3 Energy. If there are two incorrect elements and the node is not {element}, eliminate an extra element."
 
-    def play_card(stats, game, node):
+    def play_card(card, game, node):
     # This happens regardless of the rest.    
-        node.value -= stats.value
-        player_turn.time_value += stats.cost
+        node.value -= card.value
+        player_turn.time_value += card.cost
         node_complete = False
 
     # If the element matches, Thorough cards gain energy for the player.
-        if stats.element == node.truth:
+        if card.element == node.truth:
             node.options = [node.truth]
-            node.value -= stats.value
+            node.value -= card.value
             my_player.energy += 3
     # If there are exactly 2 options - correct and incorrect - Thorough is the wrong card to play and does nothing special.
         elif len(node.options) == 2:
-            node.options.remove(stats.element)
+            node.options.remove(card.element)
     # If there are 3+ options left, guessing the incorrect element clears an extra wrong answer.
         else:
-            node.options.remove(stats.element)
+            node.options.remove(card.element)
             for node in node.options:
                 if node.element != node.truth:
                     node.options.remove(node.element)

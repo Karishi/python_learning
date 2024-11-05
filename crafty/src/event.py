@@ -1,5 +1,5 @@
 from player import Player
-from node import print_board
+from node import print_board, node_list
 import random
 from game import my_game, query_card, query_node
 from card import print_card
@@ -33,8 +33,9 @@ class Player_Turn_Event(Event):
 
     def event_effect(player):
         print_board()
-        count = 0
-        query_card(player.hand)
+        chosen_card = query_card(player.hand)
+        target_node = query_node(node_list)
+        chosen_card.play_card(chosen_card, my_game, target_node)
         
 
 player_turn = Event(0)

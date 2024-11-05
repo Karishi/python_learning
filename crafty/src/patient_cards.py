@@ -20,13 +20,13 @@ class Patient_Card(Card):
         super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
         self.description = f"({time_cost}) {title} ({element}): Has {impact} impact on all nodes. If you pay {bonus_energy_cost} energy the time cost reduces by 3 for each element match."
 # Affects every node in the challenge at once.
-    def play_card(stats, game):
-        player_turn.time_value += stats.cost
+    def play_card(card, game, node=0):
+        player_turn.time_value += card.cost
 
         for node in node_list:
-            if node.true_element == stats.element:
-                player_turn.time_value -= int(stats.cost/4)
-            node_complete = progress_node(stats.value, stats.element, node)
+            if node.true_element == card.element:
+                player_turn.time_value -= int(card.cost/4)
+            node_complete = progress_node(card.value, card.element, node)
             if node_complete:
                 game.num_incomplete -= 1
 

@@ -11,14 +11,14 @@ class Complete_Card(Card):
         title = append_element_match(title, element)
         self.description = f"({time_cost}) {title} ({element}): Has {impact} impact. Gains 10 energy and costs no time if it completes a node."
 
-    def play_card(stats, game, node):
-        node_complete = progress_node(stats.value, stats.element, node)
+    def play_card(card, game, node):
+        node_complete = progress_node(card.value, card.element, node)
         if node_complete:
             game.num_incomplete -= 1
             game.win_loss = check_victory(game)
             my_player.energy += 10
         else:
-            my_player.time += stats.cost
+            my_player.time += card.cost
     
     
 
