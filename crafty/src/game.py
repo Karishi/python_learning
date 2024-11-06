@@ -1,7 +1,7 @@
 from node import initialize_full, print_node
 from card import Gentle_Sort
 import random
-from player import Player
+from player import Player, initialize_deck
 from event import initialize_timeline
 
 
@@ -46,6 +46,8 @@ def query_node(node_list):
     return selected_number
 
 def main():
+    initialize_full(3)
+    my_player.deck = initialize_deck()
     while my_game.win_loss is not None:
         event = my_game.event_list[0]
         event.event_effect(my_player)

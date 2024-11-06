@@ -35,7 +35,7 @@ class Player_Turn_Event(Event):
         print_board()
         chosen_card = query_card(player.hand)
         target_node = query_node(node_list)
-        chosen_card.play_card(chosen_card, my_game, target_node)
+        chosen_card.play_card(chosen_card)
         
 
 player_turn = Event(0)

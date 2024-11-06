@@ -1,5 +1,5 @@
 from card import standard_effect, Card
-from game import my_game, my_player
+from game import my_game, my_player, query_node
 from node import node_list
 from event import Event
 from player import Player
@@ -9,12 +9,14 @@ from player import Player
 
 
 class Desperate_Card(Card):
-    def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int, description: str) -> None:
-        super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
+    def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int) -> None:
+        super().__init__(title, time_cost, impact, element, bonus_energy_cost, target = 0)
         self.description = f"({time_cost}) {title} ({element}): Has {impact} impact. The less Time is remaining the more Impact this has, to a max of 50% (doubled if you pay {bonus_energy_cost})."
 
 # Increases in power the more time has already been spent, to a maximum of +50% at 50% of time being spent.
-    def play_card(stats, game, node):
+    def play_card(card, game = my_game):
+        node = query_node(node_list)
+
         # Sets the maximum value to +50%
         time_used = min(my_game.time, 50)
         
@@ -24,14 +26,14 @@ class Desperate_Card(Card):
             my_player.energy -= 6
         
         # Sets the impact of the card to the new value.
-        placeholder = stats.impact        
-        stats.impact = stats.impact + int(stats.impact * (time_used/100))
+        placeholder = card.impact        
+        card.impact = card.impact + int(card.impact * (time_used/100))
         
         # Performs the normal reduction of Node value by card Impact value
-        standard_effect(stats, game, node)
+        standard_effect(card, game, node)
 
         # Returns the card to its normal state in case you draw it again in the same game.
-        stats.impact = placeholder
+        card.impact = placeholder
 
 class Desperate_Cut:
     stats = Card("Desperate Cut", 12, 8, "X", 6, 0)
