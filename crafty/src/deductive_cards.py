@@ -1,15 +1,16 @@
 from card import standard_effect, check_victory, progress_node, Card
-from game import my_game, my_player
+from game import my_game, my_player, query_node
 from node import node_list
 from event import Loss_Event
 
 class Deductive_Card(Card):
-    def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int, description: str) -> None:
-        super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
+    def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int) -> None:
+        super().__init__(title, time_cost, impact, element, bonus_energy_cost, target = 0)
         self.description = f"({time_cost}) {title} ({element}): Has {impact} impact. If this reveals a Node's element, gain time instead of expending it. If you spend ({bonus_energy_cost}) energy this happens even if the Node's element was already revealed."
 
-    def play_card(card, game, node):
+    def play_card(card, game = my_game):
         is_discovered = True
+        node = query_node(node_list)
 
     # No bonus if the node is already revealed
         if len(node.options) == 1:

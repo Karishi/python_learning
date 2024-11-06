@@ -4,23 +4,12 @@ from event import player_turn
 from game import my_game
 
 
-def play_patient(stats, game):
-    player_turn.time_value += stats.cost
-
-    for node in node_list:
-        if node.true_element == stats.element:
-            player_turn.time_value -= int(stats.cost/4)
-        node_complete = progress_node(stats.value, stats.element, node)
-        if node_complete:
-            game.num_incomplete -= 1
-            game.win_loss = check_victory(game)
-
 class Patient_Card(Card):
-    def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int, description: str) -> None:
-        super().__init__(title, time_cost, impact, element, bonus_energy_cost, target, description)
+    def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int) -> None:
+        super().__init__(title, time_cost, impact, element, bonus_energy_cost, target = 0)
         self.description = f"({time_cost}) {title} ({element}): Has {impact} impact on all nodes. If you pay {bonus_energy_cost} energy the time cost reduces by 3 for each element match."
 # Affects every node in the challenge at once.
-    def play_card(card, game, node=0):
+    def play_card(card, game = my_game):
         player_turn.time_value += card.cost
 
         for node in node_list:
