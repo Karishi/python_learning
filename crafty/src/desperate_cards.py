@@ -1,7 +1,7 @@
 from card import standard_effect, Card
 from game import my_game, my_player, query_node
 from node import node_list
-from event import Event
+from event import Event, Loss_Event
 from player import Player
 
 """ Desperate: Desperate cards increase in effect the less time you have left. They have a weak effect when the attempt starts, but increase in impact to a maximum value at 50%. At the same time, when you hit 50%, they switch from targeting a single node to hitting all of them. Desperate cards have no Bonus effect, but cause you to gain 1 energy for every 5 time you've spent. """
@@ -16,9 +16,12 @@ class Desperate_Card(Card):
 # Increases in power the more time has already been spent, to a maximum of +50% at 50% of time being spent.
     def play_card(card, game = my_game):
         node = query_node(node_list)
+        for item in my_game.timeline:
+            if isinstance(item, Loss_Event):
+                halfway_point = int(item.time_value/2)
 
         # Sets the maximum value to +50%
-        time_used = min(my_game.time, 50)
+        time_used = min(my_player.time, halfway_point)
         
         # If energy is spent, the bonus doubles (+100% value at 50% or lower remaining time)
         if my_player.energy >= 6:
