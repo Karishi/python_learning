@@ -1,5 +1,5 @@
 from card import standard_effect, check_victory, progress_node, Card
-from game import my_game, my_player, query_node
+from game import my_game, player, query_node
 from node import node_list
 from event import Loss_Event
 
@@ -17,8 +17,8 @@ class Deductive_Card(Card):
             is_discovered = False
         
     # Unless you pay the bonus cost with Energy.
-        if my_player.energy >= card.bonus:
-            my_player.energy -= card.bonus
+        if player.energy >= card.bonus:
+            player.energy -= card.bonus
             is_discovered = True
 
         node_complete = progress_node(card.value, card.element, node)
@@ -38,7 +38,7 @@ class Deductive_Card(Card):
                     time = item.time
             time += card.cost
         else:
-            my_player.time += card.cost
+            player.time += card.cost
 
 
 class Deductive_Cut:

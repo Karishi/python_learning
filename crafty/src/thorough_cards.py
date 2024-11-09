@@ -1,5 +1,5 @@
 from card import standard_effect, progress_node, Card
-from game import my_player, check_victory, my_game, query_node
+from game import player, check_victory, my_game, query_node
 from event import player_turn
 from node import node_list
 
@@ -21,7 +21,7 @@ class Thorough_Card(Card):
         if card.element == node.truth:
             node.options = [node.truth]
             node.value -= card.value
-            my_player.energy += 3
+            player.energy += 3
     # If there are exactly 2 options - correct and incorrect - Thorough is the wrong card to play and does nothing special.
         elif len(node.options) == 2:
             node.options.remove(card.element)

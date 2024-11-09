@@ -1,5 +1,5 @@
 from card import standard_effect, Card
-from game import my_game, my_player, query_node
+from game import my_game, player, query_node
 from node import node_list
 from event import Event, Loss_Event
 from player import Player
@@ -21,12 +21,12 @@ class Desperate_Card(Card):
                 halfway_point = int(item.time_value/2)
 
         # Sets the maximum value to +50%
-        time_used = min(my_player.time, halfway_point)
+        time_used = min(player.time, halfway_point)
         
         # If energy is spent, the bonus doubles (+100% value at 50% or lower remaining time)
-        if my_player.energy >= 6:
+        if player.energy >= 6:
             time_used *= 2
-            my_player.energy -= 6
+            player.energy -= 6
         
         # Sets the impact of the card to the new value.
         placeholder = card.impact        
