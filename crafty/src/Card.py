@@ -1,5 +1,5 @@
 from node import progress_node, node_list
-from game import check_victory, my_player
+from game import check_victory, player
 
 class Card:
     def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int) -> None:
@@ -32,8 +32,8 @@ def draw_hand(hand, deck, hand_size):
         draw(hand, deck)
 
 def sample_deck_setup():
-    deck = my_player.deck
-    hand = my_player.hand
+    deck = player.deck
+    hand = player.hand
 
 def print_card(card):
     print(f"{card.title} ({card.cost}) [{card.element}]")

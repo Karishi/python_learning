@@ -1,5 +1,4 @@
 from node import initialize_full, print_node
-from card import Gentle_Sort
 import random
 from player import Player, initialize_deck
 from event import initialize_timeline
@@ -14,7 +13,6 @@ class Game:
     timeline = initialize_timeline(random(100,200))
 
 my_game = Game
-my_card = Gentle_Sort
 my_player = Player
 
 
@@ -47,7 +45,7 @@ def query_node(node_list):
 
 def main():
     initialize_full(3)
-    my_player.deck = initialize_deck()
+    my_player.deck = initialize_deck(my_player)
     while my_game.win_loss is not None:
         event = my_game.event_list[0]
         event.event_effect(my_player)
@@ -60,3 +58,5 @@ def main():
     else:
         print("Win/Loss state is not working properly.")
         quit
+
+main()
