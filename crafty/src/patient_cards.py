@@ -19,36 +19,5 @@ class Patient_Card(Card):
             if node_complete:
                 game.num_incomplete -= 1
 
-class Patient_Cut:
-    stats = Card("Patient Cut", 8, 5, "X", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_patient(stats, game, node)
 
-
-class Patient_Join:
-    stats = Card("Patient Join", 8, 5, "D", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_patient(stats, game, node)
-
-
-class Patient_Mix:
-    stats = Card("Patient Mix", 8, 5, "S", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_patient(stats, game, node)
-
-
-class Patient_Arrange:
-    stats = Card("Patient Arrange", 8, 5, "A", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_patient(stats, game, node)
-
-
-class Patient_Bind:
-    stats = Card("Patient Bind", 8, 5, "Y", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_patient(stats, game, node)
+# stats = Card("Patient Cut", 8, 5, "X", 0)

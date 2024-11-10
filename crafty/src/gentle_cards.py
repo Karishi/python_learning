@@ -31,36 +31,5 @@ class Gentle_Card(Card):
                 card.cost = temp_cost
 
 
-class Gentle_Cut:
-    stats = Card("Gentle Cut", 3, 5, "X", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_gentle(stats, game, node)
 
-
-class Gentle_Join:
-    stats = Card("Gentle Join", 3, 5, "D", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_gentle(stats, game, node)
-
-
-class Gentle_Mix:
-    stats = Card("Gentle Mix", 3, 5, "S", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_gentle(stats, game, node)
-
-
-class Gentle_Arrange:
-    stats = Card("Gentle Arrange", 3, 5, "A", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_gentle(stats, game, node)
-
-
-class Gentle_Bind:
-    stats = Card("Gentle Bind", 3, 5, "Y", 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_gentle(stats, game, node)
+# stats = Card("Gentle Cut", 3, 5, "X", 0)

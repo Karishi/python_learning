@@ -23,9 +23,5 @@ class Complete_Card(Card):
     
     
 
-class Complete_Cut:
-    stats = Card("Complete Cut", 8, 8, "X", 6, 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_complete(stats, game, node)
 
+# stats = Card("Complete Cut", 8, 8, "X", 6, 0)
