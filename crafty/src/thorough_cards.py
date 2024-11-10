@@ -42,7 +42,5 @@ class Thorough_Card(Card):
             game.win_loss = check_victory(game)  
 
 
-class Thorough_Cut:
-    stats = Card("Thorough Cut", 3, 5, "X", 0)
-    game = my_game
-    node = node_list[stats.target]
+
+# stats = Card("Thorough Cut", 3, 5, "X", 0)

@@ -41,10 +41,5 @@ class Deductive_Card(Card):
             player.time += card.cost
 
 
-class Deductive_Cut:
-    stats = Card("Deductive Cut", 7, 7, "X", 6, 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_deductive(stats, game, node)
 
-
+# stats = Card("Deductive Cut", 7, 7, "X", 6, 0)

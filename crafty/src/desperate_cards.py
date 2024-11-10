@@ -4,8 +4,6 @@ from node import node_list
 from event import Event, Loss_Event
 from player import Player
 
-""" Desperate: Desperate cards increase in effect the less time you have left. They have a weak effect when the attempt starts, but increase in impact to a maximum value at 50%. At the same time, when you hit 50%, they switch from targeting a single node to hitting all of them. Desperate cards have no Bonus effect, but cause you to gain 1 energy for every 5 time you've spent. """
-
 
 
 class Desperate_Card(Card):
@@ -38,36 +36,5 @@ class Desperate_Card(Card):
         # Returns the card to its normal state in case you draw it again in the same game.
         card.impact = placeholder
 
-class Desperate_Cut:
-    stats = Card("Desperate Cut", 12, 8, "X", 6, 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_desperate(stats, game, node)
 
-
-class Desperate_Join:
-    stats = Card("Desperate Join", 12, 8, "D", 6, 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_desperate(stats, game, node)
-
-
-class Desperate_Mix:
-    stats = Card("Desperate Mix", 12, 8, "S", 6, 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_desperate(stats, game, node)
-
-
-class Desperate_Arrange:
-    stats = Card("Desperate Arrange", 12, 8, "A", 6, 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_desperate(stats, game, node)
-
-
-class Desperate_Bind:
-    stats = Card("Desperate Bind", 12, 8, "Y", 6, 0)
-    game = my_game
-    node = node_list[stats.target]
-    play_desperate(stats, game, node)
+# stats = Card("Desperate Cut", 12, 8, "X", 6, 0)
