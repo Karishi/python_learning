@@ -9,7 +9,7 @@ class Thorough_Card(Card):
         super().__init__(title, time_cost, impact, element, bonus_energy_cost, target = 0)
         self.description = f"({time_cost}) {title} ({element}): Has {impact} impact. If the node is {element} gain 3 Energy. If there are two incorrect elements and the node is not {element}, eliminate an extra element."
 
-    def play_card(card, game, node):
+    def play_card(card, player, game = my_game):
         node = query_node(node_list)
 
     # This happens regardless of the rest.    

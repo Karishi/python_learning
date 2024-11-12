@@ -8,8 +8,9 @@ class Patient_Card(Card):
     def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int) -> None:
         super().__init__(title, time_cost, impact, element, bonus_energy_cost, target = 0)
         self.description = f"({time_cost}) {title} ({element}): Has {impact} impact on all nodes. If you pay {bonus_energy_cost} energy the time cost reduces by 3 for each element match."
+
 # Affects every node in the challenge at once.
-    def play_card(card, game = my_game):
+    def play_card(card, player, game = my_game):
         player_turn.time_value += card.cost
 
         for node in node_list:
