@@ -8,7 +8,7 @@ class Deductive_Card(Card):
         super().__init__(title, time_cost, impact, element, bonus_energy_cost, target = 0)
         self.description = f"({time_cost}) {title} ({element}): Has {impact} impact. If this reveals a Node's element, gain time instead of expending it. If you spend ({bonus_energy_cost}) energy this happens even if the Node's element was already revealed."
 
-    def play_card(card, game = my_game):
+    def play_card(card, player, game = my_game):
         is_discovered = True
         node = query_node(node_list)
 
