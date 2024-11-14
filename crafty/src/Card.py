@@ -1,5 +1,5 @@
 from node import progress_node, node_list
-from game import check_victory, player
+from game import check_victory
 
 class Card:
     def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int) -> None:
@@ -11,16 +11,14 @@ class Card:
         self.target = target
         self.description = ""
 
-    def card_effect(game, node):
-        pass
-
 
 def standard_effect(card, game, node):
     game.time -= card.cost
     node_complete = progress_node(card.value, card.element, node)
     if node_complete:
         game.num_incomplete -= 1
-        game.win_loss = check_victory(game)
+        if game.num_incomplete <= 0:
+            return "Win"
 
 
 def draw(hand, deck):

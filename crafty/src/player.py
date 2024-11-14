@@ -15,7 +15,7 @@ class Player:
         self.energy = 0
 
 def initialize_deck(player):
-    thorough_cut = Thorough_Card("Thorough Cut", 3, 5, "X", 0)
+    thorough_cut = Thorough_Card("Thorough", 3, 5, "X", 0)
     thorough_mix = Thorough_Card("Thorough Mix", 3, 5, "S", 0)
     thorough_arrange = Thorough_Card("Thorough Arrange", 3, 5, "A", 0)
     thorough_join = Thorough_Card("Thorough Join", 3, 5, "D", 0)

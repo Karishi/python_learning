@@ -1,5 +1,5 @@
 from card import standard_effect, Card
-from game import my_game, player, query_node
+from game import my_game, query_node
 from node import node_list
 from event import Event, Loss_Event
 from player import Player
