@@ -1,4 +1,4 @@
-from card import standard_effect, Card, append_element_match
+from card import Card, append_element_match
 from node import progress_node, node_list
 from game import check_victory, my_game, query_node
 

@@ -45,7 +45,8 @@ def query_node(node_list):
 
 def main():
     initialize_full(3)
-    my_player.deck = initialize_deck(my_player)
+    deck = initialize_deck(my_player)
+    my_player.deck = deck
     while my_game.win_loss is not None:
         event = my_game.event_list[0]
         event.event_effect(my_player)

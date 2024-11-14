@@ -1,12 +1,13 @@
-from card import standard_effect, progress_node, Card
-from game import player, check_victory, my_game, query_node
+from card import standard_effect, progress_node, Card, append_element_match
+from game import check_victory, my_game, query_node
 from event import player_turn
 from node import node_list
 
 
 class Thorough_Card(Card):
     def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int) -> None:
-        super().__init__(title, time_cost, impact, element, bonus_energy_cost, target = 0)
+        super().__init__(time_cost, impact, element, bonus_energy_cost, target = 0, title = "Thorough ")
+        title = append_element_match(title, element)
         self.description = f"({time_cost}) {title} ({element}): Has {impact} impact. If the node is {element} gain 3 Energy. If there are two incorrect elements and the node is not {element}, eliminate an extra element."
 
     def play_card(card, player, game = my_game):
