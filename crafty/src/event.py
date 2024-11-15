@@ -28,17 +28,16 @@ class Loss_Event(Event):
         my_game.win_loss = "Lose"
 
 class Player_Turn_Event(Event):
-    def __init__(self, time: int) -> None:
-        super().__init__(time)
+    def __init__(self, time: int, player: int) -> None:
+        super().__init__(time, player)
 
     def event_effect(player):
         print_board()
         chosen_card = query_card(player.hand)
-        target_node = query_node(node_list)
         chosen_card.play_card(chosen_card)
         
 
-player_turn = Event(0)
+player_turn = Player_Turn_Event(0, 1)
 
 def initialize_timeline(duration):
     timeline = []
