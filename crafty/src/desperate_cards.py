@@ -1,6 +1,6 @@
 from card import standard_effect, Card
-from game import my_game, query_node
-from node import node_list
+from game import my_game
+from node import node_list, query_node
 from event import Event, Loss_Event
 from player import Player
 
@@ -31,7 +31,7 @@ class Desperate_Card(Card):
         card.impact = card.impact + int(card.impact * (time_used/100))
         
         # Performs the normal reduction of Node value by card Impact value
-        standard_effect(card, game, node)
+        game.win_loss = standard_effect(card, game, node)
 
         # Returns the card to its normal state in case you draw it again in the same game.
         card.impact = placeholder

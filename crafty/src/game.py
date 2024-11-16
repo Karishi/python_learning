@@ -15,12 +15,6 @@ class Game:
 my_game = Game
 my_player = Player
 
-
-def check_victory(game):
-    if game.num_incomplete == 0:
-        return True
-    else:
-        return None
     
 
 def query_card(hand):
@@ -34,14 +28,7 @@ def query_card(hand):
     return hand[selected_number-1]
 
 
-def query_node(node_list):
-    node_number = 0
-    for node in node_list:
-        node_number += 1
-        print(f"({node_number}): ", end = "")
-        print_node(node)
-    selected_number = input("Please select a target. > ")
-    return selected_number
+
 
 def main():
     initialize_full(3)
@@ -50,6 +37,8 @@ def main():
     while my_game.win_loss is not None:
         event = my_game.event_list[0]
         event.event_effect(my_player)
+        if my_game.num_incomplete <= 0:
+            my_game.win_loss = "Win"
     if my_game.win_loss == "Win":
         print("Congratulations, you completed the craft. You are crafty!")
         quit
