@@ -54,5 +54,14 @@ def print_board():
     for node in node_list:
         print_node(node)
 
+def query_node(node_list):
+    node_number = 0
+    for node in node_list:
+        node_number += 1
+        print(f"({node_number}): ", end = "")
+        print_node(node)
+    selected_number = input("Please select a target. > ")
+    return selected_number
+
 initialize_full(4)
 print_board()

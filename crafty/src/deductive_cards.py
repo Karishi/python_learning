@@ -1,6 +1,6 @@
 from card import check_victory, progress_node, Card
-from game import my_game, query_node
-from node import node_list
+from game import my_game
+from node import node_list, query_node
 from event import Loss_Event
 
 class Deductive_Card(Card):
@@ -25,7 +25,6 @@ class Deductive_Card(Card):
         
         if node_complete:
             game.num_incomplete -= 1
-            game.win_loss = check_victory(game)
         
     # No bonus if the node isn't revealed by this card.
         if len(node.options) != 1:

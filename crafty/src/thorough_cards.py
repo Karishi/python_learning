@@ -1,7 +1,7 @@
 from card import standard_effect, progress_node, Card, append_element_match
-from game import check_victory, my_game, query_node
+from game import check_victory, my_game
 from event import player_turn
-from node import node_list
+from node import node_list, query_node
 
 
 class Thorough_Card(Card):
@@ -40,7 +40,6 @@ class Thorough_Card(Card):
 
         if node_complete:
             game.num_incomplete -= 1
-            game.win_loss = check_victory(game)  
 
 
 

@@ -1,6 +1,6 @@
 from card import Card, append_element_match
-from node import progress_node, node_list
-from game import check_victory, my_game, query_node
+from node import progress_node, node_list, query_node
+from game import check_victory, my_game
 
 
 
@@ -16,7 +16,6 @@ class Complete_Card(Card):
         node_complete = progress_node(card.value, card.element, node)
         if node_complete:
             game.num_incomplete -= 1
-            game.win_loss = check_victory(game)
             player.energy += 10
         else:
             player.time += card.cost

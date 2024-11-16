@@ -1,5 +1,5 @@
-from node import progress_node, node_list
-from game import check_victory, my_game, query_node
+from node import progress_node, node_list, query_node
+from game import check_victory, my_game
 from card import standard_effect, Card
 
 class Gentle_Card(Card):
