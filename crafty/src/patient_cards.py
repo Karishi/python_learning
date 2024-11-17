@@ -1,7 +1,6 @@
 from card import progress_node, check_victory, Card
 from node import node_list
 from event import player_turn
-from game import my_game
 
 
 class Patient_Card(Card):
@@ -10,7 +9,7 @@ class Patient_Card(Card):
         self.description = f"({time_cost}) {title} ({element}): Has {impact} impact on all nodes. If you pay {bonus_energy_cost} energy the time cost reduces by 3 for each element match."
 
 # Affects every node in the challenge at once.
-    def play_card(card, player, game = my_game):
+    def play_card(card, player, node, game):
         player_turn.time_value += card.cost
 
         for node in node_list:

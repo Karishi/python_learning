@@ -2,6 +2,7 @@ import random
 import logging
 
 node_list = []
+num_incomplete = 0
 
 class Node:
     def __init__(self, value: int, truth: str) -> None:
@@ -21,6 +22,7 @@ def initialize_nonfinal(node, num):
 
 def initialize_full(num):
     node_val_total = 0
+    num_incomplete = num
 
     for i in range(num-1):
         node = Node(10, "A")
@@ -62,6 +64,3 @@ def query_node(node_list):
         print_node(node)
     selected_number = input("Please select a target. > ")
     return selected_number
-
-initialize_full(4)
-print_board()

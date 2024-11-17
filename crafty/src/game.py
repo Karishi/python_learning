@@ -1,4 +1,4 @@
-from node import initialize_full, print_node
+from node import initialize_full
 import random
 from player import Player, initialize_deck
 from event import initialize_timeline
@@ -7,7 +7,6 @@ from event import initialize_timeline
 class Game:
     event_list = []
     def __init__(self) -> None:
-        self.num_incomplete = 0
         self.win_loss = None
     initialize_full(random(3,5))
     timeline = initialize_timeline(random(100,200))
