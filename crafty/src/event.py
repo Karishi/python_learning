@@ -4,6 +4,8 @@ import random
 from game import my_game, query_card, query_node
 from card import print_card
 
+
+
 class Event:
     def __init__(self, time: int) -> None:
         self.time_value = time
@@ -50,3 +52,4 @@ def initialize_timeline(duration):
     loss_event = Loss_Event(duration)
     timeline.append(loss_event)
     return timeline
+

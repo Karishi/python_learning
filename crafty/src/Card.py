@@ -1,4 +1,4 @@
-from node import progress_node
+from node import progress_node, num_incomplete
 
 class Card:
     def __init__(self, title: str, time_cost: int, impact: int, element: str, bonus_energy_cost: int, target: int) -> None:
@@ -11,11 +11,11 @@ class Card:
         self.description = ""
 
 
-def standard_effect(card, game, node):
-    game.time -= card.cost
+def standard_effect(card, player, node):
+    player.time += card.cost
     node_complete = progress_node(card.value, card.element, node)
     if node_complete:
-        game.num_incomplete -= 1
+        num_incomplete -= 1
     
 
 

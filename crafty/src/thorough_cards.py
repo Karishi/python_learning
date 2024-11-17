@@ -1,5 +1,4 @@
 from card import standard_effect, progress_node, Card, append_element_match
-from game import check_victory, my_game
 from event import player_turn
 from node import node_list, query_node
 
@@ -10,7 +9,7 @@ class Thorough_Card(Card):
         title = append_element_match(title, element)
         self.description = f"({time_cost}) {title} ({element}): Has {impact} impact. If the node is {element} gain 3 Energy. If there are two incorrect elements and the node is not {element}, eliminate an extra element."
 
-    def play_card(card, player, game = my_game):
+    def play_card(card, player, node, game):
         node = query_node(node_list)
 
     # This happens regardless of the rest.    

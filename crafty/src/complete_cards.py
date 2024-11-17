@@ -1,6 +1,5 @@
 from card import Card, append_element_match
-from node import progress_node, node_list, query_node
-from game import check_victory, my_game
+from node import progress_node, node_list, query_node, num_incomplete
 
 
 
@@ -11,11 +10,11 @@ class Complete_Card(Card):
         title = append_element_match(title, element)
         self.description = f"({time_cost}) {title} ({element}): Has {impact} impact. Gains 10 energy and costs no time if it completes a node."
 
-    def play_card(card, player, game = my_game):
+    def play_card(card, player, node):
         node = query_node(node_list)
         node_complete = progress_node(card.value, card.element, node)
         if node_complete:
-            game.num_incomplete -= 1
+            num_incomplete -= 1
             player.energy += 10
         else:
             player.time += card.cost

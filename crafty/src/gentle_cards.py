@@ -1,5 +1,4 @@
 from node import progress_node, node_list, query_node
-from game import check_victory, my_game
 from card import standard_effect, Card
 
 class Gentle_Card(Card):
@@ -7,7 +6,7 @@ class Gentle_Card(Card):
         super().__init__(title, time_cost, impact, element, bonus_energy_cost, target = 0)
         self.description = f"({time_cost}) {title} ({element}): Has {impact} impact. Costs no Time each odd time you play Gentle, giving you Relaxed instead. If you pay {bonus_energy_cost} Energy you lose relaxed AND it costs no Time."
 
-    def play_card(card, player, game = my_game):
+    def play_card(card, player, node, game):
         node = query_node(node_list)
 # If the player has the energy cost, this card is instant and removes Relaxed status.
         if player.energy >= card.bonus:
