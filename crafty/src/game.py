@@ -35,7 +35,7 @@ def main():
     my_player.deck = deck
     while my_game.win_loss is not None:
         event = my_game.event_list[0]
-        event.event_effect(my_player)
+        event.event_effect(my_player, my_game)
         if my_game.num_incomplete <= 0:
             my_game.win_loss = "Win"
     if my_game.win_loss == "Win":

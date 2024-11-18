@@ -1,4 +1,4 @@
-from card import check_victory, progress_node, Card
+from card import progress_node, Card
 from node import node_list, query_node, num_incomplete
 from event import Loss_Event
 
