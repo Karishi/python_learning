@@ -1,4 +1,3 @@
-from player import Player
 from node import print_board, node_list
 import random
 from card import print_card
@@ -31,13 +30,15 @@ class Loss_Event(Event):
 class Player_Turn_Event(Event):
     def __init__(self, time: int, player: int) -> None:
         super().__init__(time, player)
+        self.time_value = time
+        self.player_ref = player
 
     def event_effect(player, game):
         print_board()
         chosen_card = game.query_card(player.hand)
         chosen_card.play_card(chosen_card)
         
-
+loss = Loss_Event(0)
 player_turn = Player_Turn_Event(0, 1)
 
 def initialize_timeline(duration, game):
