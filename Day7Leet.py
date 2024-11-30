@@ -13,6 +13,7 @@ class Solution(object):
         """
         digit1 = l1[0]
         digit2 = l2[0]
+        outputLL = []
         output = ListNode()
         carried = 0
         while digit1 is not None or digit2 is not None:
@@ -26,4 +27,10 @@ class Solution(object):
                 digit2val = digit2.val
             output.val = (digit1val + digit2val + carried) % 10
             carried = (digit1val + digit2val + carried) // 10
-            
+            new_node = ListNode()
+            output.next = new_node
+            digit1 = digit1.next
+            digit2 = digit2.next
+            output = output.next
+        if carried > 0:
+            output.val = 1
