@@ -20,4 +20,5 @@ def print_board(board, header):
         print(alphabet[let]+" " + ' '.join(column))
         let += 1
     print('')
+    return True
 

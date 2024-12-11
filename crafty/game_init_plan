@@ -24,3 +24,4 @@ hand.append(deck.pop(0))
 Drawing a hand is just:
 for j in range(draw_amount):
 draw(hand, deck)
+

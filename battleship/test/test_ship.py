@@ -77,4 +77,5 @@ def test_off_1_check_full_placement():
     place_ship(crashing_ship, my_board)
     print_board(my_board.spaces, my_board.header)
 
+
 test_place_standard()

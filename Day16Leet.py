@@ -7,6 +7,6 @@ def mySqrt(x):
     else:
         return attempt
 
-test = 148
+test = 99
 
 print(mySqrt(test))

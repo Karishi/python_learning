@@ -6,7 +6,7 @@ class TreeNode(object):
         self.right = right
 
 class Solution(object):
-    def branchDepth(root, node):
+    def branchDepth(root, node, depth):
         if root is None:
             return -1
         
@@ -19,6 +19,7 @@ class Solution(object):
             else:
                 root = root.left
             depth += 1
+        
         
     def isBalanced(self, tree, root):
         min_run = 2501

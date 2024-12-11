@@ -4,13 +4,13 @@ def lengthOfLongestSubstring(string: str):
     for startLetter in range(len(string)):
         current = ""
         i = startLetter
-        while string[i] not in current and i < len(string)-1:
+        while string[i] not in current and i < len(string)-1 and startLetter < len(string) - len(longest):
             current += string[i]
             i += 1
         if len(current) > len(longest):
             longest = current
     return f"The longest substring is {len(longest)} characters: {longest}"
 
-test = "Sphinx of black quartz, judge my vow!"
+test = "abcabcad"
 
 print(lengthOfLongestSubstring(test))

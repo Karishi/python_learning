@@ -12,4 +12,4 @@ mycursor.execute("CREATE DATABASE mydatabase")
 
 mycursor.execute("CREATE TABLE index (name VARCHAR(255), email VARCHAR(255))")
 
-mycursor.execute("SELECT emails FROM table GROUP BY emails HAVING COUNT(*) > 1")
+mycursor.execute("SELECT emails FROM index GROUP BY emails HAVING COUNT(*) > 1")

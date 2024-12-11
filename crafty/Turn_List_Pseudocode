@@ -1,0 +1,25 @@
+While win_loss isn't None
+Do the front thing in the list.
+NOTE: There shouldn't be 20 Energy Events. There should be one.
+Energy Event should do two things: Set its own time signature to +5 current, and set all players' energy to +5 (in a 1-player game, this is "set THE player's energy to +5").
+
+During the player turn they can win. If their action reduces a node to 0 remaining work, the system removes the node from the list of nodes, and checks whether the node list is empty. If so, win_loss is set to "Win".
+Outside the player turn they can lose. If their action doesn't reduce the last node in the node list to 0, it moves their time forward and if the player's time is ever past the Loss point they lose the scenario - win_loss is set to "Loss".
+
+Following the while loop of "while it isn't None" there's an if-else for the game to declare victory or defeat for the player. That's cleaner and more readable than having defeat inside the Loss event and victory inside the function that checks whether the individual node completed.
+
+So if you have a deck of cards represented by a list you propagate the list based on your core ruleset. In the case of my sample game I'll just include a set of two from each element and type, divvied up like: A1 A2 B3 B4 C5 C6 D1 D3 E5 E2 F4 F6. Simple 12-card deck. We'll do a 4-card hand for simplicity.
+
+The deck can be made to spec, adding the 12 cards by hand. deck.append(card)
+
+The Draw function already exists.
+
+So a player turn is
+
+Draw 4 cards. #DONE
+Show the nodes. #DONE
+Offer card descriptions, request card pick.
+Reshow the nodes, request node target pick.
+Apply effect of card to node.
+Move player turn forward on the event tracker.
+Discard the 4 cards drawn.
