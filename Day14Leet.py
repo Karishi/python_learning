@@ -14,9 +14,10 @@ def isPalindrome(testString: str):
     for char in range(len(output)//2):
         if output[char] != output[-1 * (char+1)]:
             print(output + " isn't a palindrome.")
+            return False
     print(output + " is a palindrome.")
     return True
 
-test = "A man, a plan, a canal, Panama"
+test = "A man, a plan, a cannoli, Panama"
 
 isPalindrome(test)
