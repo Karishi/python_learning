@@ -7,28 +7,33 @@ class TreeNode(object):
 
 def findTarget(root, k):
     sumFound = False
-    startPoint = root
     process = [root]
-    while not sumFound and len(process) > 0:
+
+    def recursiveBSTSearch(root, desired, sumFound):
+        if root is None:
+            return False
+        
+        print(root.val)
+        if root.val < desired:
+            sumFound = recursiveBSTSearch(root.right, desired, sumFound)
+        elif root.val > desired:
+            sumFound = recursiveBSTSearch(root.left, desired, sumFound)
+        else:
+            return True
+        
+        return sumFound
+
+    while sumFound == False and len(process) > 0:
         node = process.pop(0)
         if node.left is not None:
             process.append(node.left)
         if node.right is not None:
             process.append(node.right)
         desired = k - node.val
-        if desired != node.val:
-            root = startPoint
-            while not sumFound:
-                if root.val == desired:
-                    sumFound = True
-                elif root.val < desired:
-                    if root.left is not None:
-                        root = root.left
-                elif root.val > desired:
-                    if root.right is not None:
-                        root = root.right
-                else:
-                    break
+        print(f"Desired is {desired}")
+        if k is not 2 * node.val:
+            sumFound = recursiveBSTSearch(root, desired, sumFound)
+            print(sumFound)
     return sumFound
         
 
