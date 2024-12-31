@@ -28,7 +28,9 @@ def minPathSum(grid):
 
     process = 0
     while finalSpace not in processed and process < 10:
-        coord = processed.pop(0)
+        least = find_least(processed)
+        processed.remove(least)
+        coord = least
         current = bestPath[coord[1]][coord[0]]
 
         if coord[0] < len(grid[0])-1:
