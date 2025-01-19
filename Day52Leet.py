@@ -1,7 +1,7 @@
 import math
 # Without reusing a slot in nums, add 4 values from nums that sum to match a target.
 # Return all unique quartets of values that can achieve this.
-def threeSumClosest(nums, target):
+def fourSum(nums, target):
     answers = set()
     for i in range(len(nums)-3):
         for j in range(i+1, len(nums)-2):
@@ -15,4 +15,4 @@ def threeSumClosest(nums, target):
 
 test = [1,0,-1,0,-2,2]
 
-print(threeSumClosest(test, 0))
+print(fourSum(test, 0))
