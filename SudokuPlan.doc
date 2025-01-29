@@ -1,0 +1,19 @@
+Treat Sudoku as a dict of Tuple:List, where Tuple is the coordinates and the list is what numbers are valid.
+The coordinates are (x, y, z) where z is the square. This allows for easy iteration.
+It starts with "altered = true"
+Then, while altered == True:
+altered = False
+
+Once per item in the dict, if len is 1, search this.x, this.y, and this.z for the contained value.
+If the value is present, altered = True and you remove the value from that coordinate.
+
+Check each row, column, and square for non-duplicated values that have len > 1. 
+If a row has just one 5, and the space with a 5 has more than one item, altered = True and you remove everything else from that coordinate.
+
+Third, check each row, column, and square for pairs. If any two coordinates have the same value in any of their 3 coordinate points,
+and have len 2 and those 2 items are identical (if 0,1 and 0,0 both have [5,7] as their values, for instance)
+then search everything else in the shared coordinate (in this case the shared row) for either of the 2 values (5 or 7).
+If this removes anything from anywhere, again, altered = True.
+
+Once the while loop terminates, check whether all 81 spaces of the grid are solved (len = 1)
+If not, plug the altered board into my previous brute-force solver, and it will guess the remainder.
