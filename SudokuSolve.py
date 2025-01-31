@@ -24,12 +24,62 @@ def sudokuSolve(board):
         # Trim 2: Check each row, column, and square to see whether there is any
         # value 1-9 appearing only once. If so, set that space to that value
         for i in range(1,10):
-            count = 0
-            for key in sudokuOptions:
-                if len(key) > 1 and i in key:
-                    pass
+            for j in range(9):
+                if trim2cols(i, j, sudokuOptions) or trim2rows(i, j, sudokuOptions) or trim2squares(i, j, sudokuOptions):
+                    altered = True
+                        
+def trim2rows(i, j, sudokuOptions):
+    hold = None
+    solo = True
+    for key in sudokuOptions:
+        if i in sudokuOptions[key] and key[0] == j:
+            if hold is None:
+                hold = key
+            else:
+                solo = False
+                break
+    if hold is not None and solo and len(sudokuOptions[hold]) > 1:
+        sudokuOptions[hold] = [i]
+        return True
+    else:
+        return False
 
-                
+def trim2cols(i, j, sudokuOptions):
+    hold = None
+    solo = True
+    for key in sudokuOptions:
+        if i in sudokuOptions[key] and key[1] == j:
+            if hold is None:
+                hold = key
+            else:
+                solo = False
+                break
+    if hold is not None and solo and len(sudokuOptions[hold]) > 1:
+        sudokuOptions[hold] = [i]
+        return True
+    else:
+        return False
+
+def trim2squares(i, j, sudokuOptions):
+    squares = {
+        0: (0, 0), 1: (0, 1), 2: (0, 2),
+        3: (1, 0), 4: (1, 1), 5: (1, 2),
+        6: (2, 0), 7: (2, 1), 8: (2, 2)
+    }
+    hold = None
+    solo = True
+    for key in sudokuOptions:
+        if i in sudokuOptions[key] and (key[0]//3, key[1]//3) == squares[j]:
+            if hold is None:
+                hold = key
+            else:
+                solo = False
+                break
+    if hold is not None and solo and len(sudokuOptions[hold]) > 1:
+        sudokuOptions[hold] = [i]
+        return True
+    else:
+        return False
 
 def guessSudoku(board):
     coords = []
