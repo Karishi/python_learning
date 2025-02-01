@@ -81,6 +81,12 @@ def trim2squares(i, j, sudokuOptions):
     else:
         return False
 
+def trim3():
+    # TODO: Trim 3 is to search for pairs. If any space has exactly 2 options, search row, col, and square
+    # for another space that has the exact same two options. If found, these 2 options can be removed
+    # from the possibility space of all other spaces in the same row, col, or square as the paired spaces.
+    pass
+
 def guessSudoku(board):
     coords = []
     for i in range(9):
