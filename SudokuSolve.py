@@ -19,7 +19,7 @@ def sudokuSolve(board):
                             key[1] == j or \
                             (key[0]//3 == i//3 and key[1]//3 == j//3)) \
                             and sudokuOptions[(i, j)] in key:
-                            key = [x for x in key if x != sudokuOptions[(i, j)]]
+                            sudokuOptions[key] = [x for x in sudokuOptions[key] if x != sudokuOptions[(i, j)]]
                             altered = True
         # Trim 2: Check each row, column, and square to see whether there is any
         # value 1-9 appearing only once. If so, set that space to that value
@@ -27,6 +27,9 @@ def sudokuSolve(board):
             for j in range(9):
                 if trim2cols(i, j, sudokuOptions) or trim2rows(i, j, sudokuOptions) or trim2squares(i, j, sudokuOptions):
                     altered = True
+
+        if trim3(sudokuOptions):
+            altered = True
                         
 def trim2rows(i, j, sudokuOptions):
     hold = None
@@ -81,12 +84,52 @@ def trim2squares(i, j, sudokuOptions):
     else:
         return False
 
-def trim3():
+def trim3(sudokuOptions):
     # TODO: Trim 3 is to search for pairs. If any space has exactly 2 options, search row, col, and square
     # for another space that has the exact same two options. If found, these 2 options can be removed
     # from the possibility space of all other spaces in the same row, col, or square as the paired spaces.
-    pass
+    altered = False
+    for key in sudokuOptions:
+        if len(sudokuOptions[key]) == 2:
+            matchedPair = []
+            matchedPair.append(sudokuOptions[key[0]])
+            matchedPair.append(sudokuOptions[key[1]])
 
+            for key2 in sudokuOptions:
+                if key2 is not key \
+                and len(sudokuOptions[key]) == 2 \
+                and sudokuOptions[key2[0]] in matchedPair \
+                and sudokuOptions[key2[1]] in matchedPair:
+                # Search rows
+                    if key[0] == key2[0]:
+                        for rowkey in sudokuOptions:
+                            if rowkey is not key and rowkey is not key2 \
+                            and rowkey[0] == key[0] \
+                            and matchedPair[0] in sudokuOptions[rowkey] \
+                            or matchedPair[1] in sudokuOptions[rowkey]:
+                                sudokuOptions[key] = [x for x in sudokuOptions[key] if x not in matchedPair]
+                                altered = True
+                # Search columns
+                    if key[1] == key2[1]:
+                        for rowkey in sudokuOptions:
+                            if rowkey is not key and rowkey is not key2 \
+                            and rowkey[1] == key[1] \
+                            and matchedPair[0] in sudokuOptions[rowkey] \
+                            or matchedPair[1] in sudokuOptions[rowkey]:
+                                sudokuOptions[key] = [x for x in sudokuOptions[key] if x not in matchedPair]
+                                altered = True
+                # Search squares
+                    elif (key[0]//3, key[1]//3) == (key2[0]//3, key2[1]//3):
+                        for rowkey in sudokuOptions:
+                            if rowkey is not key and rowkey is not key2 \
+                            and (rowkey[0]//3, rowkey[1]//3) == (key[0]//3, key[1]//3) \
+                            and matchedPair[0] in sudokuOptions[rowkey] \
+                            or matchedPair[1] in sudokuOptions[rowkey]:
+                                sudokuOptions[key] = [x for x in sudokuOptions[key] if x not in matchedPair]
+                                altered = True
+    return altered
+
+                    
 def guessSudoku(board):
     coords = []
     for i in range(9):
