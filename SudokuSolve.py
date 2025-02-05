@@ -2,9 +2,10 @@ def sudokuSolve(board):
     sudokuOptions = {}
     for i in range(9):
         for j in range(9):
-            sudokuOptions[(i, j)] = [1,2,3,4,5,6,7,8,9]
-        else:
-            sudokuOptions[(i, j)] = [int(board[i][j])]
+            if board[i][j] == ".":
+                sudokuOptions[(i, j)] = [1,2,3,4,5,6,7,8,9]
+            else:
+                sudokuOptions[(i, j)] = [int(board[i][j])]
     
     altered = True
     while altered:
@@ -14,35 +15,43 @@ def sudokuSolve(board):
         for i in range(9):
             for j in range(9):
                 if len(sudokuOptions[(i, j)]) == 1:
+                    val = sudokuOptions[(i, j)][0]
                     for key in sudokuOptions:
                         if (key[0] == i or \
                             key[1] == j or \
                             (key[0]//3 == i//3 and key[1]//3 == j//3)) \
-                            and sudokuOptions[(i, j)] in key:
-                            sudokuOptions[key] = [x for x in sudokuOptions[key] if x != sudokuOptions[(i, j)]]
+                            and val in sudokuOptions[key] and len(sudokuOptions[key]) > 1:
+                            sudokuOptions[key] = [x for x in sudokuOptions[key] if x != val]
                             altered = True
         # Trim 2: Check each row, column, and square to see whether there is any
         # value 1-9 appearing only once. If so, set that space to that value
         for i in range(1,10):
-            for j in range(9):
+             for j in range(9):
                 if trim2cols(i, j, sudokuOptions) or trim2rows(i, j, sudokuOptions) or trim2squares(i, j, sudokuOptions):
                     altered = True
 
-        if trim3(sudokuOptions):
-            altered = True
+        # if trim3(sudokuOptions):
+            # altered = True
+    
+    for i in range(9):
+        for j in range(9):
+            if len(sudokuOptions[(i, j)]) == 1:
+                board[i][j] = str(sudokuOptions[(i, j)][0])
+    for row in board:
+        print(row)
                         
 def trim2rows(i, j, sudokuOptions):
-    hold = None
-    solo = True
+    firstFoundCoordinate = None
+    isTheOnlyOne = True
     for key in sudokuOptions:
         if i in sudokuOptions[key] and key[0] == j:
-            if hold is None:
-                hold = key
+            if firstFoundCoordinate is None:
+                firstFoundCoordinate = key
             else:
-                solo = False
+                isTheOnlyOne = False
                 break
-    if hold is not None and solo and len(sudokuOptions[hold]) > 1:
-        sudokuOptions[hold] = [i]
+    if firstFoundCoordinate is not None and isTheOnlyOne and len(sudokuOptions[firstFoundCoordinate]) > 1:
+        sudokuOptions[firstFoundCoordinate] = [i]
         return True
     else:
         return False
@@ -92,8 +101,8 @@ def trim3(sudokuOptions):
     for key in sudokuOptions:
         if len(sudokuOptions[key]) == 2:
             matchedPair = []
-            matchedPair.append(sudokuOptions[key[0]])
-            matchedPair.append(sudokuOptions[key[1]])
+            matchedPair.append(sudokuOptions[key[0]][0])
+            matchedPair.append(sudokuOptions[key[1]][0])
 
             for key2 in sudokuOptions:
                 if key2 is not key \
@@ -209,15 +218,15 @@ def isValidSudoku(board):
     return True
 
 board = [
-    ["5","3",".",".","7",".",".",".","."],
-    ["6",".",".","1","9","5",".","4","."],
-    [".","9","8",".",".",".",".","6","."],
-    ["8",".",".",".","6",".",".",".","3"],
-    ["4",".",".","8",".","3",".",".","1"],
-    ["7",".",".",".","2",".",".",".","6"],
-    [".","6",".",".",".",".","2","8","."],
-    [".",".",".","4","1","9",".",".","5"],
-    [".",".",".",".","8",".",".","7","9"]
+    [".","1",".",".",".",".",".","7","."],
+    ["4","9","5",".","7",".","2",".","."],
+    [".",".","6",".",".",".",".","5","1"],
+    [".","4",".",".",".",".",".",".","5"],
+    ["8",".","7",".",".","3",".","9","4"],
+    [".",".",".","8",".",".","7","6","."],
+    ["7","3",".",".","4",".","6","2","."],
+    [".","8",".",".",".",".",".",".","."],
+    ["9",".","2",".","8","7",".",".","."]
     ]
 
 sudokuSolve(board)
