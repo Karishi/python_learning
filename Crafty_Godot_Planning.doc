@@ -1,0 +1,10 @@
+Vertical slice involves a single card and a single node.
+The node can start revealed and have its trait be an internal variable we can change.
+This will let us test whether the "match" mechanic is functional.
+Separate test: Move cards from hand to discard, discard to deck, deck to hand.
+Potentially have a supply of cards in background "collection" zone which can be added to deck.
+Potentially have a supply of cards in background "cardbase" zone which can be added to collection.
+I think Hearthstone had everything in the cardbase exist in the collection, but hidden.
+Toggling the "owned" status on a card made it usable in the collection, but it was there (grayed out).
+This let players plan based on cards they wanted to get, etc.
+Start from vanilla card for fundamental card testing purposes.
