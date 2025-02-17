@@ -18,9 +18,15 @@ func _input(event):
 		if event.pressed:
 			var card = raycast_check_for_card()
 			if card:
+				lift_card(card, true)
 				card_being_dragged = card
 		else:
-			card_being_dragged = null
+			if card_being_dragged:
+				var card = raycast_check_for_card()
+				if card:
+					lift_card(card, false)
+				var zone = raycast_check_for_drop_zone()
+				card_being_dragged = null
 			
 func connect_card_signals(card):
 	card.connect("hovered", on_hovered_over_card)
@@ -41,12 +47,17 @@ func on_hovered_off_card(card):
 	
 func highlight_card(card, hovered):
 	if hovered:
+		card.modulate = Color(.9,.9,1.5)
+	else:
+		card.modulate = Color(1,1,1)
+		
+func lift_card(card, lifted):
+	if lifted:
 		card.scale = Vector2(1.05, 1.05)
 		card.z_index = 2
 	else:
 		card.scale = Vector2(1, 1)
 		card.z_index = 1
-		
 			
 func raycast_check_for_card():
 	var space_state = get_world_2d().direct_space_state
@@ -56,12 +67,28 @@ func raycast_check_for_card():
 	parameters.collision_mask = 1
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
-		return result[0].collider.get_parent()
+		return get_result_with_highest_z(result)
+	return null
+	
+func raycast_check_for_drop_zone():
+	var space_state = get_world_2d().direct_space_state
+	var parameters = PhysicsPointQueryParameters2D.new()
+	parameters.position = get_global_mouse_position()
+	parameters.collide_with_areas = true
+	parameters.collision_mask = 2
+	var result = space_state.intersect_point(parameters)
+	if result.size() > 0:
+		return get_result_with_highest_z(result)
 	return null
 
-# Called when the node enters the scene tree for the first time.
-
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-
+func get_result_with_highest_z(card):
+	var highest_z_card = card[0].collider.get_parent()
+	var highest_z_index = highest_z_card.z_index
+	
+	for i in range(1, card.size()):
+		var current_card = card[i].collider.get_parent()
+		if current_card.z_index > highest_z_index:
+			highest_z_card = current_card
+			highest_z_index = current_card.z_index
+		
+	return highest_z_card
