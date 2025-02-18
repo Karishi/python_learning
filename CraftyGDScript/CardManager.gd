@@ -26,6 +26,9 @@ func _input(event):
 				if card:
 					lift_card(card, false)
 				var zone = raycast_check_for_drop_zone()
+				if zone and not zone.cardInSlot:
+					card.position = zone.position
+					zone.cardInSlot = true
 				card_being_dragged = null
 			
 func connect_card_signals(card):
@@ -78,7 +81,7 @@ func raycast_check_for_drop_zone():
 	parameters.collision_mask = 2
 	var result = space_state.intersect_point(parameters)
 	if result.size() > 0:
-		return get_result_with_highest_z(result)
+		return result[0].collider
 	return null
 
 func get_result_with_highest_z(card):
