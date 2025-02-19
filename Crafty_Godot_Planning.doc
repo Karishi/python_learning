@@ -8,3 +8,12 @@ I think Hearthstone had everything in the cardbase exist in the collection, but 
 Toggling the "owned" status on a card made it usable in the collection, but it was there (grayed out).
 This let players plan based on cards they wanted to get, etc.
 Start from vanilla card for fundamental card testing purposes.
+
+Confirm button will process a turn. For computer it's easy enough to include a separate statement in which there's a "confirm" keyboard command, like return or space.
+While a turn hasn't been processed ideally I'd like a few pieces of functionality:
+1: If a card is in a node, all other nodes are disabled. This stops a player from placing two cards into different nodes in one turn.
+2: If a card is dropped in an empty enabled node, it stays there.
+3: If a card is dropped anywhere other than an enabled node, it snaps back to your hand.
+4: If a card is dropped in a node you already put a card into, it goes there and the card already there snaps back to your hand.
+5: If a card in a node is picked up, all the other nodes are re-enabled unless they're complete.
+6: In addition to processing the cost/benefit from the played card, the Confirm button re-enables all incomplete nodes as drop zones.
