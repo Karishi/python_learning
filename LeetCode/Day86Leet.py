@@ -18,6 +18,6 @@ def lengthOfLIS(nums):
 
     return best
 
-test = [0,1,0,3,2,3]
+test = [1,2,3,4,10,5,6]
 
 print(lengthOfLIS(test))

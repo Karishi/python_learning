@@ -9,7 +9,17 @@ def trailingZeroes(n):
     # while y % 10 == 0:
     #     y = y // 10
         # count += 1
-    
-    return n//5 + n//(5**2) + n//(5**3) + n//(5**4) + n//(5**5)
+    total = 0
+    x = 5
+    count = 0
+    while n >= x:
+        x *= 5
+        count += 1
 
-print(trailingZeroes(25))
+    while count > 0:
+        total += n//(5**count)
+        count -= 1
+
+    return total
+
+print(trailingZeroes(10))
