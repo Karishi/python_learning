@@ -13,5 +13,5 @@ class Shot(CircleShape):
     def update(self, dt):
         self.position += self.velocity * dt
         self.duration += 1
-        if self.duration >= 100:
+        if self.duration >= 200:
             self.kill()
