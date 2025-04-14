@@ -39,7 +39,7 @@ def main():
                 exit()
             for shot in shots:
                 if item.colliding(shot):
-                    item.kill()
+                    item.split()
                     shot.kill()
         screen.fill("black")
 
