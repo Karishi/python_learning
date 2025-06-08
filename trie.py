@@ -16,7 +16,20 @@ class Trie:
         if self.end_symbol in current:
             return True
         return False
-                       
+    
+    def longest_common_prefix(self):
+        current = self.root
+        prefix = ""
+        while True:
+            if self.end_symbol in current:
+                break
+            cur = list(current.keys())
+            if len(cur) == 1:
+                prefix += cur[0]
+                current = current[cur[0]]
+            else:
+                break
+        return prefix       
 
     def __init__(self):
         self.root = {}
