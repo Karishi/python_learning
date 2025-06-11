@@ -24,3 +24,7 @@ On your turn you select a card. If the card requires a target, you select a targ
 active_card = query_card(hand) <- The query_card function then includes an input request, feeds the player options, and returns a single card from the list of cards in hand.
 target_node = query_node(node_list) <- Almost exactly the same thing happens here.
 Curious about delays, to let text actions sit for a moment to let players read them. I'll look that up soon.
+
+[Update for Godot Concept] Visualization of events is no longer the issue. Rather, keeping track of which card is where without
+expending too much memory is the issue to watch out for. In terms of playing cards, it's as simple as dragging a card to the play area, possibly 
+with a button that confirms that the card in the play area is what you want to do. This can also reveal all known effects of what will happen.
